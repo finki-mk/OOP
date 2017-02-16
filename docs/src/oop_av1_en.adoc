@@ -1,4 +1,4 @@
-# Structured programming
+# Object oriented programming
 Exercises 1
 v1.0, 16 February, 2017
 include::parts/attributes_en.adoc[]
