@@ -1,0 +1,6 @@
+:version-label: Верзија
+:toc-title: Содржина
+:figure-caption: Слика
+:numbered:
+:stem:
+:sources_zip: https://finki-mk.github.io/OOP/sources

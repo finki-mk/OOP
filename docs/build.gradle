@@ -1,0 +1,109 @@
+buildscript {
+    dependencies {
+        classpath("org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11")
+    }
+}
+
+plugins {
+    id 'org.asciidoctor.convert' version '1.5.3'
+}
+
+group 'oop-docs'
+version '1.0-SNAPSHOT'
+
+def ATTRIBUTES = [
+        'source-highlighter': 'coderay',
+        'encoding'          : 'utf-8',
+        'imagesdir'         : './images',
+        'toc'               : 'left',
+        'icons'             : 'font',
+        'idprefix'          : '',
+        'idseparator'       : '-',
+        'pdf-stylesdir'     : 'theme',
+        'pdf-style'         : 'finki',
+        'pdf-fontsdir'      : 'fonts'
+]
+
+def BACKENDS = ['html5', 'pdf']
+def SOURCE_DIR = file('src')
+def OUTPUT_DIR = file('.')
+
+
+asciidoctor {
+    backends = BACKENDS
+    sourceDir = SOURCE_DIR
+    outputDir = OUTPUT_DIR
+
+    sources {
+        include '*.adoc'
+    }
+
+    attributes ATTRIBUTES
+
+    dependsOn tasks.withType(Zip)
+}
+
+task srcZip
+task srcZipEn
+
+(1..11).each { id ->
+    task "srcZip${id}"(type: Zip) {
+        from('../src/av' + id)
+        excludes = ['*.out', '*_en.c']
+        archiveName = "oop_av${id}_src.zip"
+        destinationDir = file('./sources')
+    }
+    srcZip.dependsOn "srcZip${id}"
+}
+
+
+(1..11).each { id ->
+    task "srcZipEn${id}"(type: Zip) {
+        from('../src/av' + id)
+        excludes = ['*.out']
+        includes = ['*_en.c']
+        archiveName = "oop_av${id}_src_en.zip"
+        destinationDir = file('./sources')
+    }
+    srcZipEn.dependsOn "srcZipEn${id}"
+}
+task "kol_zip"(type: Zip) {
+    from('../src/kol')
+    excludes = ["*.out"]
+    archiveName = "oop_kol_src.zip"
+    destinationDir = file('./sources')
+}
+
+task "kol2_zip"(type: Zip) {
+    from('../src/kol2')
+    excludes = ["*.out"]
+    archiveName = "oop_kol2_src.zip"
+    destinationDir = file('./sources')
+}
+
+boolean isValidFile(def name) {
+    return name.endsWith('.adoc') && !name.contains('footer') && !name.contains('attributes')
+}
+
+fileTree("src")
+        .filter {
+    it.isFile() && isValidFile(it.name)
+}.files.each {
+    file ->
+        task "adoc_${file.name}"(type: org.asciidoctor.gradle.AsciidoctorTask) {
+            if (file.name.endsWith("en.adoc")) {
+                ATTRIBUTES['pdf-style'] = 'finki-en'
+            } else {
+                ATTRIBUTES['pdf-style'] = 'finki'
+            }
+            backends = BACKENDS
+            sourceDir = SOURCE_DIR
+            outputDir = OUTPUT_DIR
+            sources {
+                include file.name
+            }
+            attributes ATTRIBUTES
+
+            dependsOn tasks.withType(Zip)
+        }
+}
