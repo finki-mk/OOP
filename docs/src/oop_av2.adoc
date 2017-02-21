@@ -1,0 +1,291 @@
+# Објектно ориентирано програмирање
+Аудиториски вежби 2
+v1.0, 20 Февруари, 2017
+include::parts/attributes.adoc[]
+
+:source_dir: ../../src/av2
+
+== Вовед во C++
+
+=== Вовед
+
+- C++ вклучува многу карактеристики на C јазикот дополнети со дополнителни механизми за обкектно-ориентирано програмирање (ООП)
+- Јазикот C++ е развиен во лабораториите на Bell и во почетокот бил наречен „С со класи“
+- Името С++ вклучува во себе операција за зголемување на јазикот С (++) и укажува на тоа дека С++ е верзија на С со проширени можности
+- C++ компајлерот може да се користи и за преведување на C програми
+
+=== Влез/Излез текови во C++ `<iostream>`
+
+Во С++ за работа со влезно/излезните текови наместо функциите `printf` и `scanf` ги користиме операторите:
+
+- `<<` од објектот `cout` (`cout <<`)
+- `>>` од објектот `cin` (`cin >>`)
+
+.Пример C
+[source,c]
+----
+printf("Vnesi nova vrednost: ");
+scanf("%d", &vred);
+printf("Novata vrednost e: %d\n", vred);
+----
+
+.Пример C++
+[source,c++]
+----
+cout << "Vnesi nova vrednost: ";
+cin >> vred;
+cout << "Novata vrednost e: " << vred << '\n';
+----
+
+При тоа препрорачливо е изолираните `\n` да се заменат со `endl`:
+[source,c++]
+----
+cout << "Novata vrednost e: " << vred << endl; 
+----
+
+NOTE: За работа со влезно/излезните текови во C++ треба да се вклучи датотеката со заглавја `<iostream>`
+      
+.Пример
+[source,c++]
+----
+include::{source_dir}/oop_av21.cpp[]
+----
+
+=== Декларација на променливи во C++
+
+Променливите во С++ може да се декларираат во било кој дел од програмата сѐ додека нивната декларација е пред употреба на променливата во некоја наредба.
+
+[source,c++]
+----
+for(int i = 0;  i < 5; i++) 
+    cout << i << endl;
+----
+
+Областа на делување на локалните променливи почнува од декларацијата и се протега до крајот на блокот во кој припаѓа означен со `}`. 
+Декларација не може да се врши во делот за услов кај структурите за повторување `while`, `do/while`, `for` или кај `if`.
+
+=== `inline` функции
+
+При секој стандарден повик на функција се троши дополнително време во процесот на повикување на функцијата. 
+Затоа во C++ при дефинирањето на мали и едноставни функции може да се употреби клучното зборче `inline` кое што наместо повик кон функцијата на местото каде што треба да се повика го вметнува самиот код на функцијата со што се избегнува дополнителното време при повикување на функцијата.
+
+.Пример функција за пресметување на волумен на коцка
+[source,c++]
+----
+#include <iostream>
+using namespace std;
+inline float cube(const float s) {
+    return s * s * s;
+}
+int main() {
+    cout << "Stranata na kockata: ";
+    float strana;
+    cin >> strana;
+    cout << "Volumenot na kocka so strana " << strana << " e: " << cube(strana)
+            << endl;
+    return 0;
+}
+----
+
+=== Дополнителни клучни зборови во C++
+
+[cols="^,^,^"]
+|===
+| `asm`          | `explicit`  | `operator` 
+| `catch`        | `friend`    | `private`
+| `class`        | `inline`    | `protected` 
+| `const_cast`   | `mutable`   | `public` 
+| `delete`       | `new`       | `reinterpret_cast`
+| `dynamic_cast` | `namespace` | `static_cast`  
+| `template`     | `throw`     | `using` 
+| `this`         | `try`       | `virtual` 
+|===
+
+=== Користење `typedef`
+
+Користење на `typedef` е дозволено, но не и неопходно при дефинирање на структури, унии или набројувачки множества (`enum`) во C++.
+
+.Пример
+[source,c++]
+----
+#include <iostream>
+using namespace std;
+struct Person {
+    char ime[80], adresa[90];
+    double plata;
+};
+int main() {
+    Person Vraboten[50]; // pole so elementi od tip struct Person
+    Person Rakovoditel;
+    Rakovoditel.ime = "Aleksandar";
+    cout << "Imeto na rakovoditelot e" << Rakovoditel.ime << endl;
+    return 0;
+}
+----
+
+=== Функции како членови на структура
+
+Во C++ е дозволено дефинирање на функција како дел од некоја структура.
+
+.Пример
+[source,c++]
+----
+struct Person {
+    char ime[80], adresa[80];
+    // deklaracija na funkcijata za pecatenje na imeto i adresata
+    void print(void);
+};
+----
+
+- Функцијата `print()` е само декларирана; кодот на функцијата се наоѓа на друго место.
+- Големината на структурата (`sizeof`) е определена *само* од големината на податочните елементи. 
+Функциите кои се деклараирани во неа не влијаат на нејзината големина. 
+Компајлерот го имплементира ова однесување со тоа што функцијата `print()` е позната само во контекст на структурата `Person`.
+- Пристапот до функција дефинирана како дел од структура е идентичен како и пристапот до податочен елемент од структура, т.е. се користи операторот `(.)`.
+Кога се употребува покажувач кон структура се употребува `->`. 
+Оваа синтакса дозволува да се користи исто име на функција во повеќе структури.
+
+=== Користење на функција како член на структура
+
+.Пример
+[source,c++]
+----
+#include <iostream>
+using namespace std;
+struct Person {
+    char ime[80], adresa[90];
+    double plata;
+    void printperson();
+};
+void Person::printperson() {
+    cout << "Imeto na vraboteniot e:" << ime << "a, negovata adresa e:"
+            << adresa << endl;
+}
+int main() {
+    Person Rakovoditel;
+    //...fali inicijalizacija
+    Rakovoditel.printperson();
+    return (0);
+}
+----
+
+== Референци
+
+=== Дефиниција и начин на декларација
+
+Референца е нов податочен тип во C++ кој е сличен на покажувач во C но многу побезбеден за употреба.
+
+.Начин на декларација
+[source,c++]
+----
+<Type> & <Name>
+----
+
+.Пример
+[source,c++]
+----
+int A = 5;
+int& rA = &A;
+----
+
+=== Разлики и сличности со покажувачи
+
+Референците во C++ се разликуваат од покажувачите во следниве разлики:
+
+- Не може да се пристапи директно на референцата откако ќе се дефинира, секое пристапување до неа е всушност пристапување до објектот/променливата кон која референцира.
+- Отакако еднаш ќе се инцијализира не може да се промени да референцира кон друг објект/променлива.
+- Не може да бидат NULL (да не референцираат кон ништо).
+- Откако ќе се декларираат мораат веднаш да се иницијализираат.
+
+=== Употреба
+
+Една од најважните употреби на референците е при пренос на аргументи во функции.
+
+.Пример
+[source,c++]
+----
+int swap(int &a, int &b) {
+    a += b;
+    b = a - b;
+    a -= b;
+}
+int main() {
+    int x = 10;
+    int y = 15;
+    swap(x, y);
+    // x = 15, y = 10
+    return 0;
+}
+----
+
+=== Пример аргументи референца кон структура
+
+.Пример
+[source,c++]
+----
+// deklaracija na struktura
+struct Person {
+    char ime[80], adresa[90];
+    double plata;
+};
+Person Vraboten[50]; // poli elementi od tip struktura Person 
+// printperson ocekuva referenca do struktura
+void printperson(Person const &p) {
+    cout << "Imeto na vraboteniot e:" << p.ime << "a, negovata adresa e:"
+            << p.adresa << endl;
+}
+// zemi gi podatocite za vraboteniot preku negoviot reden broj
+Person const &ZemiVraboten(int index) {
+... return (Vraboten[index]); // vrakja referenca
+}
+int main() {
+    Person Rakovoditel;
+    printperson(Rakovoditel); // nema referenca
+    // promenlivata nema da se promeni vo funkcijata
+    printperson(ZemiVraboten(5)); // se prenesuva referenca
+    return (0);
+}
+----
+
+== Нова синтакса за кастирање
+
+Во C се употребуваше следната синтакса за кастирање
+
+[source,c]
+----
+(typename)expression
+(float) broitel;
+----
+
+Во C++ иако е дозволена и претходната нотација, новиот начин на нотација е:
+[source,c++]
+----
+typename(expression)
+float(broitel);
+----
+
+Во C++ се воведуваат 4 нови видови кастирање:
+
+- `static_cast<type>(expression)` - стандардно кастирање за конверзија на еден тип во друг
+- `const_cast<type>(expression)` - се користи за модифицирање на типот на константи
+- `reintrepret_cast<type>(expression)` - се користи за промена на интерпретација на информацијата
+- `dynamic_cast<type>(expression)` - поврзан со polymorphism
+
+
+== Пример решенија на задачите од структури во C++
+
+.Решение `oop_av24.cpp`
+[source,c]
+----
+include::{source_dir}/oop_av24.cpp[]
+----
+
+.Решение `oop_av25.cpp`
+[source,c]
+----
+include::{source_dir}/oop_av25.cpp[]
+----
+
+include::parts/footer.adoc[]
+
+link:{sources_zip}/oop_av1_src.zip[Source code ZIP]
