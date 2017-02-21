@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Аудиториски вежби 2">
+<meta name="author" content="Аудиториски вежби 3">
 <title>Објектно ориентирано програмирање</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -514,631 +514,377 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>Објектно ориентирано програмирање</h1>
 <div class="details">
-<span id="author" class="author">Аудиториски вежби 2</span><br>
+<span id="author" class="author">Аудиториски вежби 3</span><br>
 <span id="revnumber">Верзија 1.0,</span>
-<span id="revdate">20 Февруари, 2017</span>
+<span id="revdate">21 Февруари, 2017</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Содржина</div>
 <ul class="sectlevel1">
-<li><a href="#Вовед-во-c">1. Вовед во C++</a>
+<li><a href="#Класи">1. Класи</a>
 <ul class="sectlevel2">
-<li><a href="#Вовед">1.1. Вовед</a></li>
-<li><a href="#Влез-Излез-текови-во-c-code-iostream-code">1.2. Влез/Излез текови во C++ <code>&lt;iostream&gt;</code></a></li>
-<li><a href="#Декларација-на-променливи-во-c">1.3. Декларација на променливи во C++</a></li>
-<li><a href="#code-inline-code-функции">1.4. <code>inline</code> функции</a></li>
-<li><a href="#Дополнителни-клучни-зборови-во-c">1.5. Дополнителни клучни зборови во C++</a></li>
-<li><a href="#Користење-code-typedef-code">1.6. Користење <code>typedef</code></a></li>
-<li><a href="#Функции-како-членови-на-структура">1.7. Функции како членови на структура</a></li>
-<li><a href="#Користење-на-функција-како-член-на-структура">1.8. Користење на функција како член на структура</a></li>
+<li><a href="#Дефинирање-класа">1.1. Дефинирање класа</a></li>
+<li><a href="#Креирање-инстанцирање-објекти">1.2. Креирање (инстанцирање) објекти</a></li>
+<li><a href="#Животен-циклус-на-објектите">1.3. Животен циклус на објектите</a></li>
 </ul>
 </li>
-<li><a href="#Референци">2. Референци</a>
+<li><a href="#Задачи">2. Задачи</a>
 <ul class="sectlevel2">
-<li><a href="#Дефиниција-и-начин-на-декларација">2.1. Дефиниција и начин на декларација</a></li>
-<li><a href="#Разлики-и-сличности-со-покажувачи">2.2. Разлики и сличности со покажувачи</a></li>
-<li><a href="#Употреба">2.3. Употреба</a></li>
-<li><a href="#Пример-аргументи-референца-кон-структура">2.4. Пример аргументи референца кон структура</a></li>
+<li><a href="#Триаголник">2.1. Триаголник</a></li>
+<li><a href="#Вработен">2.2. Вработен</a></li>
+<li><a href="#e-mail">2.3. E-mail</a></li>
 </ul>
 </li>
-<li><a href="#Нова-синтакса-за-кастирање">3. Нова синтакса за кастирање</a></li>
-<li><a href="#Пример-решенија-на-задачите-од-структури-во-c">4. Пример решенија на задачите од структури во C++</a></li>
-<li><a href="#Изворен-код-од-примери-и-задачи">5. Изворен код од примери и задачи</a></li>
+<li><a href="#Изворен-код-од-примери-и-задачи">3. Изворен код од примери и задачи</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="Вовед-во-c">1. Вовед во C++</h2>
+<h2 id="Класи">1. Класи</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Вовед">1.1. Вовед</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>C++ вклучува многу карактеристики на C јазикот дополнети со дополнителни механизми за обкектно-ориентирано програмирање (ООП)</p>
-</li>
-<li>
-<p>Јазикот C++ е развиен во лабораториите на Bell и во почетокот бил наречен „С со класи“</p>
-</li>
-<li>
-<p>Името С вклучува во себе операција за зголемување на јазикот С () и укажува на тоа дека С++ е верзија на С со проширени можности</p>
-</li>
-<li>
-<p>C++ компајлерот може да се користи и за преведување на C програми</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Влез-Излез-текови-во-c-code-iostream-code">1.2. Влез/Излез текови во C++ <code>&lt;iostream&gt;</code></h3>
-<div class="paragraph">
-<p>Во С++ за работа со влезно/излезните текови наместо функциите <code>printf</code> и <code>scanf</code> ги користиме операторите:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>&lt;&lt;</code> од објектот <code>cout</code> (<code>cout &lt;&lt;</code>)</p>
-</li>
-<li>
-<p><code>&gt;&gt;</code> од објектот <code>cin</code> (<code>cin &gt;&gt;</code>)</p>
-</li>
-</ul>
-</div>
+<h3 id="Дефинирање-класа">1.1. Дефинирање класа</h3>
 <div class="listingblock">
-<div class="title">Пример C</div>
+<div class="title">Синтакса</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">printf(<span class="string"><span class="delimiter">&quot;</span><span class="content">Vnesi nova vrednost: </span><span class="delimiter">&quot;</span></span>);
-scanf(<span class="string"><span class="delimiter">&quot;</span><span class="content">%d</span><span class="delimiter">&quot;</span></span>, &amp;vred);
-printf(<span class="string"><span class="delimiter">&quot;</span><span class="content">Novata vrednost e: %d</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, vred);</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Пример C++</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++">cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vnesi nova vrednost: </span><span class="delimiter">&quot;</span></span>;
-cin &gt;&gt; vred;
-cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Novata vrednost e: </span><span class="delimiter">&quot;</span></span> &lt;&lt; vred &lt;&lt; <span class="char">'\n'</span>;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>При тоа препрорачливо е изолираните <code>\n</code> да се заменат со <code>endl</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++">cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Novata vrednost e: </span><span class="delimiter">&quot;</span></span> &lt;&lt; vred &lt;&lt; endl;</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-За работа со влезно/излезните текови во C++ треба да се вклучи датотеката со заглавја <code>&lt;iostream&gt;</code>
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="title">Пример</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
-<span class="directive">using</span> <span class="keyword">namespace</span> std;
-
-<span class="predefined-type">int</span> main () {
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vnesi gi tvoite godini : </span><span class="delimiter">&quot;</span></span>;
-    <span class="predefined-type">int</span> myAge ;
-    cin &gt;&gt; myAge ;
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vnesi gi godinite na prijatel : </span><span class="delimiter">&quot;</span></span>;
-    <span class="predefined-type">int</span> friendsAge ;
-    cin &gt;&gt; friendsAge ;
-    <span class="keyword">if</span> (myAge &gt; friendsAge)
-        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Ti se postar.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
-    <span class="keyword">else</span> <span class="keyword">if</span> (myAge &lt; friendsAge)
-        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Prijatelot e postar.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
-    <span class="keyword">else</span>
-        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Ti i prijatelot imate godini.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
-    <span class="keyword">return</span> <span class="integer">0</span>;
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Декларација-на-променливи-во-c">1.3. Декларација на променливи во C++</h3>
-<div class="paragraph">
-<p>Променливите во С++ може да се декларираат во било кој дел од програмата сѐ додека нивната декларација е пред употреба на променливата во некоја наредба.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>;  i &lt; <span class="integer">5</span>; i++)
-    cout &lt;&lt; i &lt;&lt; endl;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Областа на делување на локалните променливи почнува од декларацијата и се протега до крајот на блокот во кој припаѓа означен со <code>}</code>.
-Декларација не може да се врши во делот за услов кај структурите за повторување <code>while</code>, <code>do/while</code>, <code>for</code> или кај <code>if</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="code-inline-code-функции">1.4. <code>inline</code> функции</h3>
-<div class="paragraph">
-<p>При секој стандарден повик на функција се троши дополнително време во процесот на повикување на функцијата.
-Затоа во C++ при дефинирањето на мали и едноставни функции може да се употреби клучното зборче <code>inline</code> кое што наместо повик кон функцијата на местото каде што треба да се повика го вметнува самиот код на функцијата со што се избегнува дополнителното време при повикување на функцијата.</p>
-</div>
-<div class="listingblock">
-<div class="title">Пример функција за пресметување на волумен на коцка</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
-<span class="directive">using</span> <span class="keyword">namespace</span> std;
-<span class="directive">inline</span> <span class="predefined-type">float</span> cube(<span class="directive">const</span> <span class="predefined-type">float</span> s) {
-    <span class="keyword">return</span> s * s * s;
-}
-<span class="predefined-type">int</span> main() {
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Stranata na kockata: </span><span class="delimiter">&quot;</span></span>;
-    <span class="predefined-type">float</span> strana;
-    cin &gt;&gt; strana;
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Volumenot na kocka so strana </span><span class="delimiter">&quot;</span></span> &lt;&lt; strana &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> e: </span><span class="delimiter">&quot;</span></span> &lt;&lt; cube(strana)
-            &lt;&lt; endl;
-    <span class="keyword">return</span> <span class="integer">0</span>;
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Дополнителни-клучни-зборови-во-c">1.5. Дополнителни клучни зборови во C++</h3>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>asm</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>explicit</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>operator</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>catch</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>friend</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>private</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>class</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>inline</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>protected</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>const_cast</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>mutable</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>public</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>delete</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>new</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>reinterpret_cast</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dynamic_cast</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>namespace</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>static_cast</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>template</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>throw</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>using</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>this</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>try</code></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>virtual</code></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="Користење-code-typedef-code">1.6. Користење <code>typedef</code></h3>
-<div class="paragraph">
-<p>Користење на <code>typedef</code> е дозволено, но не и неопходно при дефинирање на структури, унии или набројувачки множества (<code>enum</code>) во C++.</p>
-</div>
-<div class="listingblock">
-<div class="title">Пример</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
-<span class="directive">using</span> <span class="keyword">namespace</span> std;
-<span class="keyword">struct</span> Person {
-    <span class="predefined-type">char</span> ime[<span class="integer">80</span>], adresa[<span class="integer">90</span>];
-    <span class="predefined-type">double</span> plata;
-};
-<span class="predefined-type">int</span> main() {
-    Person Vraboten[<span class="integer">50</span>]; <span class="comment">// pole so elementi od tip struct Person</span>
-    Person Rakovoditel;
-    Rakovoditel.ime = <span class="string"><span class="delimiter">&quot;</span><span class="content">Aleksandar</span><span class="delimiter">&quot;</span></span>;
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Imeto na rakovoditelot e</span><span class="delimiter">&quot;</span></span> &lt;&lt; Rakovoditel.ime &lt;&lt; endl;
-    <span class="keyword">return</span> <span class="integer">0</span>;
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Функции-како-членови-на-структура">1.7. Функции како членови на структура</h3>
-<div class="paragraph">
-<p>Во C++ е дозволено дефинирање на функција како дел од некоја структура.</p>
-</div>
-<div class="listingblock">
-<div class="title">Пример</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">struct</span> Person {
-    <span class="predefined-type">char</span> ime[<span class="integer">80</span>], adresa[<span class="integer">80</span>];
-    <span class="comment">// deklaracija na funkcijata za pecatenje na imeto i adresata</span>
-    <span class="directive">void</span> print(<span class="directive">void</span>);
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">class</span> <span class="class">ime_na_klasata</span> {
+<span class="directive">private</span>:
+<span class="comment">/* deklaracija na promenlivi i metodi koi ne se vidlivi nadvor od klasata */</span>
+<span class="directive">public</span> :
+<span class="comment">/* deklaracija na promenlivi i metodi koi se vidlivi nadvor od klasata */</span>
 };</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">Пример <code>oop_av3_ex1.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">class</span> <span class="class">Cuboid</span> {
+<span class="directive">private</span>:
+        <span class="predefined-type">int</span> a, b, c;
+<span class="directive">public</span>:
+        <span class="comment">// Default constructor</span>
+        Cuboid(){
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Default constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="comment">// Constructor with arguments</span>
+        Cuboid(<span class="predefined-type">int</span> aa, <span class="predefined-type">int</span> bb, <span class="predefined-type">int</span> cc) {
+                a = aa;
+                b = bb;
+                c = cc;
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        ~Cuboid() {        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl; }
+        <span class="comment">// Method for computing area</span>
+        <span class="predefined-type">int</span> area() {
+                <span class="keyword">return</span> <span class="integer">2</span> * (a * b + a * c + b * c);
+        }
+        <span class="comment">// Method for computing volume</span>
+        <span class="predefined-type">int</span> volume() {
+                <span class="keyword">return</span> a * b * c;
+        }
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Креирање-инстанцирање-објекти">1.2. Креирање (инстанцирање) објекти</h3>
+<div class="listingblock">
+<div class="title">Синтакса</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">ime_na_klasa ime_na_objekt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Пример <code>oop_av3_ex1.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">        Cuboid c(<span class="integer">10</span>, <span class="integer">15</span>, <span class="integer">20</span>);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Животен-циклус-на-објектите">1.3. Животен циклус на објектите</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Функцијата <code>print()</code> е само декларирана; кодот на функцијата се наоѓа на друго место.</p>
+<p>Конструктор (Constructor) - посебен метод на секоја класа кој се повикува секогаш кога се креира (инстанцира) објект од класата</p>
 </li>
 <li>
-<p>Големината на структурата (<code>sizeof</code>) е определена <strong>само</strong> од големината на податочните елементи.
-Функциите кои се деклараирани во неа не влијаат на нејзината големина.
-Компајлерот го имплементира ова однесување со тоа што функцијата <code>print()</code> е позната само во контекст на структурата <code>Person</code>.</p>
-</li>
-<li>
-<p>Пристапот до функција дефинирана како дел од структура е идентичен како и пристапот до податочен елемент од структура, т.е. се користи операторот <code>(.)</code>.
-Кога се употребува покажувач кон структура се употребува <code>&#8594;</code>.
-Оваа синтакса дозволува да се користи исто име на функција во повеќе структури.</p>
+<p>Деструктор (Destructor) - посебен метод на секоја класа кој се повикува кога треба да се ослободи меморијата која ја опфатил конструираниот објект</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Задачи">2. Задачи</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="Користење-на-функција-како-член-на-структура">1.8. Користење на функција како член на структура</h3>
+<h3 id="Триаголник">2.1. Триаголник</h3>
+<div class="paragraph">
+<p>Да се напише класа за опишување на геометриско тело триаголник.
+Во класата да се напишат методи за пресметување на плоштината и периметарот на триаголникот.</p>
+</div>
+<div class="paragraph">
+<p>Потоа да се напише главна програма во која ќе се инстнацира еден објект од оваа класа со вредности за страните кои претходно ќе се прочитаат од стандарден влез.
+На овој објект да се повикат соодветните методи за пресметување на плоштината и периметарот.</p>
+</div>
 <div class="listingblock">
-<div class="title">Пример</div>
+<div class="title">Пример <code>oop_av31.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cmath&gt;</span>
 <span class="directive">using</span> <span class="keyword">namespace</span> std;
-<span class="keyword">struct</span> Person {
-    <span class="predefined-type">char</span> ime[<span class="integer">80</span>], adresa[<span class="integer">90</span>];
-    <span class="predefined-type">double</span> plata;
-    <span class="directive">void</span> printperson();
+
+<span class="keyword">class</span> <span class="class">Triangle</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">int</span> a, b, c;
+<span class="directive">public</span>:
+    <span class="comment">// Constructor</span>
+    Triangle(<span class="predefined-type">int</span> x, <span class="predefined-type">int</span> y, <span class="predefined-type">int</span> z) {
+        a = x;
+        b = y;
+        c = z;
+    }
+    <span class="comment">// Destructor</span>
+    ~Triangle() {
+    }
+
+    <span class="predefined-type">int</span> permeter() {
+        <span class="keyword">return</span> a + b + c;
+    }
+
+    <span class="predefined-type">float</span> area() {
+        <span class="predefined-type">float</span> s = (a + b + c) / <span class="integer">2</span>;
+        <span class="keyword">return</span> sqrt(s * (s - a) * (s - b) * (s - c));
+    }
 };
-<span class="directive">void</span> Person::printperson() {
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Imeto na vraboteniot e:</span><span class="delimiter">&quot;</span></span> &lt;&lt; ime &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">a, negovata adresa e:</span><span class="delimiter">&quot;</span></span>
-            &lt;&lt; adresa &lt;&lt; endl;
-}
 <span class="predefined-type">int</span> main() {
-    Person Rakovoditel;
-    <span class="comment">//...fali inicijalizacija</span>
-    Rakovoditel.printperson();
-    <span class="keyword">return</span> (<span class="integer">0</span>);
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="Референци">2. Референци</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="Дефиниција-и-начин-на-декларација">2.1. Дефиниција и начин на декларација</h3>
-<div class="paragraph">
-<p>Референца е нов податочен тип во C++ кој е сличен на покажувач во C но многу побезбеден за употреба.</p>
-</div>
-<div class="listingblock">
-<div class="title">Начин на декларација</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++">&lt;Type&gt; &amp; &lt;Name&gt;</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Пример</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="predefined-type">int</span> A = <span class="integer">5</span>;
-<span class="predefined-type">int</span>&amp; rA = &amp;A;</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Разлики-и-сличности-со-покажувачи">2.2. Разлики и сличности со покажувачи</h3>
-<div class="paragraph">
-<p>Референците во C++ се разликуваат од покажувачите во следниве разлики:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Не може да се пристапи директно на референцата откако ќе се дефинира, секое пристапување до неа е всушност пристапување до објектот/променливата кон која референцира.</p>
-</li>
-<li>
-<p>Отакако еднаш ќе се инцијализира не може да се промени да референцира кон друг објект/променлива.</p>
-</li>
-<li>
-<p>Не може да бидат NULL (да не референцираат кон ништо).</p>
-</li>
-<li>
-<p>Откако ќе се декларираат мораат веднаш да се иницијализираат.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Употреба">2.3. Употреба</h3>
-<div class="paragraph">
-<p>Една од најважните употреби на референците е при пренос на аргументи во функции.</p>
-</div>
-<div class="listingblock">
-<div class="title">Пример</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="predefined-type">int</span> swap(<span class="predefined-type">int</span> &amp;a, <span class="predefined-type">int</span> &amp;b) {
-    a += b;
-    b = a - b;
-    a -= b;
-}
-<span class="predefined-type">int</span> main() {
-    <span class="predefined-type">int</span> x = <span class="integer">10</span>;
-    <span class="predefined-type">int</span> y = <span class="integer">15</span>;
-    swap(x, y);
-    <span class="comment">// x = 15, y = 10</span>
+    <span class="predefined-type">int</span> a, b, c;
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+    Triangle t(a, b, c);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Area: </span><span class="delimiter">&quot;</span></span> &lt;&lt; t.area() &lt;&lt; endl;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Permeter: </span><span class="delimiter">&quot;</span></span> &lt;&lt; t.permeter() &lt;&lt; endl;
     <span class="keyword">return</span> <span class="integer">0</span>;
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Пример-аргументи-референца-кон-структура">2.4. Пример аргументи референца кон структура</h3>
-<div class="listingblock">
-<div class="title">Пример</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="comment">// deklaracija na struktura</span>
-<span class="keyword">struct</span> Person {
-    <span class="predefined-type">char</span> ime[<span class="integer">80</span>], adresa[<span class="integer">90</span>];
-    <span class="predefined-type">double</span> plata;
-};
-Person Vraboten[<span class="integer">50</span>]; <span class="comment">// poli elementi od tip struktura Person</span>
-<span class="comment">// printperson ocekuva referenca do struktura</span>
-<span class="directive">void</span> printperson(Person <span class="directive">const</span> &amp;p) {
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Imeto na vraboteniot e:</span><span class="delimiter">&quot;</span></span> &lt;&lt; p.ime &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">a, negovata adresa e:</span><span class="delimiter">&quot;</span></span>
-            &lt;&lt; p.adresa &lt;&lt; endl;
-}
-<span class="comment">// zemi gi podatocite za vraboteniot preku negoviot reden broj</span>
-Person <span class="directive">const</span> &amp;ZemiVraboten(<span class="predefined-type">int</span> index) {
-... <span class="keyword">return</span> (Vraboten[index]); <span class="comment">// vrakja referenca</span>
-}
-<span class="predefined-type">int</span> main() {
-    Person Rakovoditel;
-    printperson(Rakovoditel); <span class="comment">// nema referenca</span>
-    <span class="comment">// promenlivata nema da se promeni vo funkcijata</span>
-    printperson(ZemiVraboten(<span class="integer">5</span>)); <span class="comment">// se prenesuva referenca</span>
-    <span class="keyword">return</span> (<span class="integer">0</span>);
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="Нова-синтакса-за-кастирање">3. Нова синтакса за кастирање</h2>
-<div class="sectionbody">
+<h3 id="Вработен">2.2. Вработен</h3>
 <div class="paragraph">
-<p>Во C се употребуваше следната синтакса за кастирање</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c">(typename)expression
-(<span class="predefined-type">float</span>) broitel;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Во C++ иако е дозволена и претходната нотација, новиот начин на нотација е:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">typename</span>(expression)
-<span class="predefined-type">float</span>(broitel);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Во C++ се воведуваат 4 нови видови кастирање:</p>
+<p>Да се напише класа во која ќе се чуваат основни податоци за вработен:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>static_cast&lt;type&gt;(expression)</code> - стандардно кастирање за конверзија на еден тип во друг</p>
+<p>име</p>
 </li>
 <li>
-<p><code>const_cast&lt;type&gt;(expression)</code> - се користи за модифицирање на типот на константи</p>
+<p>плата</p>
 </li>
 <li>
-<p><code>reintrepret_cast&lt;type&gt;(expression)</code> - се користи за промена на интерпретација на информацијата</p>
-</li>
-<li>
-<p><code>dynamic_cast&lt;type&gt;(expression)</code> - поврзан со polymorphism</p>
+<p>работна позиција (работната позиција може да биде вработен, директор или шеф).</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Напишете главна програма во која се читаат од стандарден влез податоци за N вработени, а потоа се пачати листа на вработените сортирани според висината на платата во опаѓачки редослед.</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="Пример-решенија-на-задачите-од-структури-во-c">4. Пример решенија на задачите од структури во C++</h2>
-<div class="sectionbody">
 <div class="listingblock">
-<div class="title">Решение <code>oop_av24.cpp</code></div>
+<div class="title">Пример <code>oop_av32.cpp</code></div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
-<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span> <span class="comment">// string.h math.h -&gt; cmath</span>
-using namespace std;
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;string.h&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
 
-<span class="keyword">struct</span> student {
-    <span class="predefined-type">char</span> firstName[<span class="integer">50</span>];
-    <span class="predefined-type">char</span> lastName[<span class="integer">50</span>];
-    <span class="predefined-type">int</span> number;
-    <span class="predefined-type">int</span> totalPoints;
-    <span class="directive">void</span> print() {
-        cout &lt;&lt; firstName &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-        cout &lt;&lt; lastName &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-        cout &lt;&lt; number &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-        cout &lt;&lt; totalPoints &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
+<span class="keyword">enum</span> position {
+    employee, manager, owner
+};
+
+<span class="keyword">class</span> <span class="class">Person</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
+    <span class="predefined-type">int</span> salary;
+    position pos;
+<span class="directive">public</span>:
+    <span class="comment">// Constructors</span>
+    Person() {
+    }
+
+    Person(<span class="predefined-type">char</span> *name, <span class="predefined-type">int</span> salary, position pos) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+        <span class="local-variable">this</span>-&gt;salary = salary;
+        <span class="local-variable">this</span>-&gt;pos = pos;
+    }
+    <span class="comment">// Destruktor</span>
+    ~Person() {
+    }
+
+    <span class="directive">void</span> setName(<span class="predefined-type">char</span> <span class="directive">const</span> *name) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+    }
+    <span class="directive">void</span> setSalary(<span class="predefined-type">int</span> <span class="directive">const</span> salary) {
+        <span class="local-variable">this</span>-&gt;salary = salary;
+    }
+    <span class="directive">void</span> setPosition(position p) {
+        pos = p;
+    }
+    <span class="predefined-type">char</span> <span class="directive">const</span> *getName() {
+        <span class="keyword">return</span> name;
+    }
+    <span class="predefined-type">int</span> <span class="directive">const</span> getSalary() {
+        <span class="keyword">return</span> salary;
+    }
+    position <span class="directive">const</span> getPosition() {
+        <span class="keyword">return</span> pos;
     }
 };
 
-
-<span class="directive">void</span> normalize(<span class="predefined-type">char</span> *name, <span class="predefined-type">bool</span> allUppercase = <span class="predefined-constant">false</span>) {
-    *name = toupper(*name);
-    ++name;
-    <span class="keyword">while</span>(*name) {
-        <span class="keyword">if</span>(allUppercase) {
-            *name = toupper(*name);
-        } <span class="keyword">else</span> {
-            *name = tolower(*name);
-        }
-        ++name;
-    }
-}
-
-<span class="comment">/*void normalize(char *name) {
-    normalize(name, false);
-}
-*/</span>
-<span class="directive">void</span> read(student &amp;s) {
-    cin &gt;&gt; s.firstName;
-    cin &gt;&gt; s.lastName;
-    normalize(s.firstName);
-    normalize(s.lastName);
-    cin &gt;&gt; s.number;
-    <span class="predefined-type">int</span> a, b, c, d;
-    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c &gt;&gt; d;
-    s.totalPoints = a + b + c + d;
-}
-
-
-
-<span class="directive">void</span> sort(student s[], <span class="predefined-type">int</span> n) {
-    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
-        <span class="keyword">for</span>(<span class="predefined-type">int</span> j = <span class="integer">0</span>; j &lt; n - <span class="integer">1</span>; ++j) {
-            <span class="keyword">if</span>(s[j].totalPoints &lt; s[j + <span class="integer">1</span>].totalPoints) {
-                student tmp = s[j];
-                s[j] = s[j + <span class="integer">1</span>];
-                s[j + <span class="integer">1</span>] = tmp;
+<span class="directive">void</span> sort(Person a[], <span class="predefined-type">int</span> n) {
+    <span class="predefined-type">int</span> i, j;
+    Person p;
+    <span class="keyword">for</span> (i = <span class="integer">0</span>; i &lt; n - <span class="integer">1</span>; i++)
+        <span class="keyword">for</span> (j = i; j &lt; n; j++)
+            <span class="keyword">if</span> (a[i].getSalary() &lt; a[j].getSalary()) {
+                p = a[j];
+                a[j] = a[i];
+                a[i] = p;
             }
-        }
-    }
 }
 
 <span class="predefined-type">int</span> main() {
-    student s[<span class="integer">100</span>];
-    <span class="predefined-type">int</span> n;
+    Person employees[<span class="integer">100</span>];
+    <span class="predefined-type">float</span> salary;
+    <span class="predefined-type">int</span> n, pos;
+    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
     cin &gt;&gt; n;
-    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
-        read(s[i]);
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; i++) {
+        cin &gt;&gt; name;
+        cin &gt;&gt; salary;
+        cin &gt;&gt; pos;
+        employees[i].setName(name);
+        employees[i].setSalary(salary);
+        employees[i].setPosition((position) pos);
     }
-    sort(s, n);
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">======== ORDERED ========</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
-    <span class="comment">//read(s);</span>
-    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
-        s[i].print();
-        <span class="comment">//print(s[i]);</span>
+    sort(employees, n);
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; i++) {
+        cout &lt;&lt; i + <span class="integer">1</span> &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">. </span><span class="delimiter">&quot;</span></span> &lt;&lt; employees[i].getName() &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>
+             &lt;&lt; employees[i].getSalary() &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>
+             &lt;&lt; employees[i].getPosition() &lt;&lt; endl;
     }
-
     <span class="keyword">return</span> <span class="integer">0</span>;
 }</code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="e-mail">2.3. E-mail</h3>
+<div class="paragraph">
+<p>Да се напише класа која опишува една e-mail порака.
+Во класата треба да се имплементира метод за прикажување на целокупната порака на екран.
+Потоа да се напише главна програма во која се внесуваат параметрите на пораката, се инстанцира објект од оваа класа и се печати на екран неговата содржина.
+За проверување на валидноста на e-mail пораката (постоење на знакот <code>@</code> во адресата) да се напише соодветна функција.</p>
+</div>
 <div class="listingblock">
-<div class="title">Решение <code>oop_av25.cpp</code></div>
+<div class="title">Пример <code>oop_av33.cpp</code></div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="c"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
-using namespace std;
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+<span class="keyword">class</span> <span class="class">EMail</span> {
+<span class="directive">private</span>:
+    <span class="keyword">enum</span> {
+        AddrLen = <span class="integer">100</span>, SubLen = <span class="integer">200</span>, BodyLen = <span class="integer">1000</span>
+    };
+    <span class="predefined-type">char</span> to[AddrLen];
+    <span class="predefined-type">char</span> from[AddrLen];
+    <span class="predefined-type">char</span> subject[SubLen];
+    <span class="predefined-type">char</span> body[BodyLen];
+<span class="directive">public</span>:
 
-<span class="keyword">struct</span> city {
-    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
-    <span class="predefined-type">int</span> population;
-};
-
-<span class="keyword">struct</span> country {
-    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
-    <span class="predefined-type">char</span> president[<span class="integer">100</span>];
-    city capital;
-    <span class="predefined-type">int</span> population;
+    EMail(<span class="predefined-type">char</span> *to, <span class="predefined-type">char</span> *from, <span class="predefined-type">char</span> *subject, <span class="predefined-type">char</span> *body) {
+        strncpy(<span class="local-variable">this</span>-&gt;to, to, AddrLen - <span class="integer">1</span>);
+        strncpy(<span class="local-variable">this</span>-&gt;from, from, AddrLen - <span class="integer">1</span>);
+        strncpy(<span class="local-variable">this</span>-&gt;subject, subject, SubLen - <span class="integer">1</span>);
+        strncpy(<span class="local-variable">this</span>-&gt;body, body, BodyLen - <span class="integer">1</span>);
+        to[AddrLen - <span class="integer">1</span>] = subject[SubLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+        from[AddrLen - <span class="integer">1</span>] = subject[SubLen - <span class="integer">1</span>] = body[BodyLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    ~EMail() {
+    }
+    <span class="directive">void</span> setTo(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(to, n, AddrLen - <span class="integer">1</span>);
+        to[AddrLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">void</span> setFrom(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(from, n, AddrLen - <span class="integer">1</span>);
+        from[AddrLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">void</span> setSubject(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(subject, n, SubLen - <span class="integer">1</span>);
+        subject[SubLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">void</span> setBody(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(body, n, BodyLen - <span class="integer">1</span>);
+        body[BodyLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getTo() { <span class="keyword">return</span> to;    }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getFrom() { <span class="keyword">return</span> from; }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getSubject() { <span class="keyword">return</span> subject; }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getBody() { <span class="keyword">return</span> body; }
     <span class="directive">void</span> print() {
-        cout &lt;&lt; name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; president &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-        cout &lt;&lt; capital.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-        cout &lt;&lt; capital.population &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-        cout &lt;&lt; population &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">To: </span><span class="delimiter">&quot;</span></span> &lt;&lt; to &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">From: </span><span class="delimiter">&quot;</span></span> &lt;&lt; from &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Subject: </span><span class="delimiter">&quot;</span></span> &lt;&lt; subject &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Body: </span><span class="delimiter">&quot;</span></span> &lt;&lt; body &lt;&lt; endl;
     }
 };
 
-<span class="directive">void</span> print(country &amp;c) {
-    cout &lt;&lt; c.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; c.president &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-    cout &lt;&lt; c.capital.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-    cout &lt;&lt; c.capital.population &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
-    cout &lt;&lt; c.population &lt;&lt; endl;
-}
-
-<span class="directive">void</span> read(<span class="predefined-type">int</span> n, country c[]) {
-    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
-        cin &gt;&gt; c[i].name;
-        cin &gt;&gt; c[i].president;
-        cin &gt;&gt; c[i].capital.name;
-        cin &gt;&gt; c[i].capital.population;
-        cin &gt;&gt; c[i].population;
-    }
-}
-
-<span class="predefined-type">int</span> sum(<span class="predefined-type">int</span> a = <span class="integer">0</span>, <span class="predefined-type">int</span> b = <span class="integer">5</span>) {
-    <span class="keyword">return</span> a + b;
-}
-
-<span class="directive">void</span> maxCapitalPopulation(<span class="predefined-type">int</span> n, country c[]) {
-    country max = c[<span class="integer">0</span>];
-    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">1</span>; i &lt; n; ++i) {
-        <span class="keyword">if</span> (c[i].capital.population &gt; max.capital.population) {
-            max = c[i];
-        }
-    }
-
-    cout &lt;&lt; max.president &lt;&lt; endl;
-}
+<span class="predefined-type">bool</span> checkEmail(<span class="predefined-type">char</span>* address);
 
 <span class="predefined-type">int</span> main() {
-    country countries[<span class="integer">100</span>];
-    country &amp;first = countries[<span class="integer">0</span>];
-    first = countries[<span class="integer">1</span>];
-    <span class="predefined-type">int</span> n;
-    cin &gt;&gt; n;
-    read(n, countries);
-
-    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
-        <span class="comment">//print(countries[i]);</span>
-        countries[i].print();
+    <span class="predefined-type">char</span> to[<span class="integer">100</span>], from[<span class="integer">100</span>], subject[<span class="integer">200</span>], body[<span class="integer">1000</span>];
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">To: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    cin &gt;&gt; to;
+    <span class="keyword">if</span> (checkEmail(to)) {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">From: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        cin &gt;&gt; from;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Subject: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        cin &gt;&gt; subject;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Body: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        cin &gt;&gt; body;
+        EMail poraka(to, from, subject, body);
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Sent:</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        poraka.print();
+    } <span class="keyword">else</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Invalid email address!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
     }
-
-    maxCapitalPopulation(n, countries);
-<span class="comment">/*    cout &lt;&lt; sum(3, 10) &lt;&lt; endl;
-    cout &lt;&lt; sum(10) &lt;&lt; endl;
-    cout &lt;&lt; sum() &lt;&lt; endl;*/</span>
-
-
     <span class="keyword">return</span> <span class="integer">0</span>;
+}
+
+<span class="predefined-type">bool</span> checkEmail(<span class="predefined-type">char</span> *address) {
+    <span class="predefined-type">int</span> count = <span class="integer">0</span>;
+    <span class="keyword">while</span> (*address != <span class="integer">0</span>)
+        <span class="keyword">if</span> (<span class="char">'@'</span> == *address++)
+            count++;
+    <span class="keyword">return</span> (<span class="integer">1</span> == count);
 }</code></pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="Изворен-код-од-примери-и-задачи">5. Изворен код од примери и задачи</h2>
+<h2 id="Изворен-код-од-примери-и-задачи">3. Изворен код од примери и задачи</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://github.com/finki-mk/OOP/" class="bare">https://github.com/finki-mk/OOP/</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://finki-mk.github.io/OOP/sources/oop_av2_src.zip">Source code ZIP</a></p>
+<p><a href="https://finki-mk.github.io/OOP/sources/oop_av3_src.zip">Source code ZIP</a></p>
 </div>
 </div>
 </div>
@@ -1146,7 +892,7 @@ using namespace std;
 <div id="footer">
 <div id="footer-text">
 Верзија 1.0<br>
-Last updated 2017-02-21 14:28:06 +01:00
+Last updated 2017-02-21 14:33:11 +01:00
 </div>
 </div>
 <script type="text/x-mathjax-config">
