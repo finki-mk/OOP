@@ -631,7 +631,7 @@ table.CodeRay td.code>pre{padding:0}
 На овој објект да се повикат соодветните методи за пресметување на плоштината и периметарот.</p>
 </div>
 <div class="listingblock">
-<div class="title">Пример <code>oop_av31.cpp</code></div>
+<div class="title">Решение <code>oop_av31.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span> <span class="include">&lt;cmath&gt;</span>
@@ -693,7 +693,7 @@ table.CodeRay td.code>pre{padding:0}
 <p>Напишете главна програма во која се читаат од стандарден влез податоци за N вработени, а потоа се пачати листа на вработените сортирани според висината на платата во опаѓачки редослед.</p>
 </div>
 <div class="listingblock">
-<div class="title">Пример <code>oop_av32.cpp</code></div>
+<div class="title">Решение <code>oop_av32.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span> <span class="include">&lt;string.h&gt;</span>
@@ -713,20 +713,20 @@ table.CodeRay td.code>pre{padding:0}
     Person() {
     }
 
-    Person(<span class="predefined-type">char</span> *name, <span class="predefined-type">int</span> salary, position pos) {
-        strcpy(<span class="local-variable">this</span>-&gt;name, name);
-        <span class="local-variable">this</span>-&gt;salary = salary;
-        <span class="local-variable">this</span>-&gt;pos = pos;
+    Person(<span class="predefined-type">char</span> *n, <span class="predefined-type">int</span> s, position p) {
+        strcpy(name, n);
+        salary = s;
+        pos = p;
     }
     <span class="comment">// Destruktor</span>
     ~Person() {
     }
 
-    <span class="directive">void</span> setName(<span class="predefined-type">char</span> <span class="directive">const</span> *name) {
-        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+    <span class="directive">void</span> setName(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strcpy(name, n);
     }
-    <span class="directive">void</span> setSalary(<span class="predefined-type">int</span> <span class="directive">const</span> salary) {
-        <span class="local-variable">this</span>-&gt;salary = salary;
+    <span class="directive">void</span> setSalary(<span class="predefined-type">int</span> <span class="directive">const</span> s) {
+        salary = s;
     }
     <span class="directive">void</span> setPosition(position p) {
         pos = p;
@@ -788,11 +788,12 @@ table.CodeRay td.code>pre{padding:0}
 За проверување на валидноста на e-mail пораката (постоење на знакот <code>@</code> во адресата) да се напише соодветна функција.</p>
 </div>
 <div class="listingblock">
-<div class="title">Пример <code>oop_av33.cpp</code></div>
+<div class="title">Решение <code>oop_av33.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
 <span class="directive">using</span> <span class="keyword">namespace</span> std;
+
 <span class="keyword">class</span> <span class="class">EMail</span> {
 <span class="directive">private</span>:
     <span class="keyword">enum</span> {
@@ -804,11 +805,11 @@ table.CodeRay td.code>pre{padding:0}
     <span class="predefined-type">char</span> body[BodyLen];
 <span class="directive">public</span>:
 
-    EMail(<span class="predefined-type">char</span> *to, <span class="predefined-type">char</span> *from, <span class="predefined-type">char</span> *subject, <span class="predefined-type">char</span> *body) {
-        strncpy(<span class="local-variable">this</span>-&gt;to, to, AddrLen - <span class="integer">1</span>);
-        strncpy(<span class="local-variable">this</span>-&gt;from, from, AddrLen - <span class="integer">1</span>);
-        strncpy(<span class="local-variable">this</span>-&gt;subject, subject, SubLen - <span class="integer">1</span>);
-        strncpy(<span class="local-variable">this</span>-&gt;body, body, BodyLen - <span class="integer">1</span>);
+    EMail(<span class="predefined-type">char</span> *_to, <span class="predefined-type">char</span> *_from, <span class="predefined-type">char</span> *_subject, <span class="predefined-type">char</span> *_body) {
+        strncpy(to, _to, AddrLen - <span class="integer">1</span>);
+        strncpy(from, _from, AddrLen - <span class="integer">1</span>);
+        strncpy(subject, _subject, SubLen - <span class="integer">1</span>);
+        strncpy(body, _body, BodyLen - <span class="integer">1</span>);
         to[AddrLen - <span class="integer">1</span>] = subject[SubLen - <span class="integer">1</span>] = <span class="integer">0</span>;
         from[AddrLen - <span class="integer">1</span>] = subject[SubLen - <span class="integer">1</span>] = body[BodyLen - <span class="integer">1</span>] = <span class="integer">0</span>;
     }
@@ -892,7 +893,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="footer">
 <div id="footer-text">
 Верзија 1.0<br>
-Last updated 2017-02-21 14:33:11 +01:00
+Last updated 2017-02-24 10:47:58 +01:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

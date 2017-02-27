@@ -5,8 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Аудиториски вежби">
-<title>Објектно ориентирано програмирање</title>
+<meta name="author" content="Exercises 3">
+<title>Object oriented programming</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -512,51 +512,390 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Објектно ориентирано програмирање</h1>
+<h1>Object oriented programming</h1>
 <div class="details">
-<span id="author" class="author">Аудиториски вежби</span><br>
-<span id="revnumber">Верзија 1.0,</span>
-<span id="revdate">16 Февруари, 2017</span>
+<span id="author" class="author">Exercises 3</span><br>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">24 February, 2017</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Содржина</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#Аудиториска-вежба-1">1. Аудиториска вежба 1</a></li>
-<li><a href="#Аудиториска-вежба-2">2. Аудиториска вежба 2</a></li>
-<li><a href="#Аудиториска-вежба-3">3. Аудиториска вежба 3</a></li>
+<li><a href="#classes">1. Classes</a>
+<ul class="sectlevel2">
+<li><a href="#defining-code-class-code">1.1. Defining <code>class</code></a></li>
+<li><a href="#creating-instantiating-objects">1.2. Creating (instantiating) objects</a></li>
+<li><a href="#objects-lifecycle">1.3. Objects lifecycle</a></li>
+</ul>
+</li>
+<li><a href="#problems">2. Problems</a>
+<ul class="sectlevel2">
+<li><a href="#triangle">2.1. Triangle</a></li>
+<li><a href="#employee">2.2. Employee</a></li>
+<li><a href="#e-mail">2.3. E-mail</a></li>
+</ul>
+</li>
+<li><a href="#source-code-of-the-examples-and-problems">3. Source code of the examples and problems</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="Аудиториска-вежба-1">1. Аудиториска вежба 1</h2>
+<h2 id="classes">1. Classes</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av1.html">HTML</a> | <a href="../pdf/oop_av1.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av1_src.zip">Source code ZIP</a></p>
+<div class="sect2">
+<h3 id="defining-code-class-code">1.1. Defining <code>class</code></h3>
+<div class="listingblock">
+<div class="title">Syntax</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">class</span> <span class="class">class_name</span> {
+<span class="directive">private</span>:
+<span class="comment">/* variables and methods not visible outside of class */</span>
+<span class="directive">public</span> :
+<span class="comment">/* variables and methods visible outside of class */</span>
+};</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>oop_av3_ex1.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">class</span> <span class="class">Cuboid</span> {
+<span class="directive">private</span>:
+        <span class="predefined-type">int</span> a, b, c;
+<span class="directive">public</span>:
+        <span class="comment">// Default constructor</span>
+        Cuboid(){
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Default constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="comment">// Constructor with arguments</span>
+        Cuboid(<span class="predefined-type">int</span> aa, <span class="predefined-type">int</span> bb, <span class="predefined-type">int</span> cc) {
+                a = aa;
+                b = bb;
+                c = cc;
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        ~Cuboid() {        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl; }
+        <span class="comment">// Method for computing area</span>
+        <span class="predefined-type">int</span> area() {
+                <span class="keyword">return</span> <span class="integer">2</span> * (a * b + a * c + b * c);
+        }
+        <span class="comment">// Method for computing volume</span>
+        <span class="predefined-type">int</span> volume() {
+                <span class="keyword">return</span> a * b * c;
+        }
+};</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-instantiating-objects">1.2. Creating (instantiating) objects</h3>
+<div class="listingblock">
+<div class="title">Syntax</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">class_name object_name;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>oop_av3_ex1.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">        Cuboid c(<span class="integer">10</span>, <span class="integer">15</span>, <span class="integer">20</span>);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="objects-lifecycle">1.3. Objects lifecycle</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Constructor - special method of each class which is called always when an object of the class is created (instantiated)</p>
+</li>
+<li>
+<p>Destructor - special method of each class which is called to free the memory that the instantiated object allocated</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Аудиториска-вежба-2">2. Аудиториска вежба 2</h2>
+<h2 id="problems">2. Problems</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="triangle">2.1. Triangle</h3>
 <div class="paragraph">
-<p><a href="oop_av2.html">HTML</a> | <a href="../pdf/oop_av2.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av2_src.zip">Source code ZIP</a></p>
+<p>Write a class for geometric figure triangle.
+In the class implement methods for computing the area and perimeter of the triangle.</p>
+</div>
+<div class="paragraph">
+<p>Then, write a main function where you will instantiate one object of this class with values read from SI.
+Call the methods of this object for computing area and perimeter.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av31_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cmath&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">Triangle</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">int</span> a, b, c;
+<span class="directive">public</span>:
+    <span class="comment">// Constructor</span>
+    Triangle(<span class="predefined-type">int</span> x, <span class="predefined-type">int</span> y, <span class="predefined-type">int</span> z) {
+        a = x;
+        b = y;
+        c = z;
+    }
+    <span class="comment">// Destructor</span>
+    ~Triangle() {
+    }
+
+    <span class="predefined-type">int</span> permeter() {
+        <span class="keyword">return</span> a + b + c;
+    }
+
+    <span class="predefined-type">float</span> area() {
+        <span class="predefined-type">float</span> s = (a + b + c) / <span class="integer">2</span>;
+        <span class="keyword">return</span> sqrt(s * (s - a) * (s - b) * (s - c));
+    }
+};
+<span class="predefined-type">int</span> main() {
+    <span class="predefined-type">int</span> a, b, c;
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+    Triangle t(a, b, c);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Area: </span><span class="delimiter">&quot;</span></span> &lt;&lt; t.area() &lt;&lt; endl;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Permeter: </span><span class="delimiter">&quot;</span></span> &lt;&lt; t.permeter() &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="employee">2.2. Employee</h3>
+<div class="paragraph">
+<p>Write a class that will represent an employee with following attributes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>name</p>
+</li>
+<li>
+<p>salary</p>
+</li>
+<li>
+<p>working position (employee, manager or owner).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Write a main function where from SI you will read data for N employees, and then print a list of employees sorted in descending order by the salary.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av32_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;string.h&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">enum</span> position {
+    employee, manager, owner
+};
+
+<span class="keyword">class</span> <span class="class">Person</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
+    <span class="predefined-type">int</span> salary;
+    position pos;
+<span class="directive">public</span>:
+    <span class="comment">// Constructors</span>
+    Person() {
+    }
+
+    Person(<span class="predefined-type">char</span> *name, <span class="predefined-type">int</span> salary, position pos) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+        <span class="local-variable">this</span>-&gt;salary = salary;
+        <span class="local-variable">this</span>-&gt;pos = pos;
+    }
+    <span class="comment">// Destruktor</span>
+    ~Person() {
+    }
+
+    <span class="directive">void</span> setName(<span class="predefined-type">char</span> <span class="directive">const</span> *name) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+    }
+    <span class="directive">void</span> setSalary(<span class="predefined-type">int</span> <span class="directive">const</span> salary) {
+        <span class="local-variable">this</span>-&gt;salary = salary;
+    }
+    <span class="directive">void</span> setPosition(position p) {
+        pos = p;
+    }
+    <span class="predefined-type">char</span> *getName() <span class="directive">const</span> {
+        <span class="keyword">return</span> name;
+    }
+    <span class="predefined-type">int</span> getSalary() <span class="directive">const</span> {
+        <span class="keyword">return</span> salary;
+    }
+    position getPosition() <span class="directive">const</span> {
+        <span class="keyword">return</span> pos;
+    }
+};
+
+<span class="directive">void</span> sort(Person a[], <span class="predefined-type">int</span> n) {
+    <span class="predefined-type">int</span> i, j;
+    Person p;
+    <span class="keyword">for</span> (i = <span class="integer">0</span>; i &lt; n - <span class="integer">1</span>; i++)
+        <span class="keyword">for</span> (j = i; j &lt; n; j++)
+            <span class="keyword">if</span> (a[i].getSalary() &lt; a[j].getSalary()) {
+                p = a[j];
+                a[j] = a[i];
+                a[i] = p;
+            }
+}
+
+<span class="predefined-type">int</span> main() {
+    Person employees[<span class="integer">100</span>];
+    <span class="predefined-type">float</span> salary;
+    <span class="predefined-type">int</span> n, pos;
+    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
+    cin &gt;&gt; n;
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; i++) {
+        cin &gt;&gt; name;
+        cin &gt;&gt; salary;
+        cin &gt;&gt; pos;
+        employees[i].setName(name);
+        employees[i].setSalary(salary);
+        employees[i].setPosition((position) pos);
+    }
+    sort(employees, n);
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; i++) {
+        cout &lt;&lt; i + <span class="integer">1</span> &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">. </span><span class="delimiter">&quot;</span></span> &lt;&lt; employees[i].getName() &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>
+             &lt;&lt; employees[i].getSalary() &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>
+             &lt;&lt; employees[i].getPosition() &lt;&lt; endl;
+    }
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="e-mail">2.3. E-mail</h3>
+<div class="paragraph">
+<p>Write a class that defines an e-mail message.
+The class should implement method for showing the contents of the message on the screen.</p>
+</div>
+<div class="paragraph">
+<p>Then write a main function where the parameters of the message are read from SI and an object of this class is instantiated.
+Then call the method for printing the message.
+The validity of the e-mail address should be checked with existence of the <code>@</code> character.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av33_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+<span class="keyword">class</span> <span class="class">EMail</span> {
+<span class="directive">private</span>:
+    <span class="keyword">enum</span> {
+        AddrLen = <span class="integer">100</span>, SubLen = <span class="integer">200</span>, BodyLen = <span class="integer">1000</span>
+    };
+    <span class="predefined-type">char</span> to[AddrLen];
+    <span class="predefined-type">char</span> from[AddrLen];
+    <span class="predefined-type">char</span> subject[SubLen];
+    <span class="predefined-type">char</span> body[BodyLen];
+<span class="directive">public</span>:
+
+    EMail(<span class="predefined-type">char</span> *to, <span class="predefined-type">char</span> *from, <span class="predefined-type">char</span> *subject, <span class="predefined-type">char</span> *body) {
+        strncpy(<span class="local-variable">this</span>-&gt;to, to, AddrLen - <span class="integer">1</span>);
+        strncpy(<span class="local-variable">this</span>-&gt;from, from, AddrLen - <span class="integer">1</span>);
+        strncpy(<span class="local-variable">this</span>-&gt;subject, subject, SubLen - <span class="integer">1</span>);
+        strncpy(<span class="local-variable">this</span>-&gt;body, body, BodyLen - <span class="integer">1</span>);
+        to[AddrLen - <span class="integer">1</span>] = subject[SubLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+        from[AddrLen - <span class="integer">1</span>] = subject[SubLen - <span class="integer">1</span>] = body[BodyLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    ~EMail() {
+    }
+    <span class="directive">void</span> setTo(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(to, n, AddrLen - <span class="integer">1</span>);
+        to[AddrLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">void</span> setFrom(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(from, n, AddrLen - <span class="integer">1</span>);
+        from[AddrLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">void</span> setSubject(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(subject, n, SubLen - <span class="integer">1</span>);
+        subject[SubLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">void</span> setBody(<span class="predefined-type">char</span> <span class="directive">const</span> *n) {
+        strncpy(body, n, BodyLen - <span class="integer">1</span>);
+        body[BodyLen - <span class="integer">1</span>] = <span class="integer">0</span>;
+    }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getTo() { <span class="keyword">return</span> to;    }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getFrom() { <span class="keyword">return</span> from; }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getSubject() { <span class="keyword">return</span> subject; }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* getBody() { <span class="keyword">return</span> body; }
+    <span class="directive">void</span> print() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">To: </span><span class="delimiter">&quot;</span></span> &lt;&lt; to &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">From: </span><span class="delimiter">&quot;</span></span> &lt;&lt; from &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Subject: </span><span class="delimiter">&quot;</span></span> &lt;&lt; subject &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Body: </span><span class="delimiter">&quot;</span></span> &lt;&lt; body &lt;&lt; endl;
+    }
+};
+
+<span class="predefined-type">bool</span> checkEmail(<span class="predefined-type">char</span>* address);
+
+<span class="predefined-type">int</span> main() {
+    <span class="predefined-type">char</span> to[<span class="integer">100</span>], from[<span class="integer">100</span>], subject[<span class="integer">200</span>], body[<span class="integer">1000</span>];
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">To: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    cin &gt;&gt; to;
+    <span class="keyword">if</span> (checkEmail(to)) {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">From: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        cin &gt;&gt; from;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Subject: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        cin &gt;&gt; subject;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Body: </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        cin &gt;&gt; body;
+        EMail poraka(to, from, subject, body);
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Sent:</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        poraka.print();
+    } <span class="keyword">else</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Invalid email address!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}
+
+<span class="predefined-type">bool</span> checkEmail(<span class="predefined-type">char</span> *address) {
+    <span class="predefined-type">int</span> count = <span class="integer">0</span>;
+    <span class="keyword">while</span> (*address != <span class="integer">0</span>)
+        <span class="keyword">if</span> (<span class="char">'@'</span> == *address++)
+            count++;
+    <span class="keyword">return</span> (<span class="integer">1</span> == count);
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Аудиториска-вежба-3">3. Аудиториска вежба 3</h2>
+<h2 id="source-code-of-the-examples-and-problems">3. Source code of the examples and problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="oop_av3.html">HTML</a> | <a href="../pdf/oop_av3.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av3_src.zip">Source code ZIP</a></p>
+<p><a href="https://github.com/finki-mk/SP/" class="bare">https://github.com/finki-mk/SP/</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://finki-mk.github.io/OOP/sources/oop_av3_src_en.zip">Source code ZIP</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Верзија 1.0<br>
-Last updated 2017-02-27 11:58:05 +01:00
+Version 1.0<br>
+Last updated 2017-02-27 11:57:02 +01:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

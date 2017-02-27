@@ -5,8 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Аудиториски вежби">
-<title>Објектно ориентирано програмирање</title>
+<meta name="author" content="Exercises 2">
+<title>Object oriented programming</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -512,51 +512,639 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Објектно ориентирано програмирање</h1>
+<h1>Object oriented programming</h1>
 <div class="details">
-<span id="author" class="author">Аудиториски вежби</span><br>
-<span id="revnumber">Верзија 1.0,</span>
-<span id="revdate">16 Февруари, 2017</span>
+<span id="author" class="author">Exercises 2</span><br>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">24 February, 2017</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Содржина</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#Аудиториска-вежба-1">1. Аудиториска вежба 1</a></li>
-<li><a href="#Аудиториска-вежба-2">2. Аудиториска вежба 2</a></li>
-<li><a href="#Аудиториска-вежба-3">3. Аудиториска вежба 3</a></li>
+<li><a href="#introduction-in-c">1. Introduction in C++</a>
+<ul class="sectlevel2">
+<li><a href="#introduction">1.1. Introduction</a></li>
+<li><a href="#input-output-streams-in-c-code-iostream-code">1.2. Input/Output streams in C++ <code>&lt;iostream&gt;</code></a></li>
+<li><a href="#declaration-of-variables-in-c">1.3. Declaration of variables in C++</a></li>
+<li><a href="#code-inline-code-functions">1.4. <code>inline</code> functions</a></li>
+<li><a href="#additional-keywords-in-c">1.5. Additional keywords in C++</a></li>
+<li><a href="#using-code-typedef-code">1.6. Using <code>typedef</code></a></li>
+<li><a href="#functions-as-struct-members">1.7. Functions as struct members</a></li>
+<li><a href="#usage-of-function-as-struct-member">1.8. Usage of function as struct member</a></li>
+</ul>
+</li>
+<li><a href="#references">2. References</a>
+<ul class="sectlevel2">
+<li><a href="#definition-and-declaration">2.1. Definition and declaration</a></li>
+<li><a href="#differences-and-similarities-with-pointers">2.2. Differences and similarities with pointers</a></li>
+<li><a href="#usage">2.3. Usage</a></li>
+<li><a href="#example-arguments-struct-reference">2.4. Example arguments struct reference</a></li>
+</ul>
+</li>
+<li><a href="#new-casting-syntax">3. New casting syntax</a></li>
+<li><a href="#solutions-of-problems-with-structures-in-c">4. Solutions of problems with structures in C++</a></li>
+<li><a href="#source-code-of-the-examples-and-problems">5. Source code of the examples and problems</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="Аудиториска-вежба-1">1. Аудиториска вежба 1</h2>
+<h2 id="introduction-in-c">1. Introduction in C++</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="introduction">1.1. Introduction</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>C++ includes many characteristics of the C programming language enriched with object-oriented flavour (OOP)</p>
+</li>
+<li>
+<p>C++ is developed at Bell laboratories and at the beginning was called "С with classes"</p>
+</li>
+<li>
+<p>The name С is increment of C () and this means that C++ is extended C</p>
+</li>
+<li>
+<p>C++ compiler can be used to compile C programs</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="input-output-streams-in-c-code-iostream-code">1.2. Input/Output streams in C++ <code>&lt;iostream&gt;</code></h3>
 <div class="paragraph">
-<p><a href="oop_av1.html">HTML</a> | <a href="../pdf/oop_av1.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av1_src.zip">Source code ZIP</a></p>
+<p>In C++ to work with input/output streams instead of functions <code>printf</code> and <code>scanf</code> we use the operators:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>&lt;&lt;</code> from the object <code>cout</code> (<code>cout &lt;&lt;</code>)</p>
+</li>
+<li>
+<p><code>&gt;&gt;</code> from the object <code>cin</code> (<code>cin &gt;&gt;</code>)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example C</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">printf(<span class="string"><span class="delimiter">&quot;</span><span class="content">Enter new value: </span><span class="delimiter">&quot;</span></span>);
+scanf(<span class="string"><span class="delimiter">&quot;</span><span class="content">%d</span><span class="delimiter">&quot;</span></span>, &amp;value);
+printf(<span class="string"><span class="delimiter">&quot;</span><span class="content">The new value is: %d</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, value);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example C++</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Enter new value: </span><span class="delimiter">&quot;</span></span>;
+cin &gt;&gt; value;
+cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">The new value is: </span><span class="delimiter">&quot;</span></span> &lt;&lt; value &lt;&lt; <span class="char">'\n'</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is recommended to replace the usage <code>\n</code> with <code>endl</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">The new value is: </span><span class="delimiter">&quot;</span></span> &lt;&lt; value &lt;&lt; endl;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To work with input/output streams in C++ you should include the header <code>&lt;iostream&gt;</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>oop_av21_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="predefined-type">int</span> main () {
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Enter your age: </span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">int</span> myAge ;
+    cin &gt;&gt; myAge ;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Enter your friend's age: </span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">int</span> friendsAge ;
+    cin &gt;&gt; friendsAge ;
+    <span class="keyword">if</span> (myAge &gt; friendsAge)
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">You are older.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
+    <span class="keyword">else</span> <span class="keyword">if</span> (myAge &lt; friendsAge)
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Your friend is older.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
+    <span class="keyword">else</span>
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">You and your friend are same age.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="declaration-of-variables-in-c">1.3. Declaration of variables in C++</h3>
+<div class="paragraph">
+<p>The variables in C++ can be declared anywhere in the program until their declaration is before the usage.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>;  i &lt; <span class="integer">5</span>; i++)
+    cout &lt;&lt; i &lt;&lt; endl;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The scope of the local variables begins with the declaration and ends at the end of the block <code>}</code>.
+The declaration can be done in the conditions or in the loop expressions <code>while</code>, <code>do/while</code>, <code>for</code> or <code>if</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code-inline-code-functions">1.4. <code>inline</code> functions</h3>
+<div class="paragraph">
+<p>Each standard call of function consumes additional time in the process of calling the function.
+In C++ while defining small and simple function the keyword <code>inline</code> can be used, so each call of this function can be replaced with the body of the function, so the additional overhead of calling the function will be lost.</p>
+</div>
+<div class="paragraph">
+<p>Example function for computing volume of cube</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+<span class="directive">inline</span> <span class="predefined-type">float</span> cube(<span class="directive">const</span> <span class="predefined-type">float</span> s) {
+    <span class="keyword">return</span> s * s * s;
+}
+<span class="predefined-type">int</span> main() {
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Side of the cube: </span><span class="delimiter">&quot;</span></span>;
+    <span class="predefined-type">float</span> side;
+    cin &gt;&gt; side;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Volumen of a cube with side </span><span class="delimiter">&quot;</span></span> &lt;&lt; side &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> is: </span><span class="delimiter">&quot;</span></span> &lt;&lt; cube(side)
+            &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="additional-keywords-in-c">1.5. Additional keywords in C++</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>asm</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>explicit</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>operator</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>catch</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>friend</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>private</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>class</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>inline</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>protected</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>const_cast</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>mutable</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>public</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>delete</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>new</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>reinterpret_cast</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>dynamic_cast</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>namespace</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>static_cast</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>template</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>throw</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>using</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>this</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>try</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>virtual</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="using-code-typedef-code">1.6. Using <code>typedef</code></h3>
+<div class="paragraph">
+<p>Using <code>typedef</code> is permitted, but not necessary in defining structs, unions or enums) in C++.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+<span class="keyword">struct</span> Person {
+    <span class="predefined-type">char</span> ime[<span class="integer">80</span>], adresa[<span class="integer">90</span>];
+    <span class="predefined-type">double</span> plata;
+};
+<span class="predefined-type">int</span> main() {
+    Person Vraboten[<span class="integer">50</span>]; <span class="comment">// pole so elementi od tip struct Person</span>
+    Person Rakovoditel;
+    Rakovoditel.ime = <span class="string"><span class="delimiter">&quot;</span><span class="content">Aleksandar</span><span class="delimiter">&quot;</span></span>;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Imeto na rakovoditelot e</span><span class="delimiter">&quot;</span></span> &lt;&lt; Rakovoditel.ime &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="functions-as-struct-members">1.7. Functions as struct members</h3>
+<div class="paragraph">
+<p>In C++ functions can be defined inside of a struct.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">struct</span> Person {
+    <span class="predefined-type">char</span> ime[<span class="integer">80</span>], adresa[<span class="integer">80</span>];
+    <span class="comment">// declaration of function for printing the name and the address</span>
+    <span class="directive">void</span> print(<span class="directive">void</span>);
+};</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The function <code>print()</code> is only declared; the body is in another part of the program.</p>
+</li>
+<li>
+<p>The size of the struct (<code>sizeof</code>) is determined <strong>only</strong> from the size of the data members.
+Functions that are declared does not affect its size.</p>
+</li>
+<li>
+<p>Access of the function defined as part of the struct is identical as the access of the data members, i.e. using the operator <code>.</code> or for pointers <code>&#8594;</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage-of-function-as-struct-member">1.8. Usage of function as struct member</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+<span class="keyword">struct</span> Person {
+    <span class="predefined-type">char</span> ime[<span class="integer">80</span>], adresa[<span class="integer">90</span>];
+    <span class="predefined-type">double</span> plata;
+    <span class="directive">void</span> printperson();
+};
+<span class="directive">void</span> Person::printperson() {
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Imeto na vraboteniot e:</span><span class="delimiter">&quot;</span></span> &lt;&lt; ime &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">a, negovata adresa e:</span><span class="delimiter">&quot;</span></span>
+            &lt;&lt; adresa &lt;&lt; endl;
+}
+<span class="predefined-type">int</span> main() {
+    Person Rakovoditel;
+    <span class="comment">//...fali inicijalizacija</span>
+    Rakovoditel.printperson();
+    <span class="keyword">return</span> (<span class="integer">0</span>);
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Аудиториска-вежба-2">2. Аудиториска вежба 2</h2>
+<h2 id="references">2. References</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="definition-and-declaration">2.1. Definition and declaration</h3>
 <div class="paragraph">
-<p><a href="oop_av2.html">HTML</a> | <a href="../pdf/oop_av2.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av2_src.zip">Source code ZIP</a></p>
+<p>Reference is new data type in C++ similar to the pointer type in C but safer and more convenient for usage.</p>
+</div>
+<div class="listingblock">
+<div class="title">Declaration</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++">&lt;Type&gt; &amp; &lt;Name&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="predefined-type">int</span> A = <span class="integer">5</span>;
+<span class="predefined-type">int</span>&amp; rA = &amp;A;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="differences-and-similarities-with-pointers">2.2. Differences and similarities with pointers</h3>
+<div class="paragraph">
+<p>References in C++ have these differences with pointers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Direct access to the reference after its declaration is not possible, each access is actually access to the variable/object it is referencing.</p>
+</li>
+<li>
+<p>Once initialized it can not be dereferenced or refer to other variable/object.</p>
+</li>
+<li>
+<p>It can not be NULL (referencing nothing).</p>
+</li>
+<li>
+<p>Once declared they must be initialized.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usage">2.3. Usage</h3>
+<div class="paragraph">
+<p>One of the most important usage is passing function arguments.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="predefined-type">int</span> swap(<span class="predefined-type">int</span> &amp;a, <span class="predefined-type">int</span> &amp;b) {
+    a += b;
+    b = a - b;
+    a -= b;
+}
+<span class="predefined-type">int</span> main() {
+    <span class="predefined-type">int</span> x = <span class="integer">10</span>;
+    <span class="predefined-type">int</span> y = <span class="integer">15</span>;
+    swap(x, y);
+    <span class="comment">// x = 15, y = 10</span>
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example-arguments-struct-reference">2.4. Example arguments struct reference</h3>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="comment">// declaration of struct</span>
+<span class="keyword">struct</span> Person {
+    <span class="predefined-type">char</span> name[<span class="integer">80</span>], address[<span class="integer">90</span>];
+    <span class="predefined-type">double</span> sallary;
+};
+Person employee[<span class="integer">50</span>]; <span class="comment">// array of Person</span>
+<span class="comment">// print accepts reference to Person struct</span>
+<span class="directive">void</span> print(Person <span class="directive">const</span> &amp;p) {
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Name of the employee is: </span><span class="delimiter">&quot;</span></span> &lt;&lt; p.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> and his address is: </span><span class="delimiter">&quot;</span></span>
+            &lt;&lt; p.address &lt;&lt; endl;
+}
+<span class="comment">// return data of the employee by his index</span>
+Person <span class="directive">const</span> &amp;getEmployee(<span class="predefined-type">int</span> index) {
+... <span class="keyword">return</span> (person[index]); <span class="comment">// returns reference</span>
+}
+<span class="predefined-type">int</span> main() {
+    Person employee;
+    print(employee); <span class="comment">// passing is same as is there was no reference</span>
+    <span class="keyword">return</span> (<span class="integer">0</span>);
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Аудиториска-вежба-3">3. Аудиториска вежба 3</h2>
+<h2 id="new-casting-syntax">3. New casting syntax</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="oop_av3.html">HTML</a> | <a href="../pdf/oop_av3.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av3_src.zip">Source code ZIP</a></p>
+<p>In C we used the following cast syntax:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c">(typename)expression
+(<span class="predefined-type">float</span>) nominator;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In C++ it&#8217;s available new notation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c++"><span class="keyword">typename</span>(expression)
+<span class="predefined-type">float</span>(nominator);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also there are 4 new ways of casting in C++:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>static_cast&lt;type&gt;(expression)</code> - standard static casting</p>
+</li>
+<li>
+<p><code>const_cast&lt;type&gt;(expression)</code> - used for modifying the type of constants</p>
+</li>
+<li>
+<p><code>reintrepret_cast&lt;type&gt;(expression)</code> - used to reinterpret the information</p>
+</li>
+<li>
+<p><code>dynamic_cast&lt;type&gt;(expression)</code> - polymorphism casting</p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="solutions-of-problems-with-structures-in-c">4. Solutions of problems with structures in C++</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Solution <code>oop_av24_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span> <span class="comment">// string.h math.h -&gt; cmath</span>
+using namespace std;
+
+<span class="keyword">struct</span> student {
+    <span class="predefined-type">char</span> firstName[<span class="integer">50</span>];
+    <span class="predefined-type">char</span> lastName[<span class="integer">50</span>];
+    <span class="predefined-type">int</span> number;
+    <span class="predefined-type">int</span> totalPoints;
+    <span class="directive">void</span> print() {
+        cout &lt;&lt; firstName &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+        cout &lt;&lt; lastName &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+        cout &lt;&lt; number &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+        cout &lt;&lt; totalPoints &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
+    }
+};
+
+
+<span class="directive">void</span> normalize(<span class="predefined-type">char</span> *name, <span class="predefined-type">bool</span> allUppercase = <span class="predefined-constant">false</span>) {
+    *name = toupper(*name);
+    ++name;
+    <span class="keyword">while</span>(*name) {
+        <span class="keyword">if</span>(allUppercase) {
+            *name = toupper(*name);
+        } <span class="keyword">else</span> {
+            *name = tolower(*name);
+        }
+        ++name;
+    }
+}
+
+<span class="comment">/*void normalize(char *name) {
+    normalize(name, false);
+}
+*/</span>
+<span class="directive">void</span> read(student &amp;s) {
+    cin &gt;&gt; s.firstName;
+    cin &gt;&gt; s.lastName;
+    normalize(s.firstName);
+    normalize(s.lastName);
+    cin &gt;&gt; s.number;
+    <span class="predefined-type">int</span> a, b, c, d;
+    cin &gt;&gt; a &gt;&gt; b &gt;&gt; c &gt;&gt; d;
+    s.totalPoints = a + b + c + d;
+}
+
+
+
+<span class="directive">void</span> sort(student s[], <span class="predefined-type">int</span> n) {
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> j = <span class="integer">0</span>; j &lt; n - <span class="integer">1</span>; ++j) {
+            <span class="keyword">if</span>(s[j].totalPoints &lt; s[j + <span class="integer">1</span>].totalPoints) {
+                student tmp = s[j];
+                s[j] = s[j + <span class="integer">1</span>];
+                s[j + <span class="integer">1</span>] = tmp;
+            }
+        }
+    }
+}
+
+<span class="predefined-type">int</span> main() {
+    student s[<span class="integer">100</span>];
+    <span class="predefined-type">int</span> n;
+    cin &gt;&gt; n;
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        read(s[i]);
+    }
+    sort(s, n);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">======== ORDERED ========</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    <span class="comment">//read(s);</span>
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        s[i].print();
+        <span class="comment">//print(s[i]);</span>
+    }
+
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av25_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="c"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
+using namespace std;
+
+<span class="keyword">struct</span> city {
+    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
+    <span class="predefined-type">int</span> population;
+};
+
+<span class="keyword">struct</span> country {
+    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
+    <span class="predefined-type">char</span> president[<span class="integer">100</span>];
+    city capital;
+    <span class="predefined-type">int</span> population;
+    <span class="directive">void</span> print() {
+        cout &lt;&lt; name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; president &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+        cout &lt;&lt; capital.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+        cout &lt;&lt; capital.population &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+        cout &lt;&lt; population &lt;&lt; endl;
+    }
+};
+
+<span class="directive">void</span> print(country &amp;c) {
+    cout &lt;&lt; c.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; c.president &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+    cout &lt;&lt; c.capital.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+    cout &lt;&lt; c.capital.population &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="delimiter">&quot;</span></span>;
+    cout &lt;&lt; c.population &lt;&lt; endl;
+}
+
+<span class="directive">void</span> read(<span class="predefined-type">int</span> n, country c[]) {
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        cin &gt;&gt; c[i].name;
+        cin &gt;&gt; c[i].president;
+        cin &gt;&gt; c[i].capital.name;
+        cin &gt;&gt; c[i].capital.population;
+        cin &gt;&gt; c[i].population;
+    }
+}
+
+<span class="predefined-type">int</span> sum(<span class="predefined-type">int</span> a = <span class="integer">0</span>, <span class="predefined-type">int</span> b = <span class="integer">5</span>) {
+    <span class="keyword">return</span> a + b;
+}
+
+<span class="directive">void</span> maxCapitalPopulation(<span class="predefined-type">int</span> n, country c[]) {
+    country max = c[<span class="integer">0</span>];
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">1</span>; i &lt; n; ++i) {
+        <span class="keyword">if</span> (c[i].capital.population &gt; max.capital.population) {
+            max = c[i];
+        }
+    }
+
+    cout &lt;&lt; max.president &lt;&lt; endl;
+}
+
+<span class="predefined-type">int</span> main() {
+    country countries[<span class="integer">100</span>];
+    country &amp;first = countries[<span class="integer">0</span>];
+    first = countries[<span class="integer">1</span>];
+    <span class="predefined-type">int</span> n;
+    cin &gt;&gt; n;
+    read(n, countries);
+
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        <span class="comment">//print(countries[i]);</span>
+        countries[i].print();
+    }
+
+    maxCapitalPopulation(n, countries);
+<span class="comment">/*    cout &lt;&lt; sum(3, 10) &lt;&lt; endl;
+    cout &lt;&lt; sum(10) &lt;&lt; endl;
+    cout &lt;&lt; sum() &lt;&lt; endl;*/</span>
+
+
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="source-code-of-the-examples-and-problems">5. Source code of the examples and problems</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/finki-mk/SP/" class="bare">https://github.com/finki-mk/SP/</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://finki-mk.github.io/OOP/sources/oop_av2_src_en.zip">Source code ZIP</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Верзија 1.0<br>
-Last updated 2017-02-27 11:58:05 +01:00
+Version 1.0<br>
+Last updated 2017-02-27 12:01:34 +01:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

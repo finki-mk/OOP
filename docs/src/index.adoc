@@ -8,3 +8,11 @@ include::parts/attributes.adoc[]
 == Аудиториска вежба 1
 
 link:oop_av1.html[HTML] | link:{pdf_source}/oop_av1.pdf[PDF] | link:{sources_zip}/oop_av1_src.zip[Source code ZIP]
+
+== Аудиториска вежба 2
+
+link:oop_av2.html[HTML] | link:{pdf_source}/oop_av2.pdf[PDF] | link:{sources_zip}/oop_av2_src.zip[Source code ZIP]
+
+== Аудиториска вежба 3
+
+link:oop_av3.html[HTML] | link:{pdf_source}/oop_av3.pdf[PDF] | link:{sources_zip}/oop_av3_src.zip[Source code ZIP]

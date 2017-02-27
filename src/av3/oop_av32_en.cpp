@@ -16,31 +16,31 @@ public:
     Person() {
     }
 
-    Person(char *n, int s, position p) {
-        strcpy(name, n);
-        salary = s;
-        pos = p;
+    Person(char *name, int salary, position pos) {
+        strcpy(this->name, name);
+        this->salary = salary;
+        this->pos = pos;
     }
     // Destruktor
     ~Person() {
     }
 
-    void setName(char const *n) {
-        strcpy(name, n);
+    void setName(char const *name) {
+        strcpy(this->name, name);
     }
-    void setSalary(int const s) {
-        salary = s;
+    void setSalary(int const salary) {
+        this->salary = salary;
     }
     void setPosition(position p) {
         pos = p;
     }
-    char const *getName() {
+    char *getName() const {
         return name;
     }
-    int const getSalary() {
+    int getSalary() const {
         return salary;
     }
-    position const getPosition() {
+    position getPosition() const {
         return pos;
     }
 };

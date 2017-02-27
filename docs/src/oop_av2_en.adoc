@@ -1,0 +1,287 @@
+# Object oriented programming
+Exercises 2
+v1.0, 24 February, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av2
+
+== Introduction in C++
+
+=== Introduction
+
+- C++ includes many characteristics of the C programming language enriched with object-oriented flavour (OOP)
+- C++ is developed at Bell laboratories and at the beginning was called "С with classes"
+- The name С++ is increment of C (++) and this means that C++ is extended C
+- C++ compiler can be used to compile C programs
+
+=== Input/Output streams in C++ `<iostream>`
+
+In C++ to work with input/output streams instead of functions `printf` and `scanf` we use the operators:
+
+- `<<` from the object `cout` (`cout <<`)
+- `>>` from the object `cin` (`cin >>`)
+
+.Example C
+[source,c]
+----
+printf("Enter new value: ");
+scanf("%d", &value);
+printf("The new value is: %d\n", value);
+----
+
+.Example C++
+[source,c++]
+----
+cout << "Enter new value: ";
+cin >> value;
+cout << "The new value is: " << value << '\n';
+----
+
+It is recommended to replace the usage `\n` with `endl`:
+[source,c++]
+----
+cout << "The new value is: " << value << endl; 
+----
+
+NOTE: To work with input/output streams in C++ you should include the header `<iostream>`
+      
+.Example `oop_av21_en.cpp`
+[source,c++]
+----
+include::{source_dir}/oop_av21_en.cpp[]
+----
+
+=== Declaration of variables in C++
+
+The variables in C++ can be declared anywhere in the program until their declaration is before the usage.
+
+[source,c++]
+----
+for(int i = 0;  i < 5; i++) 
+    cout << i << endl;
+----
+
+The scope of the local variables begins with the declaration and ends at the end of the block `}`. 
+The declaration can be done in the conditions or in the loop expressions `while`, `do/while`, `for` or `if`.
+
+=== `inline` functions
+
+Each standard call of function consumes additional time in the process of calling the function. 
+In C++ while defining small and simple function the keyword `inline` can be used, so each call of this function can be replaced with the body of the function, so the additional overhead of calling the function will be lost.
+
+Example function for computing volume of cube
+[source,c++]
+----
+#include <iostream>
+using namespace std;
+inline float cube(const float s) {
+    return s * s * s;
+}
+int main() {
+    cout << "Side of the cube: ";
+    float side;
+    cin >> side;
+    cout << "Volumen of a cube with side " << side << " is: " << cube(side)
+            << endl;
+    return 0;
+}
+----
+
+=== Additional keywords in C++
+
+[cols="^,^,^"]
+|===
+| `asm`          | `explicit`  | `operator` 
+| `catch`        | `friend`    | `private`
+| `class`        | `inline`    | `protected` 
+| `const_cast`   | `mutable`   | `public` 
+| `delete`       | `new`       | `reinterpret_cast`
+| `dynamic_cast` | `namespace` | `static_cast`  
+| `template`     | `throw`     | `using` 
+| `this`         | `try`       | `virtual` 
+|===
+
+=== Using `typedef`
+
+Using `typedef` is permitted, but not necessary in defining structs, unions or enums) in C++.
+
+.Example
+[source,c++]
+----
+#include <iostream>
+using namespace std;
+struct Person {
+    char ime[80], adresa[90];
+    double plata;
+};
+int main() {
+    Person Vraboten[50]; // pole so elementi od tip struct Person
+    Person Rakovoditel;
+    Rakovoditel.ime = "Aleksandar";
+    cout << "Imeto na rakovoditelot e" << Rakovoditel.ime << endl;
+    return 0;
+}
+----
+
+=== Functions as struct members
+
+In C++ functions can be defined inside of a struct.
+
+.Example
+[source,c++]
+----
+struct Person {
+    char ime[80], adresa[80];
+    // declaration of function for printing the name and the address
+    void print(void);
+};
+----
+
+- The function `print()` is only declared; the body is in another part of the program.
+- The size of the struct (`sizeof`) is determined *only* from the size of the data members.
+Functions that are declared does not affect its size.
+- Access of the function defined as part of the struct is identical as the access of the data members, i.e. using the operator `.` or for pointers `->`. 
+
+=== Usage of function as struct member
+
+.Example
+[source,c++]
+----
+#include <iostream>
+using namespace std;
+struct Person {
+    char ime[80], adresa[90];
+    double plata;
+    void printperson();
+};
+void Person::printperson() {
+    cout << "Imeto na vraboteniot e:" << ime << "a, negovata adresa e:"
+            << adresa << endl;
+}
+int main() {
+    Person Rakovoditel;
+    //...fali inicijalizacija
+    Rakovoditel.printperson();
+    return (0);
+}
+----
+
+== References
+
+=== Definition and declaration
+
+Reference is new data type in C++ similar to the pointer type in C but safer and more convenient for usage.
+
+.Declaration
+[source,c++]
+----
+<Type> & <Name>
+----
+
+.Example
+[source,c++]
+----
+int A = 5;
+int& rA = &A;
+----
+
+=== Differences and similarities with pointers
+
+References in C++ have these differences with pointers:
+
+- Direct access to the reference after its declaration is not possible, each access is actually access to the variable/object it is referencing.
+- Once initialized it can not be dereferenced or refer to other variable/object.
+- It can not be NULL (referencing nothing).
+- Once declared they must be initialized.
+
+=== Usage
+
+One of the most important usage is passing function arguments.
+
+.Example
+[source,c++]
+----
+int swap(int &a, int &b) {
+    a += b;
+    b = a - b;
+    a -= b;
+}
+int main() {
+    int x = 10;
+    int y = 15;
+    swap(x, y);
+    // x = 15, y = 10
+    return 0;
+}
+----
+
+=== Example arguments struct reference
+
+.Example
+[source,c++]
+----
+// declaration of struct
+struct Person {
+    char name[80], address[90];
+    double sallary;
+};
+Person employee[50]; // array of Person 
+// print accepts reference to Person struct
+void print(Person const &p) {
+    cout << "Name of the employee is: " << p.name << " and his address is: "
+            << p.address << endl;
+}
+// return data of the employee by his index
+Person const &getEmployee(int index) {
+... return (person[index]); // returns reference
+}
+int main() {
+    Person employee;
+    print(employee); // passing is same as is there was no reference
+    return (0);
+}
+----
+
+== New casting syntax
+
+In C we used the following cast syntax:
+
+[source,c]
+----
+(typename)expression
+(float) nominator;
+----
+
+In C++ it's available new notation:
+[source,c++]
+----
+typename(expression)
+float(nominator);
+----
+
+Also there are 4 new ways of casting in C++:
+
+- `static_cast<type>(expression)` - standard static casting
+- `const_cast<type>(expression)` - used for modifying the type of constants
+- `reintrepret_cast<type>(expression)` - used to reinterpret the information
+- `dynamic_cast<type>(expression)` - polymorphism casting
+
+<<<
+
+== Solutions of problems with structures in C++
+
+.Solution `oop_av24_en.cpp`
+[source,c]
+----
+include::{source_dir}/oop_av24_en.cpp[]
+----
+
+.Solution `oop_av25_en.cpp`
+[source,c]
+----
+include::{source_dir}/oop_av25_en.cpp[]
+----
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av2_src_en.zip[Source code ZIP]

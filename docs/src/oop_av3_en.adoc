@@ -1,0 +1,97 @@
+# Object oriented programming
+Exercises 3
+v1.0, 24 February, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av3
+
+== Classes
+
+=== Defining `class`
+
+.Syntax
+[source,c++]
+----
+class class_name {
+private:
+/* variables and methods not visible outside of class */
+public :
+/* variables and methods visible outside of class */
+};
+----
+
+.Example `oop_av3_ex1.cpp`
+[source,c++]
+----
+include::{source_dir}/oop_av3_ex1.cpp[tags=class]
+----
+
+=== Creating (instantiating) objects
+
+.Syntax
+[source,c++]
+----
+class_name object_name;
+----
+
+.Example `oop_av3_ex1.cpp`
+[source,c++]
+----
+include::{source_dir}/oop_av3_ex1.cpp[tags=instance]
+----
+
+=== Objects lifecycle
+
+- Constructor - special method of each class which is called always when an object of the class is created (instantiated)
+- Destructor - special method of each class which is called to free the memory that the instantiated object allocated
+
+== Problems
+
+=== Triangle
+
+Write a class for geometric figure triangle. 
+In the class implement methods for computing the area and perimeter of the triangle.
+
+Then, write a main function where you will instantiate one object of this class with values read from SI. 
+Call the methods of this object for computing area and perimeter.
+
+.Solution `oop_av31_en.cpp`
+[source,c++]
+----
+include::{source_dir}/oop_av31_en.cpp[]
+----
+
+=== Employee
+
+Write a class that will represent an employee with following attributes:
+
+- name
+- salary
+- working position (employee, manager or owner).
+
+Write a main function where from SI you will read data for N employees, and then print a list of employees sorted in descending order by the salary.
+
+.Solution `oop_av32_en.cpp`
+[source,c++]
+----
+include::{source_dir}/oop_av32_en.cpp[]
+----
+
+=== E-mail
+
+Write a class that defines an e-mail message. 
+The class should implement method for showing the contents of the message on the screen.
+
+Then write a main function where the parameters of the message are read from SI and an object of this class is instantiated. 
+Then call the method for printing the message. 
+The validity of the e-mail address should be checked with existence of the `@` character.
+
+.Solution `oop_av33_en.cpp`
+[source,c++]
+----
+include::{source_dir}/oop_av33_en.cpp[]
+----
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av3_src_en.zip[Source code ZIP]

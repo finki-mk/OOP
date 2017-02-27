@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-
 class EMail {
 private:
     enum {
@@ -13,11 +12,11 @@ private:
     char body[BodyLen];
 public:
 
-    EMail(char *_to, char *_from, char *_subject, char *_body) {
-        strncpy(to, _to, AddrLen - 1);
-        strncpy(from, _from, AddrLen - 1);
-        strncpy(subject, _subject, SubLen - 1);
-        strncpy(body, _body, BodyLen - 1);
+    EMail(char *to, char *from, char *subject, char *body) {
+        strncpy(this->to, to, AddrLen - 1);
+        strncpy(this->from, from, AddrLen - 1);
+        strncpy(this->subject, subject, SubLen - 1);
+        strncpy(this->body, body, BodyLen - 1);
         to[AddrLen - 1] = subject[SubLen - 1] = 0;
         from[AddrLen - 1] = subject[SubLen - 1] = body[BodyLen - 1] = 0;
     }
