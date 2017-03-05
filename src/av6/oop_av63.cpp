@@ -9,10 +9,10 @@ private:
     float prosek;
     int godina;
 public:
-    Ucenik (const char* ii="", float pp=0, int gg=0)
+    Ucenik (const char* ii = "", float pp = 0, int gg = 0)
     {
-        ime = new char[strlen(ii)+1];
-        strcpy (ime,ii);
+        ime = new char[strlen(ii) + 1];
+        strcpy (ime, ii);
         prosek = pp;
         godina = gg;
     }
@@ -23,8 +23,8 @@ public:
         prosek = u.prosek;
         godina = u.godina;
     }
-    ~Ucenik(){
-       delete [] ime;
+    ~Ucenik() {
+        delete [] ime;
     }
 
     Ucenik& operator= (const Ucenik& u)
@@ -33,7 +33,7 @@ public:
         {
             delete  []  ime;
             ime = new char[strlen(u.ime)] ;
-            strcpy (ime,u.ime) ;
+            strcpy (ime, u.ime) ;
             prosek = u.prosek ;
             godina = u.godina ;
         }
@@ -49,13 +49,13 @@ public:
         return u;
     }
     float getProsek() {
-         return prosek;
+        return prosek;
     }
     // globalna funkcija za preoptovaruvanje na operatorot <<
     // ovaa funkcija e prijatelska na klasata Ucenik
     friend ostream& operator<< (ostream& o, const Ucenik& u)
     {
-         return o << "Ime:" << u.ime << ", godina:" << u.godina << ",prosek:"<< u.prosek << endl;
+        return o << "Ime:" << u.ime << ", godina:" << u.godina << ",prosek:" << u.prosek << endl;
     }
     friend bool operator> (const Ucenik& u1, const Ucenik& u2);
 };
@@ -68,15 +68,15 @@ bool operator> (const Ucenik& u1, const Ucenik& u2)
 
 class Paralelka
 {
-    private:
-        Ucenik* spisok;
-        int vkupno;
-    public:
+private:
+    Ucenik* spisok;
+    int vkupno;
+public:
     Paralelka (Ucenik* s = 0, int v = 0)
     {
         vkupno = v;
         spisok = new Ucenik [vkupno];
-        for (int i = 0; i< vkupno ; i ++)
+        for (int i = 0; i < vkupno ; i ++)
             spisok[i] = s[i];
     }
 
@@ -84,14 +84,14 @@ class Paralelka
     {
         this -> vkupno = p.vkupno;
         this -> spisok = new Ucenik[vkupno];
-        for (int i = 0; i< vkupno; i ++)
+        for (int i = 0; i < vkupno; i ++)
             spisok[i] = p.spisok[i];
     }
 
-    ~Paralelka(){
+    ~Paralelka() {
         delete [] spisok;
     }
-       Paralelka& operator+= (Ucenik u) {
+    Paralelka& operator+= (Ucenik u) {
         Ucenik* tmp = new Ucenik[vkupno + 1];
         for (int i = 0; i < vkupno; i++)
             tmp[i] = spisok[i];
@@ -122,16 +122,16 @@ class Paralelka
 
     void nagradi()
     {
-        for (int i = 0; i<vkupno; i++)
-            if (spisok[i].getProsek()==10.0)
-               cout << spisok[i];
+        for (int i = 0; i < vkupno; i++)
+            if (spisok[i].getProsek() == 10.0)
+                cout << spisok[i];
     }
 
     void najvisokProsek()
     {
         Ucenik tmpU = spisok[0];
-        for(int i = 0; i < vkupno; i++)
-            if( spisok[i] > tmpU)
+        for (int i = 0; i < vkupno; i++)
+            if ( spisok[i] > tmpU)
                 tmpU = spisok[i];
         cout << "Najvisok prosek vo paralelkata:" << tmpU.getProsek() << endl;
     }
@@ -144,20 +144,20 @@ int main ()
     Ucenik u3("Angela Angelovska", 10, 3);
 
     Paralelka p;
-    p+=u1;
-    p+=u2;
-    p+=u3;
+    p += u1;
+    p += u2;
+    p += u3;
 
     cout << p;
     cout << "Nagradeni:" << endl;
     p.nagradi();
-    cout<<endl;
+    cout << endl;
     p.najvisokProsek();
-    cout<<endl;
+    cout << endl;
 
     u2++;
     cout << p;
-    cout<<endl;
+    cout << endl;
     p++;
     cout << p;
 

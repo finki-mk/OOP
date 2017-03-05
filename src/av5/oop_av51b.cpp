@@ -20,17 +20,17 @@ public:
     }
     //get funkciite kako konstantni funkcii
     //vo niv ne se menuvaat podatocite od klasata
-    const char *getIme() const{
+    const char *getIme() const {
         return ime;
     }
-    const char *getGrad() const{
+    const char *getGrad() const {
         return grad;
     }
-    const char *getStadion() const{
+    const char *getStadion() const {
         return stadion;
     }
     void setIme(char *ime) {
-        strcpy(this->ime,ime);
+        strcpy(this->ime, ime);
     }
     ~Ekipa() {}
 };
@@ -69,48 +69,48 @@ public:
         return goloviGostin;
     }
     ~Natprevar() {
-      cout<<"\nVo destruktor"<<endl;
-      delete domakin;
-      delete gostin;
+        cout << "\nVo destruktor" << endl;
+        delete domakin;
+        delete gostin;
     }
     //friend funkcija
     friend bool isTip(Natprevar n, char tip);
 };
 
 bool  isTip(Natprevar n, char tip) {
-    if (n.goloviDomakin==n.goloviGostin && tip=='X') return true;
-    else if (n.goloviDomakin>n.goloviGostin && tip=='1') return true;
-    else if (n.goloviDomakin<n.goloviGostin && tip=='2') return true;
+    if (n.goloviDomakin == n.goloviGostin && tip == 'X') return true;
+    else if (n.goloviDomakin > n.goloviGostin && tip == '1') return true;
+    else if (n.goloviDomakin < n.goloviGostin && tip == '2') return true;
     else return false;
 }
 
 int main() {
 
-    Ekipa e1("Real Madrid","Madrid","Santiago Bernabeu");
-    Ekipa e2("FC Barcelona", "Barcelona","Camp Nou");
+    Ekipa e1("Real Madrid", "Madrid", "Santiago Bernabeu");
+    Ekipa e2("FC Barcelona", "Barcelona", "Camp Nou");
 
     Natprevar first(e1, e2, 1, 3);
 
-    cout<<"Vnesi tip za natprevarot: ";
-    cout<<first.getDomakin()->getIme();//getIme - const funkcija
-    cout<<"-";
-    cout<<first.getGostin()->getIme();
-    cout<<endl;
+    cout << "Vnesi tip za natprevarot: ";
+    cout << first.getDomakin()->getIme(); //getIme - const funkcija
+    cout << "-";
+    cout << first.getGostin()->getIme();
+    cout << endl;
 
 
     char tip; //1, 2 ili X
-    cin>>tip;
+    cin >> tip;
 
-    if (isTip(first,tip)) cout<<"Tipot e pogoden";
-    else cout<<"Tipot ne e pogoden";
+    if (isTip(first, tip)) cout << "Tipot e pogoden";
+    else cout << "Tipot ne e pogoden";
 
     first.getDomakin()->setIme("RLM"); //mozno e
     //first.getGostin().setIme("BAR"); //ne e mozno:getGostin vrakja konstanten pokazuvac
 
-    cout<<"\nNatprevarot beshe megju: ";
-    cout<<first.getDomakin()->getIme();
-    cout<<"-";
-    cout<<first.getGostin()->getIme();
+    cout << "\nNatprevarot beshe megju: ";
+    cout << first.getDomakin()->getIme();
+    cout << "-";
+    cout << first.getGostin()->getIme();
 
     return 0;
 }

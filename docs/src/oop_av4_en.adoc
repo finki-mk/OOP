@@ -1,0 +1,71 @@
+# Object oriented programming
+Exercises 4
+v1.0, 3 March, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av4
+
+== Composition
+
+=== Date
+
+Define a class for `Mate` that is described with name, age and gender.
+
+Then, define a class `Date` that keeps data for two mates.
+
+In this class, implement a function `bool isSuccess()` that should compute the success of the date.
+The date is successful if the sum of sums of the ASCII values of the names of the mates is even number.
+Also implement a function that will print the mates of the date in format:
+
+----
+Date between:
+[Name] [Age] [Gender]
+[Name] [Age] [Gender]
+----
+
+.Solution `oop_av41_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av41_en.cpp[]
+----
+
+=== Team
+
+Define a class `Team` that is described with name, year of founding and the city.
+Define a class `Game` that keeps information for the host and the guest (objects of class `Team`), goals scored by the host and goals scored by the guest.
+
+Define a function `rematch` that as arguments accepts two objects of class `Game` and checks if one of them is a rematch of the other.
+A match is a rematch if the host of the first game is a guest in the second game, and vice versa.
+If the match is a rematch, return the aggregate winner of the fixture (the one that scored more goals on aggregate).
+
+.Решение `oop_av42_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av42_en.cpp[]
+----
+
+////
+
+=== Вработен
+
+Да се напише класа `Datum` во која ќе се чуваат ден, месец и година (цели броеви). 
+
+Да се напише класа `Vraboten` во која се чува име на вработениот (не повеќе од 20 знаци), плата и датум на раѓање (објект од класата `Datum`). 
+
+Да се напишат две функции кои како аргументи примаат низа од вработени и големина на низата. 
+Едната функција го враќа вработениот со најголема плата, а другата функција го враќа најмладиот вработен во фирмата. 
+
+Во главната програма потребно е да се испечатат на екран податоците за најмалдиот и најплатениот вработен. 
+Печатењето на вработениот да биде реализирано со посебна функција `print()` во рамките на класата `Vraboten`.
+
+.Решение `oop_av43.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av43.cpp[]
+----
+////
+
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av4_src_en.zip[Source code ZIP]

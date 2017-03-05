@@ -62,7 +62,7 @@ public:
         Complex res(a + n, b);
         return res;
     }
-    friend Complex operator+(float n,Complex &c);
+    friend Complex operator+(float n, Complex &c);
 
     friend ostream &operator<<(ostream &x, const Complex &c) {
         x << c.a;
@@ -77,7 +77,7 @@ public:
 Complex operator-(const Complex &c1, const Complex &c2) {
     return Complex(c1.a - c2.a, c1.b - c2.b);
 }
-Complex operator+(float n,Complex &c) {
+Complex operator+(float n, Complex &c) {
     Complex res(c.a + n, c.b);
     return res;
 }
