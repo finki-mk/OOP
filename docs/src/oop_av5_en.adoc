@@ -1,0 +1,102 @@
+# Object oriented programming
+Exercises 4
+v1.0, 16 March, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av5
+
+== Friend functions, dynamic memory allocation 
+
+=== Example 1
+
+Define a class `Team` with information for the name of the team, the stadium that they play and their home city.
+
+In the main function create two pointers to objects of class `Team`.
+Then print the information for the created objects.
+ 
+.Solution `oop_av51a_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av51a_en.cpp[]
+----
+
+=== Example 2
+
+Define class `Game` with information for home team and away team (pointers to objects of class `Team`), goals scored by the home team and goals scored by the away team. 
+
+Define a global functions `isPick` that as arguments accepts single object of the class `Game` and a pick (single character: 1, 2 or X) and returns if the selected pick holds for the game. 
+
+In the main function create an object of class `Game` and check if the pick 1 holds for the created game.
+ 
+.Solution `oop_av51b_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av51b_en.cpp[]
+----
+
+=== Example 3
+
+In the main function create pointer to dynamically allocated array of objects of the class `Team`. 
+Enter N teams from SI, and sort by their name and print on SO.
+ 
+.Solution `oop_av51c_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av51c_en.cpp[]
+----
+
+== Problems
+
+=== Array
+
+Implement class `Array` for working with one-dimensional array of integers. 
+Reserve the memory dynamically.
+Implements the following functions in the class:
+
+- `add` - adding new elements (integer), and if the capacity is filled it should be expanded for 100%.
+- `replaceAll` - that accepts two integer arguments А and В and replaces all occurrences of element A with the element B.
+- `deleteAll` - that deletes all occurrences of the passed argument. 
+- `print` - for printing the array
+
+Test the class in the main function.
+
+.Solution `oop_av52_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av52_en.cpp[]
+----
+
+=== Web Server
+
+Write a class that represents a `WebServer`.
+For each web server we store:
+
+- name (max 30 chars)
+- list of web pages (dynamically allocated array of objects of class `WebPage`.
+
+For each web page we store:
+
+- url (max 100 characters)
+- contents (dynamically allocated array of characters). 
+
+In the class `WebPage` implement the following functions:
+
+- `equal(WebPage wp)` - for comparing two web pages by their url
+
+For the class `WebServer` implement:
+
+- `addPage(WebPage wp)` - for adding new web page if it doesn't exist in the server already.
+Increase the capacity for +1.
+
+- `deletePage(WebPage wp)` - for deleting a web page from the server if it exists.
+The capacity should be decreased for -1.
+
+.Solution `oop_av53_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av53_en.cpp[]
+----
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av5_src_en.zip[Source code ZIP]
