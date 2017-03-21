@@ -25,3 +25,6 @@ link:oop_av4_en.html[HTML] | link:{pdf_source}/oop_av4_en.pdf[PDF] | link:{sourc
  
 link:oop_av5_en.html[HTML] | link:{pdf_source}/oop_av5_en.pdf[PDF] | link:{sources_zip}/oop_av5_src_en.zip[Source code ZIP]
 
+== Exercise 6
+ 
+link:oop_av6_en.html[HTML] | link:{pdf_source}/oop_av6_en.pdf[PDF] | link:{sources_zip}/oop_av6_src_en.zip[Source code ZIP]

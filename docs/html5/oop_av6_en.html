@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Exercises">
+<meta name="author" content="Exercises 6">
 <title>Object oriented programming</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -514,68 +514,683 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>Object oriented programming</h1>
 <div class="details">
-<span id="author" class="author">Exercises</span><br>
+<span id="author" class="author">Exercises 6</span><br>
 <span id="revnumber">version 1.0,</span>
-<span id="revdate">16 February, 2017</span>
+<span id="revdate">21 March, 2017</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#exercise-1">1. Exercise 1</a></li>
-<li><a href="#exercise-2">2. Exercise 2</a></li>
-<li><a href="#exercise-3">3. Exercise 3</a></li>
-<li><a href="#exercise-4">4. Exercise 4</a></li>
-<li><a href="#exercise-5">5. Exercise 5</a></li>
-<li><a href="#exercise-6">6. Exercise 6</a></li>
+<li><a href="#operators-overloading">1. Operators overloading</a>
+<ul class="sectlevel2">
+<li><a href="#example-1">1.1. Example 1</a></li>
+<li><a href="#example-2">1.2. Example 2</a></li>
+</ul>
+</li>
+<li><a href="#problems">2. Problems</a>
+<ul class="sectlevel2">
+<li><a href="#complex-number">2.1. Complex number</a></li>
+<li><a href="#students">2.2. Students</a></li>
+</ul>
+</li>
+<li><a href="#source-code-of-the-examples-and-problems">3. Source code of the examples and problems</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="exercise-1">1. Exercise 1</h2>
+<h2 id="operators-overloading">1. Operators overloading</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="example-1">1.1. Example 1</h3>
 <div class="paragraph">
-<p><a href="oop_av1_en.html">HTML</a> | <a href="../pdf/oop_av1_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av1_src_en.zip">Source code ZIP</a></p>
+<p>In the class <code>Array</code> implement the following operators:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>+=</code> adding new elements in the array</p>
+</li>
+<li>
+<p><code>-=</code> deletes occurrences of the given integer argument</p>
+</li>
+<li>
+<p><code>&lt;&lt;</code> printing the elements of the array.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Test the class in a main function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av61a_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">Array</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">int</span> *x;
+    <span class="predefined-type">int</span> size;
+    <span class="predefined-type">int</span> capacity;
+<span class="directive">public</span>:
+    Array(<span class="directive">const</span> <span class="predefined-type">int</span> capacity = <span class="integer">5</span>) {
+        x = <span class="keyword">new</span> <span class="predefined-type">int</span>[capacity];
+        size = <span class="integer">0</span>;
+        <span class="local-variable">this</span>-&gt;capacity = capacity;
+    }
+
+    <span class="comment">// copy constructor</span>
+    Array(<span class="directive">const</span> Array &amp;a) {
+        size = a.size;
+        capacity = a.capacity;
+        x = <span class="keyword">new</span> <span class="predefined-type">int</span>[capacity];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; size; ++i) {
+            x[i] = a.x[i];
+        }
+    }
+
+    <span class="comment">// assignment operator =</span>
+    Array&amp; <span class="directive">operator</span>=(<span class="directive">const</span> Array &amp;a) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span> == &amp;a) <span class="keyword">return</span> *<span class="local-variable">this</span>;
+        size = a.size;
+        capacity = a.capacity;
+        <span class="keyword">delete</span> [] x;
+        x = <span class="keyword">new</span> <span class="predefined-type">int</span>[capacity];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; size; ++i) {
+            x[i] = a.x[i];
+        }
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    <span class="comment">// destructor</span>
+    ~Array() {
+        <span class="keyword">delete</span> [] x;
+    }
+    <span class="predefined-type">int</span> getSize() {
+        <span class="keyword">return</span> size;
+    }
+
+    <span class="predefined-type">int</span> getCapacity() {
+        <span class="keyword">return</span> capacity;
+    }
+
+    <span class="directive">const</span> <span class="predefined-type">int</span> *getX() {
+        <span class="keyword">return</span> x;
+    }
+
+    Array&amp; <span class="directive">operator</span>+=(<span class="predefined-type">int</span> n) {
+        <span class="keyword">if</span> (capacity == size) {
+            <span class="predefined-type">int</span> *y = <span class="keyword">new</span> <span class="predefined-type">int</span>[<span class="integer">2</span> * capacity];
+            <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; size; ++i) {
+                y[i] = x[i];
+            }
+            <span class="keyword">delete</span> [] x;
+            x = y;
+            capacity = capacity * <span class="integer">2</span>;
+        }
+        x[size] = n;
+        size++;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    Array&amp; <span class="directive">operator</span>-=(<span class="predefined-type">int</span> n) {
+        <span class="predefined-type">int</span> newSize = <span class="integer">0</span>;
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>, j = <span class="integer">0</span>; i &lt; size; ++i)
+            <span class="keyword">if</span> (x[i] != n) {
+                x[j++] = x[i];
+                newSize++;
+            }
+        size = newSize;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+  <span class="comment">//friend ostream &amp; operator&lt;&lt;(ostream &amp;o, Array &amp;a);</span>
+};
+
+ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream &amp;o, Array &amp;a) {
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; a.getSize(); ++i) {
+        o &lt;&lt; a.getX()[i] &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>;
+    }
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = a.getSize(); i &lt; a.getCapacity(); ++i) {
+        o &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">- </span><span class="delimiter">&quot;</span></span>;
+    }
+    o &lt;&lt; endl;
+    <span class="keyword">return</span> o;
+}
+<span class="predefined-type">int</span> main() {
+
+    Array a;
+    a += <span class="integer">6</span>;
+    a += <span class="integer">4</span>;
+    a += <span class="integer">3</span>;
+    a += <span class="integer">2</span>;
+    a += <span class="integer">1</span>;
+
+    Array b(a);
+
+    b -= <span class="integer">2</span>;
+    b -= <span class="integer">3</span>;
+
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> a: </span><span class="delimiter">&quot;</span></span> &lt;&lt; a;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> b: </span><span class="delimiter">&quot;</span></span> &lt;&lt; b;
+
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example-2">1.2. Example 2</h3>
+<div class="paragraph">
+<p>Extend the first example with overloading the following operators:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>[]</code> for mutable access of element</p>
+</li>
+<li>
+<p><code>==</code> for comparison of two objects of class <code>Array</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Test the class in the main function.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av61b_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstdlib&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">Array</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">int</span> *x;
+    <span class="predefined-type">int</span> size;
+    <span class="predefined-type">int</span> capacity;
+<span class="directive">public</span>:
+    Array(<span class="directive">const</span> <span class="predefined-type">int</span> capacity = <span class="integer">5</span>) {
+        x = <span class="keyword">new</span> <span class="predefined-type">int</span>[capacity];
+        size = <span class="integer">0</span>;
+        <span class="local-variable">this</span>-&gt;capacity = capacity;
+    }
+
+    <span class="comment">// copy constructor</span>
+    Array(<span class="directive">const</span> Array &amp;a) {
+        size = a.size;
+        capacity = a.capacity;
+        x = <span class="keyword">new</span> <span class="predefined-type">int</span>[capacity];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; size; ++i) {
+            x[i] = a.x[i];
+        }
+    }
+
+    <span class="comment">// assignment operator =</span>
+    Array&amp; <span class="directive">operator</span>=(<span class="directive">const</span> Array &amp;a) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span> == &amp;a) <span class="keyword">return</span> *<span class="local-variable">this</span>;
+        size = a.size;
+        capacity = a.capacity;
+        <span class="keyword">delete</span> [] x;
+        x = <span class="keyword">new</span> <span class="predefined-type">int</span>[capacity];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; size; ++i) {
+            x[i] = a.x[i];
+        }
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    <span class="comment">// destructor</span>
+    ~Array() {
+        <span class="keyword">delete</span> [] x;
+    }
+    <span class="predefined-type">int</span> getSize() {
+        <span class="keyword">return</span> size;
+    }
+
+    <span class="predefined-type">int</span> getCapacity() {
+        <span class="keyword">return</span> capacity;
+    }
+
+    <span class="directive">const</span> <span class="predefined-type">int</span> *getX() {
+        <span class="keyword">return</span> x;
+    }
+
+    Array &amp; <span class="directive">operator</span>+= (<span class="predefined-type">int</span> n) {
+        <span class="keyword">if</span> (capacity == size) {
+            <span class="predefined-type">int</span> *y = <span class="keyword">new</span> <span class="predefined-type">int</span>[<span class="integer">2</span> * capacity];
+            <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; size; ++i) {
+                y[i] = x[i];
+            }
+            <span class="keyword">delete</span> [] x;
+            x = y;
+            capacity = capacity * <span class="integer">2</span>;
+        }
+        x[size] = n;
+        size++;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    Array &amp; <span class="directive">operator</span>-= (<span class="predefined-type">int</span> n) {
+        <span class="predefined-type">int</span> newSize = <span class="integer">0</span>;
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>, j = <span class="integer">0</span>; i &lt; size; ++i)
+            <span class="keyword">if</span> (x[i] != n) {
+                x[j++] = x[i];
+                newSize++;
+            }
+        size = newSize;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    <span class="predefined-type">int</span>&amp; <span class="directive">operator</span>[](<span class="predefined-type">int</span> index) {
+        <span class="predefined-type">int</span> pom = -<span class="integer">1</span>;
+        <span class="keyword">if</span> (index &gt;= <span class="integer">0</span> &amp;&amp; index &lt; size )
+            <span class="keyword">return</span> x [index];
+        <span class="keyword">else</span> {
+            cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> Out of range </span><span class="delimiter">&quot;</span></span> &lt;&lt; endl ;
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    <span class="predefined-type">bool</span> <span class="directive">operator</span>==(Array &amp;a) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;size != a.size ) <span class="keyword">return</span> <span class="predefined-constant">false</span>;
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; size; i++)
+            <span class="keyword">if</span> (x[i] != a.x[i]) <span class="keyword">return</span> <span class="predefined-constant">false</span>;
+
+        <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+    }
+
+<span class="comment">//friend ostream &amp; operator&lt;&lt;(ostream &amp;o, Array &amp;a);</span>
+
+
+};
+
+ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream &amp;o, Array &amp;a) {
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; a.getSize(); ++i) {
+        o &lt;&lt; a[i] &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>; <span class="comment">// using the operator []</span>
+    }
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = a.getSize(); i &lt; a.getCapacity(); ++i) {
+        o &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">- </span><span class="delimiter">&quot;</span></span>;
+    }
+    o &lt;&lt; endl;
+    <span class="keyword">return</span> o;
+}
+<span class="predefined-type">int</span> main() {
+    Array a;
+    a += (<span class="integer">6</span>);
+    a += (<span class="integer">4</span>);
+    a += (<span class="integer">3</span>);
+    a += (<span class="integer">2</span>);
+    a += (<span class="integer">1</span>);
+
+    Array b(a);
+    b -= (<span class="integer">2</span>);
+    b -= (<span class="integer">3</span>);
+
+    a[<span class="integer">0</span>] = <span class="integer">9</span>; <span class="comment">// using the operator []</span>
+
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> a: </span><span class="delimiter">&quot;</span></span> &lt;&lt; a;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> b: </span><span class="delimiter">&quot;</span></span> &lt;&lt; b;
+
+    <span class="keyword">if</span> (a == b) cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Equal</span><span class="delimiter">&quot;</span></span>;
+    <span class="keyword">else</span> cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Not equal</span><span class="delimiter">&quot;</span></span>;
+
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="exercise-2">2. Exercise 2</h2>
+<h2 id="problems">2. Problems</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="complex-number">2.1. Complex number</h3>
 <div class="paragraph">
-<p><a href="oop_av2_en.html">HTML</a> | <a href="../pdf/oop_av2_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av3_src_en.zip">Source code ZIP</a></p>
+<p>Define a class for complex numbers.
+For each complex number keep information for the real and for the imaginary part.</p>
+</div>
+<div class="paragraph">
+<p>Overload the operators <code>+, -, *, /, +=, -=, *=, /=</code> for executing the appropriate operations for complex numbers.</p>
+</div>
+<div class="paragraph">
+<p>Implement the operator <code>&lt;&lt;</code> for printing.</p>
+</div>
+<div class="paragraph">
+<p>Also implement the operator <code>+</code> for addition of complex number and real number and vice versa.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av62_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">Complex</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">float</span> real;
+    <span class="predefined-type">float</span> imag;
+<span class="directive">public</span>:
+    Complex(<span class="directive">const</span> <span class="predefined-type">float</span> real = <span class="integer">0</span>, <span class="directive">const</span> <span class="predefined-type">float</span> imag = <span class="integer">0</span>) {
+        <span class="local-variable">this</span>-&gt;real = real;
+        <span class="local-variable">this</span>-&gt;imag = imag;
+    }
+    Complex <span class="directive">operator</span>+(<span class="directive">const</span> Complex &amp;c) {
+        <span class="keyword">return</span> Complex(real + c.real, imag + c.imag);
+    }
+
+    <span class="directive">friend</span> Complex <span class="directive">operator</span>-(<span class="directive">const</span> Complex &amp;c1, <span class="directive">const</span> Complex &amp;c2); <span class="comment">// as global function</span>
+
+    Complex <span class="directive">operator</span>*(<span class="directive">const</span> Complex &amp;c) {
+        <span class="keyword">return</span> Complex(real * c.real - imag * c.imag, imag * c.real - real * c.imag);
+    }
+
+    Complex <span class="directive">operator</span>/(<span class="directive">const</span> Complex &amp;c) {
+        <span class="predefined-type">float</span> m = c.real * c.real + c.imag * c.imag;
+        <span class="predefined-type">float</span> r = (real * c.real - imag * c.imag) / m;
+        <span class="keyword">return</span> Complex(r, (real * c.real + imag * c.imag) / m);
+    }
+
+    Complex &amp;<span class="directive">operator</span>+=(<span class="directive">const</span> Complex &amp;c) {
+        real += c.real;
+        imag += c.imag;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    Complex &amp;<span class="directive">operator</span>-=(<span class="directive">const</span> Complex &amp;c) {
+        real -= c.real;
+        imag -= c.imag;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+    Complex &amp;<span class="directive">operator</span>*=(<span class="directive">const</span> Complex &amp;c) {
+        real = real * c.real - imag * c.imag;
+        imag = imag * c.real - real * c.imag;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+    Complex &amp;<span class="directive">operator</span>/=(<span class="directive">const</span> Complex &amp;c) {
+        *<span class="local-variable">this</span> = *<span class="local-variable">this</span> / c;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    <span class="predefined-type">bool</span> <span class="directive">operator</span>==(<span class="directive">const</span> Complex &amp;c) {
+        <span class="keyword">return</span> real == c.real &amp;&amp; imag == c.imag;
+    }
+
+    <span class="predefined-type">float</span> getReal() <span class="directive">const</span> {
+        <span class="keyword">return</span> real;
+    }
+    <span class="predefined-type">float</span> getImag() <span class="directive">const</span> {
+        <span class="keyword">return</span> imag;
+    }
+
+    Complex <span class="directive">operator</span>+(<span class="predefined-type">float</span> n) {
+        <span class="keyword">return</span> Complex(real + n, imag);
+    }
+    <span class="directive">friend</span> Complex <span class="directive">operator</span>+(<span class="predefined-type">float</span> n, Complex &amp;c);
+
+    <span class="directive">friend</span> ostream &amp;<span class="directive">operator</span>&lt;&lt;(ostream &amp;x, <span class="directive">const</span> Complex &amp;c) {
+        x &lt;&lt; c.real;
+        <span class="keyword">if</span> (c.imag &gt;= <span class="integer">0</span>) {
+            x &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>;
+        }
+        x &lt;&lt; c.imag &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">j</span><span class="delimiter">&quot;</span></span>;
+        <span class="keyword">return</span> x;
+    }
+};
+
+Complex <span class="directive">operator</span>-(<span class="directive">const</span> Complex &amp;c1, <span class="directive">const</span> Complex &amp;c2) {
+    <span class="keyword">return</span> Complex(c1.real - c2.real, c1.imag - c2.imag);
+}
+Complex <span class="directive">operator</span>+(<span class="predefined-type">float</span> n, Complex &amp;c) {
+    <span class="keyword">return</span> Complex(c.real + n, c.imag);
+}
+
+<span class="predefined-type">int</span> main() {
+    Complex c1(<span class="integer">2</span>, -<span class="integer">6</span>);
+    Complex c2(<span class="integer">3</span>, <span class="integer">5</span>);
+    Complex c = c1 + c2;
+    cout &lt;&lt; c1 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> + </span><span class="delimiter">&quot;</span></span> &lt;&lt; c2 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> = </span><span class="delimiter">&quot;</span></span> &lt;&lt; c &lt;&lt; endl;
+    c = c1 - c2;
+    cout &lt;&lt; c1 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> - </span><span class="delimiter">&quot;</span></span> &lt;&lt; c2 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> = </span><span class="delimiter">&quot;</span></span> &lt;&lt; c &lt;&lt; endl;
+    c = c1 * c2;
+    cout &lt;&lt; c1 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> * </span><span class="delimiter">&quot;</span></span> &lt;&lt; c2 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> = </span><span class="delimiter">&quot;</span></span> &lt;&lt; c &lt;&lt; endl;
+    c = c1 / c2;
+    cout &lt;&lt; c1 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> / </span><span class="delimiter">&quot;</span></span> &lt;&lt; c2 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> = </span><span class="delimiter">&quot;</span></span> &lt;&lt; c &lt;&lt; endl;
+    <span class="keyword">if</span> (c == c1) {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Numbers are equal</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+
+    c = c1 + <span class="integer">2</span>;
+    cout &lt;&lt; c1 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> + </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="integer">2</span> &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> = </span><span class="delimiter">&quot;</span></span> &lt;&lt; c &lt;&lt; endl;
+    c = <span class="integer">2</span> + c1;
+    cout &lt;&lt; <span class="integer">2</span> &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> + </span><span class="delimiter">&quot;</span></span> &lt;&lt; c1 &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> = </span><span class="delimiter">&quot;</span></span> &lt;&lt; c &lt;&lt; endl;
+
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="students">2.2. Students</h3>
+<div class="paragraph">
+<p>Implement a class for students.
+Each student has a name (dynamically allocated char array), average (real number) and academic year (integer).
+Implement the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Constructors and destructor</p>
+</li>
+<li>
+<p>operator <code>++</code> that will increment the academic year for +1</p>
+</li>
+<li>
+<p>operator <code>&lt;&lt;</code> for printing a student with all the information</p>
+</li>
+<li>
+<p>operator <code>&gt;</code> for comparing two students by their average.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Then implement a class for a group of students that keeps dynamically allocated array of students and their number.
+For this class implement:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Constructors and destructor</p>
+</li>
+<li>
+<p>operator <code>+=</code> for adding new student in the group</p>
+</li>
+<li>
+<p>operator <code>++</code> for increasing the school year for +1</p>
+</li>
+<li>
+<p>operator <code>&lt;&lt;</code> for printing all the students in the group</p>
+</li>
+<li>
+<p>method <code>reward</code> that print only students that have an average higher than 9.0.</p>
+</li>
+<li>
+<p>method <code>highestAverage</code> that will print the highest average of the group.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av63_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;string.h&gt;</span>
+<span class="preprocessor">#define</span> MAX <span class="integer">100</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">Student</span>
+{
+<span class="directive">private</span>:
+    <span class="predefined-type">char</span> *name;
+    <span class="predefined-type">float</span> average;
+    <span class="predefined-type">int</span> academicYear;
+<span class="directive">public</span>:
+    Student(<span class="directive">const</span> <span class="predefined-type">char</span>* n = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">float</span> a = <span class="integer">0</span>, <span class="predefined-type">int</span> ay = <span class="integer">0</span>) {
+        name = <span class="keyword">new</span> <span class="predefined-type">char</span>[strlen(n) + <span class="integer">1</span>];
+        strcpy(name, n);
+        average = a;
+        academicYear = ay;
+    }
+
+    Student(<span class="directive">const</span> Student&amp; u) {
+        name = <span class="keyword">new</span> <span class="predefined-type">char</span>[strlen(u.name) ];
+        strcpy(name , u.name);
+        average = u.average;
+        academicYear = u.academicYear;
+    }
+
+    ~Student() {
+        <span class="keyword">delete</span> [] name;
+    }
+
+    Student&amp; <span class="directive">operator</span>=(<span class="directive">const</span> Student&amp; u) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span> != &amp;u) {
+            <span class="keyword">delete</span> [] name;
+            name = <span class="keyword">new</span> <span class="predefined-type">char</span>[strlen(u.name)];
+            strcpy(name, u.name);
+            average = u.average;
+            academicYear = u.academicYear;
+        }
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+    Student&amp; <span class="directive">operator</span>++() { <span class="comment">// prefix operator</span>
+        academicYear++;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+    Student <span class="directive">operator</span>++(<span class="predefined-type">int</span>) { <span class="comment">// postfix</span>
+        Student u(*<span class="local-variable">this</span>);
+        academicYear++;
+        <span class="keyword">return</span> u;
+    }
+    <span class="predefined-type">float</span> getAverage() {
+        <span class="keyword">return</span> average;
+    }
+    <span class="directive">friend</span> ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream&amp; o, <span class="directive">const</span> Student&amp; u) {
+        <span class="keyword">return</span> o &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Name: </span><span class="delimiter">&quot;</span></span> &lt;&lt; u.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">, academicYear: </span><span class="delimiter">&quot;</span></span> &lt;&lt; u.academicYear &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">, average: </span><span class="delimiter">&quot;</span></span> &lt;&lt; u.average &lt;&lt; endl;
+    }
+    <span class="directive">friend</span> <span class="predefined-type">bool</span> <span class="directive">operator</span>&gt;(<span class="directive">const</span> Student&amp; s1, <span class="directive">const</span> Student&amp; s2);
+};
+
+<span class="predefined-type">bool</span> <span class="directive">operator</span>&gt;(<span class="directive">const</span> Student&amp; s1, <span class="directive">const</span> Student&amp; s2) {
+    <span class="keyword">return</span> s1.average &gt; s2.average;
+}
+
+<span class="keyword">class</span> <span class="class">Group</span>
+{
+<span class="directive">private</span>:
+    Student* students;
+    <span class="predefined-type">int</span> count;
+    <span class="directive">void</span> copy(<span class="directive">const</span> Group &amp;g) {
+        <span class="local-variable">this</span> -&gt; count = g.count;
+        <span class="local-variable">this</span> -&gt; students = <span class="keyword">new</span> Student[count];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; count; i ++)
+            students[i] = g.students[i];
+    }
+<span class="directive">public</span>:
+    Group(Student* s = <span class="integer">0</span>, <span class="predefined-type">int</span> c = <span class="integer">0</span>) {
+        count = c;
+        students = <span class="keyword">new</span> Student [count];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; count; i ++)
+            students[i] = s[i];
+    }
+
+    Group(<span class="directive">const</span> Group &amp;g) {
+        copy(g);
+    }
+
+    ~Group() {
+        <span class="keyword">delete</span> [] students;
+    }
+    Group&amp; <span class="directive">operator</span>+=(Student s) {
+        Student* tmp = <span class="keyword">new</span> Student[count + <span class="integer">1</span>];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; count; i++)
+            tmp[i] = students[i];
+        tmp [count ++] = s;
+        <span class="keyword">delete</span> [] students;
+        students = tmp;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    Group&amp; <span class="directive">operator</span>++() {
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; count; i++)
+            students[i]++;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+    Group <span class="directive">operator</span>++(<span class="predefined-type">int</span>) {
+        Group g(*<span class="local-variable">this</span>);
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; count; i++)
+            students[i]++;
+        <span class="keyword">return</span> g;
+    }
+
+    <span class="directive">friend</span> ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream&amp; o, <span class="directive">const</span> Group&amp; p) {
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; p.count; i ++)
+            o &lt;&lt; p.students[i];
+        <span class="keyword">return</span> o;
+    }
+
+    <span class="directive">void</span> reward() {
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; count; i++)
+            <span class="keyword">if</span> (students[i].getAverage() &gt; <span class="float">9</span><span class="float">.0</span>)
+                cout &lt;&lt; students[i];
+    }
+
+    <span class="directive">void</span> highestAverage() {
+        Student tmpU = students[<span class="integer">0</span>];
+        <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; count; i++)
+            <span class="keyword">if</span> (students[i] &gt; tmpU)
+                tmpU = students[i];
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Highest average in the group:</span><span class="delimiter">&quot;</span></span> &lt;&lt; tmpU.getAverage() &lt;&lt; endl;
+    }
+};
+
+<span class="predefined-type">int</span> main() {
+    Student s1(<span class="string"><span class="delimiter">&quot;</span><span class="content">Martina Martinovska</span><span class="delimiter">&quot;</span></span>, <span class="float">9</span><span class="float">.5</span>, <span class="integer">3</span>);
+    Student s2(<span class="string"><span class="delimiter">&quot;</span><span class="content">Darko Darkoski</span><span class="delimiter">&quot;</span></span>, <span class="float">7</span><span class="float">.3</span>, <span class="integer">2</span>);
+    Student s3(<span class="string"><span class="delimiter">&quot;</span><span class="content">Angela Angelovska</span><span class="delimiter">&quot;</span></span>, <span class="integer">10</span>, <span class="integer">3</span>);
+
+    Group group;
+    group += s1;
+    group += s2;
+    group += s3;
+
+    cout &lt;&lt; group;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Reward:</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    group.reward();
+    cout &lt;&lt; endl;
+    group.highestAverage();
+    cout &lt;&lt; endl;
+
+    s2++;
+    cout &lt;&lt; group;
+    cout &lt;&lt; endl;
+    group++;
+    cout &lt;&lt; group;
+
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="exercise-3">3. Exercise 3</h2>
+<h2 id="source-code-of-the-examples-and-problems">3. Source code of the examples and problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="oop_av3_en.html">HTML</a> | <a href="../pdf/oop_av3_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av3_src_en.zip">Source code ZIP</a></p>
+<p><a href="https://github.com/finki-mk/SP/" class="bare">https://github.com/finki-mk/SP/</a></p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-4">4. Exercise 4</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p><a href="oop_av4_en.html">HTML</a> | <a href="../pdf/oop_av4_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av4_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-5">5. Exercise 5</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av5_en.html">HTML</a> | <a href="../pdf/oop_av5_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av5_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-6">6. Exercise 6</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av6_en.html">HTML</a> | <a href="../pdf/oop_av6_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av6_src_en.zip">Source code ZIP</a></p>
+<p><a href="https://finki-mk.github.io/OOP/sources/oop_av6_src_en.zip">Source code ZIP</a></p>
 </div>
 </div>
 </div>
@@ -583,7 +1198,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2017-03-21 11:41:14 +01:00
+Last updated 2017-03-21 11:31:27 +01:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

@@ -1,0 +1,89 @@
+# Object oriented programming
+Exercises 6
+v1.0, 21 March, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av6
+
+== Operators overloading 
+
+=== Example 1
+
+In the class `Array` implement the following operators:
+
+- `+=` adding new elements in the array
+- `-=` deletes occurrences of the given integer argument 
+- `<<` printing the elements of the array.
+
+Test the class in a main function.
+ 
+.Solution `oop_av61a_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av61a_en.cpp[]
+----
+
+=== Example 2
+
+Extend the first example with overloading the following operators:
+ 
+- `[]` for mutable access of element 
+- `==` for comparison of two objects of class `Array`. 
+  
+Test the class in the main function.
+ 
+.Solution `oop_av61b_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av61b_en.cpp[]
+----
+
+== Problems
+
+=== Complex number
+
+Define a class for complex numbers.
+For each complex number keep information for the real and for the imaginary part.
+
+Overload the operators `+, -, *, /, +=, -=, *=, /=` for executing the appropriate operations for complex numbers.
+
+Implement the operator `<<` for printing.
+
+Also implement the operator `+` for addition of complex number and real number and vice versa.
+
+.Solution `oop_av62_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av62_en.cpp[]
+----
+
+=== Students
+
+Implement a class for students.
+Each student has a name (dynamically allocated char array), average (real number) and academic year (integer).
+Implement the following:
+
+- Constructors and destructor
+- operator `++` that will increment the academic year for +1
+- operator `<<` for printing a student with all the information
+- operator `>` for comparing two students by their average.
+
+Then implement a class for a group of students that keeps dynamically allocated array of students and their number.
+For this class implement:
+
+- Constructors and destructor
+- operator `+=` for adding new student in the group
+- operator `++` for increasing the school year for +1
+- operator `<<` for printing all the students in the group
+- method `reward` that print only students that have an average higher than 9.0.
+- method `highestAverage` that will print the highest average of the group.
+
+.Solution `oop_av63_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av63_en.cpp[]
+----
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av6_src_en.zip[Source code ZIP]
