@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
@@ -417,8 +417,100 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
 <h1>Објектно ориентирано програмирање</h1>
 <div class="details">
@@ -426,13 +518,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="revnumber">Верзија 1.0,</span>
 <span id="revdate">03 април, 2017</span>
 </div>
+<div id="toc" class="toc2">
+<div id="toctitle">Содржина</div>
+<ul class="sectlevel1">
+<li><a href="#Наследување">1. Наследување</a>
+<ul class="sectlevel2">
+<li><a href="#Задача">1.1. Задача</a></li>
+<li><a href="#Задача-2">1.2. Задача</a></li>
+</ul>
+</li>
+<li><a href="#Изворен-код-од-примери-и-задачи">2. Изворен код од примери и задачи</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_Наследување">1. Наследување</h2>
+<h2 id="Наследување">1. Наследување</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_Задача">1.1. Задача</h3>
+<h3 id="Задача">1.1. Задача</h3>
 <div class="paragraph">
 <p>Да се дефинира класа за репрезентација на тениски играч. За секој тениски играч треба да се чуваат името, презимето како и тоа дали игра во лига (bool).</p>
 </div>
@@ -442,111 +546,111 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">Решение <code>oop_av71.cpp</code></div>
 <div class="content">
-<pre class="highlight"><code class="language-cpp" data-lang="cpp">#include &lt;iostream&gt;
-#include &lt;cstring&gt;
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
 
-using namespace std;
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
 
-class TennisPlayer {
-private:
-  enum {STRMAX = 50};
-  char name[STRMAX];
-  char surname[STRMAX];
-  bool playsInLeague;
+<span class="keyword">class</span> <span class="class">TennisPlayer</span> {
+<span class="directive">private</span>:
+  <span class="keyword">enum</span> {STRMAX = <span class="integer">50</span>};
+  <span class="predefined-type">char</span> name[STRMAX];
+  <span class="predefined-type">char</span> surname[STRMAX];
+  <span class="predefined-type">bool</span> playsInLeague;
 
-public:
-  TennisPlayer(const char* fn, const char* sn, bool pl);
+<span class="directive">public</span>:
+  TennisPlayer(<span class="directive">const</span> <span class="predefined-type">char</span>* fn, <span class="directive">const</span> <span class="predefined-type">char</span>* sn, <span class="predefined-type">bool</span> pl);
 
-  void Print() const;
+  <span class="directive">void</span> Print() <span class="directive">const</span>;
 
-  bool PlaysInLeague();
+  <span class="predefined-type">bool</span> PlaysInLeague();
 
-  void setPlaysInLeague(bool pl);
+  <span class="directive">void</span> setPlaysInLeague(<span class="predefined-type">bool</span> pl);
 
   ~TennisPlayer();
 
-  friend ostream&amp; operator&lt;&lt;(ostream &amp;o, const TennisPlayer &amp;tp);
+  <span class="directive">friend</span> ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream &amp;o, <span class="directive">const</span> TennisPlayer &amp;tp);
 };
 
-ostream&amp; operator&lt;&lt;(ostream &amp;o, const TennisPlayer &amp;tp){
-  o &lt;&lt; "-- Tennis Player --\n"
-    &lt;&lt; tp.name &lt;&lt; " "
-    &lt;&lt; tp.surname &lt;&lt; " - " &lt;&lt; tp.playsInLeague &lt;&lt; endl;
-  return o;
+ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream &amp;o, <span class="directive">const</span> TennisPlayer &amp;tp){
+  o &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">-- Tennis Player --</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+    &lt;&lt; tp.name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>
+    &lt;&lt; tp.surname &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> - </span><span class="delimiter">&quot;</span></span> &lt;&lt; tp.playsInLeague &lt;&lt; endl;
+  <span class="keyword">return</span> o;
 }
 
-TennisPlayer::TennisPlayer(const char* fn="", const char* sn="", bool pl = false) {
-  cout &lt;&lt; "Constructor:" &lt;&lt; endl;
-  strncpy(name, fn, STRMAX-1);
-  name[STRMAX-1] = '\0';
-  strncpy(surname, sn, STRMAX-1);
-  surname[STRMAX-1] = '\0';
+TennisPlayer::TennisPlayer(<span class="directive">const</span> <span class="predefined-type">char</span>* fn=<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="directive">const</span> <span class="predefined-type">char</span>* sn=<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">bool</span> pl = <span class="predefined-constant">false</span>) {
+  cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor:</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+  strncpy(name, fn, STRMAX-<span class="integer">1</span>);
+  name[STRMAX-<span class="integer">1</span>] = <span class="char">'\0'</span>;
+  strncpy(surname, sn, STRMAX-<span class="integer">1</span>);
+  surname[STRMAX-<span class="integer">1</span>] = <span class="char">'\0'</span>;
   playsInLeague = pl;
 }
 
-void TennisPlayer::Print() const {
-  cout &lt;&lt; surname &lt;&lt; ", " &lt;&lt; name;
+<span class="directive">void</span> TennisPlayer::Print() <span class="directive">const</span> {
+  cout &lt;&lt; surname &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">, </span><span class="delimiter">&quot;</span></span> &lt;&lt; name;
 }
 
-void TennisPlayer::setPlaysInLeague(bool pl){
-  this-&gt;playsInLeague = pl;
+<span class="directive">void</span> TennisPlayer::setPlaysInLeague(<span class="predefined-type">bool</span> pl){
+  <span class="local-variable">this</span>-&gt;playsInLeague = pl;
 }
 
-bool TennisPlayer::PlaysInLeague(){
-  return this-&gt;playsInLeague;
+<span class="predefined-type">bool</span> TennisPlayer::PlaysInLeague(){
+  <span class="keyword">return</span> <span class="local-variable">this</span>-&gt;playsInLeague;
 }
 
 TennisPlayer::~TennisPlayer() {
-  cout &lt;&lt;"Destructor TennisPlayer for: " &lt;&lt; this-&gt;name &lt;&lt;" "&lt;&lt; this-&gt;surname &lt;&lt; endl;
+  cout &lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor TennisPlayer for: </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;name &lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>&lt;&lt; <span class="local-variable">this</span>-&gt;surname &lt;&lt; endl;
 }
 
-class RankedTennisPlayer : public TennisPlayer {
-private:
-  unsigned int rank;
-public:
-  RankedTennisPlayer(const char* n, const char* sn, bool pl = false, int r = 0)
+<span class="keyword">class</span> <span class="class">RankedTennisPlayer</span> : <span class="directive">public</span> TennisPlayer {
+<span class="directive">private</span>:
+  <span class="predefined-type">unsigned</span> <span class="predefined-type">int</span> rank;
+<span class="directive">public</span>:
+  RankedTennisPlayer(<span class="directive">const</span> <span class="predefined-type">char</span>* n, <span class="directive">const</span> <span class="predefined-type">char</span>* sn, <span class="predefined-type">bool</span> pl = <span class="predefined-constant">false</span>, <span class="predefined-type">int</span> r = <span class="integer">0</span>)
     : TennisPlayer(n,sn, pl)
   {
-    cout &lt;&lt; "Constructor RankedTennisPlayer" &lt;&lt; endl;
-    this-&gt;rank = r;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor RankedTennisPlayer</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    <span class="local-variable">this</span>-&gt;rank = r;
   }
 
-  RankedTennisPlayer(const TennisPlayer&amp; t, unsigned int r=0) : TennisPlayer(t){
-    this-&gt;rank = r;
+  RankedTennisPlayer(<span class="directive">const</span> TennisPlayer&amp; t, <span class="predefined-type">unsigned</span> <span class="predefined-type">int</span> r=<span class="integer">0</span>) : TennisPlayer(t){
+    <span class="local-variable">this</span>-&gt;rank = r;
   }
 
   ~RankedTennisPlayer() {
-    cout &lt;&lt; "Destructor RankedTennisPlayer\n" &lt;&lt; endl;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor RankedTennisPlayer</span><span class="char">\n</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
   }
 
-  friend ostream&amp; operator&lt;&lt;(ostream&amp; out, const RankedTennisPlayer &amp;tp) {
-        cout &lt;&lt; "-- RANKED TENNIS PLAYER --\n";
+  <span class="directive">friend</span> ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream&amp; out, <span class="directive">const</span> RankedTennisPlayer &amp;tp) {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">-- RANKED TENNIS PLAYER --</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
         out &lt;&lt; TennisPlayer (tp);
-        out &lt;&lt; "Rank: " &lt;&lt; tp.rank &lt;&lt; endl;
-        return out;
+        out &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Rank: </span><span class="delimiter">&quot;</span></span> &lt;&lt; tp.rank &lt;&lt; endl;
+        <span class="keyword">return</span> out;
   }
 };
 
-int main() {
-  TennisPlayer rf("Roger", "Federer");
-  TennisPlayer ng("Novak", "Djokovikj");
+<span class="predefined-type">int</span> main() {
+  TennisPlayer rf(<span class="string"><span class="delimiter">&quot;</span><span class="content">Roger</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Federer</span><span class="delimiter">&quot;</span></span>);
+  TennisPlayer ng(<span class="string"><span class="delimiter">&quot;</span><span class="content">Novak</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Djokovikj</span><span class="delimiter">&quot;</span></span>);
   cout &lt;&lt; rf;
   cout &lt;&lt; ng;
-  //TennisPlayer t;
-  RankedTennisPlayer rn("Rafael", "Nadal", true, 2750);
+  <span class="comment">//TennisPlayer t;</span>
+  RankedTennisPlayer rn(<span class="string"><span class="delimiter">&quot;</span><span class="content">Rafael</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Nadal</span><span class="delimiter">&quot;</span></span>, <span class="predefined-constant">true</span>, <span class="integer">2750</span>);
   cout &lt;&lt; rn;
   TennisPlayer tp = rn;
   cout &lt;&lt; tp;
-  //RankedTennisPlayer copy(tp);
-  RankedTennisPlayer copy(ng, 3320);
+  <span class="comment">//RankedTennisPlayer copy(tp);</span>
+  RankedTennisPlayer copy(ng, <span class="integer">3320</span>);
   cout &lt;&lt; copy;
-  return 0;
+  <span class="keyword">return</span> <span class="integer">0</span>;
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_Задача_2">1.2. Задача</h3>
+<h3 id="Задача-2">1.2. Задача</h3>
 <div class="paragraph">
 <p>Да се дефинира класа DebitAccount за работа со дебитна банкарска сметка. За секоја банкарска сметка треба да се чува име и презиме на корисникот (низа од макс. 100 знаци), број на сметка (long број) и моментално салдо (double).
 Да се овозможат методи за преглед на сметката, депонирање и подигнување на пари од сметката.</p>
@@ -557,125 +661,125 @@ int main() {
 <div class="listingblock">
 <div class="title">Решение <code>oop_av72.cpp</code></div>
 <div class="content">
-<pre class="highlight"><code class="language-cpp" data-lang="cpp">#include &lt;iostream&gt;
-#include &lt;cstring&gt;
-using namespace std;
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
 
-class DebitAccount {
-protected:
-  char name[100];
-  long number;
-  double balance;
-public:
-  DebitAccount(const char *name = "----", const long number = 0,
-              const double balance = 0.0) {
-    strncpy(this-&gt;name, name, 99);
-    this-&gt;name[99] = 0;
-    this-&gt;number = number;
-    this-&gt;balance = balance;
+<span class="keyword">class</span> <span class="class">DebitAccount</span> {
+<span class="directive">protected</span>:
+  <span class="predefined-type">char</span> name[<span class="integer">100</span>];
+  <span class="predefined-type">long</span> number;
+  <span class="predefined-type">double</span> balance;
+<span class="directive">public</span>:
+  DebitAccount(<span class="directive">const</span> <span class="predefined-type">char</span> *name = <span class="string"><span class="delimiter">&quot;</span><span class="content">----</span><span class="delimiter">&quot;</span></span>, <span class="directive">const</span> <span class="predefined-type">long</span> number = <span class="integer">0</span>,
+              <span class="directive">const</span> <span class="predefined-type">double</span> balance = <span class="float">0</span><span class="float">.0</span>) {
+    strncpy(<span class="local-variable">this</span>-&gt;name, name, <span class="integer">99</span>);
+    <span class="local-variable">this</span>-&gt;name[<span class="integer">99</span>] = <span class="integer">0</span>;
+    <span class="local-variable">this</span>-&gt;number = number;
+    <span class="local-variable">this</span>-&gt;balance = balance;
   }
-  void showInfo() {
-    cout &lt;&lt; name &lt;&lt; '\n'
-         &lt;&lt; "\t Bank No: "&lt;&lt; number &lt;&lt; '\n'
-         &lt;&lt; "\t Balance: "&lt;&lt; getBalance() &lt;&lt; '\n';
+  <span class="directive">void</span> showInfo() {
+    cout &lt;&lt; name &lt;&lt; <span class="char">'\n'</span>
+         &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="content"> Bank No: </span><span class="delimiter">&quot;</span></span>&lt;&lt; number &lt;&lt; <span class="char">'\n'</span>
+         &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="content"> Balance: </span><span class="delimiter">&quot;</span></span>&lt;&lt; getBalance() &lt;&lt; <span class="char">'\n'</span>;
   }
 
-  void deposit(double amount) {
-    if (amount &gt;=0 ){
+  <span class="directive">void</span> deposit(<span class="predefined-type">double</span> amount) {
+    <span class="keyword">if</span> (amount &gt;=<span class="integer">0</span> ){
       balance += amount;
     }
-    else {
-      cout&lt;&lt; "You can not add negative amount to your balance!"&lt;&lt;endl;
+    <span class="keyword">else</span> {
+      cout&lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">You can not add negative amount to your balance!</span><span class="delimiter">&quot;</span></span>&lt;&lt;endl;
     }
   }
 
-  void withdraw(double amount) {
-    if (amount &lt; 0) {
-      cout&lt;&lt; "You can note withdraw negative amount from your account!"&lt;&lt;endl;
-      return;
+  <span class="directive">void</span> withdraw(<span class="predefined-type">double</span> amount) {
+    <span class="keyword">if</span> (amount &lt; <span class="integer">0</span>) {
+      cout&lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">You can note withdraw negative amount from your account!</span><span class="delimiter">&quot;</span></span>&lt;&lt;endl;
+      <span class="keyword">return</span>;
     }
 
-    if (amount &lt;= balance) {
+    <span class="keyword">if</span> (amount &lt;= balance) {
       balance -= amount;
 
-    } else {
-      cout &lt;&lt; "You can not withdraw more money than you have on your account.\n"
-           &lt;&lt; "Please upgrade your debut account to credit account!"&lt;&lt;endl;
+    } <span class="keyword">else</span> {
+      cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">You can not withdraw more money than you have on your account.</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+           &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Please upgrade your debut account to credit account!</span><span class="delimiter">&quot;</span></span>&lt;&lt;endl;
     }
   }
 
-  double getBalance() {
-    return this-&gt;balance;
+  <span class="predefined-type">double</span> getBalance() {
+    <span class="keyword">return</span> <span class="local-variable">this</span>-&gt;balance;
   }
 
   ~DebitAccount() {}
 };
 
-class CreditAccount : public DebitAccount {
-private:
-  double limit;
-  double interest; // % percent
-  double minus;
-public:
-  CreditAccount(const char *name="----", const long number=0,
-                const double balance=0, const double limit=1000,
-                const double interest=0.05, const double minus=0):
+<span class="keyword">class</span> <span class="class">CreditAccount</span> : <span class="directive">public</span> DebitAccount {
+<span class="directive">private</span>:
+  <span class="predefined-type">double</span> limit;
+  <span class="predefined-type">double</span> interest; <span class="comment">// % percent</span>
+  <span class="predefined-type">double</span> minus;
+<span class="directive">public</span>:
+  CreditAccount(<span class="directive">const</span> <span class="predefined-type">char</span> *name=<span class="string"><span class="delimiter">&quot;</span><span class="content">----</span><span class="delimiter">&quot;</span></span>, <span class="directive">const</span> <span class="predefined-type">long</span> number=<span class="integer">0</span>,
+                <span class="directive">const</span> <span class="predefined-type">double</span> balance=<span class="integer">0</span>, <span class="directive">const</span> <span class="predefined-type">double</span> limit=<span class="integer">1000</span>,
+                <span class="directive">const</span> <span class="predefined-type">double</span> interest=<span class="float">0</span><span class="float">.05</span>, <span class="directive">const</span> <span class="predefined-type">double</span> minus=<span class="integer">0</span>):
     DebitAccount(name, number, balance) {
 
-    this-&gt;limit = limit;
-    this-&gt;interest = interest;
-    this-&gt;minus = minus;
+    <span class="local-variable">this</span>-&gt;limit = limit;
+    <span class="local-variable">this</span>-&gt;interest = interest;
+    <span class="local-variable">this</span>-&gt;minus = minus;
   }
 
-  void withdraw(double amount) {
-    int balance = getBalance();
+  <span class="directive">void</span> withdraw(<span class="predefined-type">double</span> amount) {
+    <span class="predefined-type">int</span> balance = getBalance();
 
-    if (amount &lt;= balance){
+    <span class="keyword">if</span> (amount &lt;= balance){
       DebitAccount::withdraw(amount);
     }
 
-    else if (amount &lt;= balance + limit - minus) {
-      double advance = amount - balance;
-      this-&gt;minus +=advance * (1.0 + interest);
+    <span class="keyword">else</span> <span class="keyword">if</span> (amount &lt;= balance + limit - minus) {
+      <span class="predefined-type">double</span> advance = amount - balance;
+      <span class="local-variable">this</span>-&gt;minus +=advance * (<span class="float">1</span><span class="float">.0</span> + interest);
 
-      cout&lt;&lt;"Minus: " &lt;&lt; advance &lt;&lt;"\n"
-          &lt;&lt; "Minus with interest: " &lt;&lt; advance*interest&lt;&lt;endl;
+      cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Minus: </span><span class="delimiter">&quot;</span></span> &lt;&lt; advance &lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+          &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Minus with interest: </span><span class="delimiter">&quot;</span></span> &lt;&lt; advance*interest&lt;&lt;endl;
 
       deposit(advance);
       DebitAccount::withdraw(amount);
 
-    } else {
-      cout &lt;&lt; "The bank is not giving you that much money..." &lt;&lt; endl;
-      this-&gt;showInfo();
+    } <span class="keyword">else</span> {
+      cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">The bank is not giving you that much money...</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+      <span class="local-variable">this</span>-&gt;showInfo();
     }
   }
 
-  void showInfo() {
+  <span class="directive">void</span> showInfo() {
     DebitAccount::showInfo();
-    cout&lt;&lt;"\t Limit: "&lt;&lt;this-&gt;limit &lt;&lt; "\n"
-        &lt;&lt;"\t In minus: " &lt;&lt; this-&gt;minus &lt;&lt; "\n"
-        &lt;&lt;"\t Interest: " &lt;&lt; this-&gt;interest &lt;&lt; "%\n";
+    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="content"> Limit: </span><span class="delimiter">&quot;</span></span>&lt;&lt;<span class="local-variable">this</span>-&gt;limit &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+        &lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="content"> In minus: </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;minus &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+        &lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="char">\t</span><span class="content"> Interest: </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;interest &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">%</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;
   }
 
 
-  double getInterest() {
-    return this-&gt;interest;;
+  <span class="predefined-type">double</span> getInterest() {
+    <span class="keyword">return</span> <span class="local-variable">this</span>-&gt;interest;;
   }
 };
 
-int main() {
-  DebitAccount d("Pero Perovski", 6, 100000);
-  CreditAccount ca("Mitko Mitkovski", 10, 5000, 1000);
+<span class="predefined-type">int</span> main() {
+  DebitAccount d(<span class="string"><span class="delimiter">&quot;</span><span class="content">Pero Perovski</span><span class="delimiter">&quot;</span></span>, <span class="integer">6</span>, <span class="integer">100000</span>);
+  CreditAccount ca(<span class="string"><span class="delimiter">&quot;</span><span class="content">Mitko Mitkovski</span><span class="delimiter">&quot;</span></span>, <span class="integer">10</span>, <span class="integer">5000</span>, <span class="integer">1000</span>);
   d.showInfo();
-  d.deposit(50000);
-  d.withdraw(600000);
+  d.deposit(<span class="integer">50000</span>);
+  d.withdraw(<span class="integer">600000</span>);
   d.showInfo();
   ca.showInfo();
-  ca.deposit(500);
+  ca.deposit(<span class="integer">500</span>);
   ca.showInfo();
-  ca.withdraw(6200);
+  ca.withdraw(<span class="integer">6200</span>);
   ca.showInfo();
-  return 0;
+  <span class="keyword">return</span> <span class="integer">0</span>;
 }</code></pre>
 </div>
 </div>
@@ -684,7 +788,7 @@ int main() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_Изворен_код_од_примери_и_задачи">2. Изворен код од примери и задачи</h2>
+<h2 id="Изворен-код-од-примери-и-задачи">2. Изворен код од примери и задачи</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><a href="https://github.com/finki-mk/OOP/" class="bare">https://github.com/finki-mk/OOP/</a></p>
@@ -698,7 +802,7 @@ int main() {
 <div id="footer">
 <div id="footer-text">
 Верзија 1.0<br>
-Last updated 2017-04-02 17:22:03 CEST
+Last updated 2017-04-03 10:39:42 +02:00
 </div>
 </div>
 <script type="text/x-mathjax-config">
