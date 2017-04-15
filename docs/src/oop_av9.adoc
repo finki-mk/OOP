@@ -1,0 +1,103 @@
+# Објектно ориентирано програмирање
+Аудиториски вежби 9
+v1.0, 15 април, 2017
+include::parts/attributes.adoc[]
+
+:source_dir: ../../src/av9
+
+==  Повеќекратно наследување 
+
+=== Задача
+
+Да се состави класа за автомобил со млазен погон кој наследува својства од две класи, автомобил и млазен авион (дијамант проблем).
+
+.Решение `oop_av91.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av91.cpp[]
+----
+.Излез од програмата е:
+[source,cpp]
+-----------------------------
+Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+JetCar Constructor
+
+Car testing in progress
+Car Driving
+JetCar driving
+Jet testing in progress
+Jet flying
+JetCar flying
+
+JetCar Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor
+-----------------------------
+Како што може да се забележи кога се креира објект од класата `JetCar`, конструкторот на класата `Vehicle` се повикува два пати. 
+[source,cpp]
+-----------------------------
+Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+JetCar Constructor
+-----------------------------
+
+Исто така и деструкторот на класата `Vehicle` се повикува два пати при повик на деструктор на објект од класата `JetCar`.
+
+[source,cpp]
+-----------------------------
+JetCar Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor
+-----------------------------
+
+За да се избегне оваа појава при повеќекратното наследување се воведува виртуелно наследување за класите `Car` и `Jet` од класата `Vehicle`.
+
+[source,cpp]
+----
+class Car: virtual public Vehicle
+...
+class Jet: virtual publuc Vehicle
+...
+----
+
+
+.Точно решение `oop_av911.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av92.cpp[]
+----
+
+
+=== Задача
+Да се имплементира класа `Product` за која се чуваат името и цената. Да се имплементира апстрактна класа `Discount` во која има два чисто виртуелни методи за цена и за цена со попуст. Од овие класи да се изведат класите:
+
+- `FoodProduct` за која дополнително се чува бројот на калории;
+- `DigitalProduct` за која дополнително се чува големината (во MB)
+
+Да се имплементира надворешна функција `total_discount` која ќе пресметува вкупен попуст на неколку продукти на попуст кои ги прима како аргумент.
+ 
+.Решение `oop_av92.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av92.cpp[]
+----
+include::parts/footer.adoc[]
+
+link:{sources_zip}/oop_av9_src.zip[Source code ZIP]
