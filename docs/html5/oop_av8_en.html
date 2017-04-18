@@ -5,8 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Аудиториски вежби 8">
-<title>Објектно ориентирано програмирање</title>
+<meta name="author" content="Exercises 8">
+<title>Object oriented programming</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -512,167 +512,183 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Објектно ориентирано програмирање</h1>
+<h1>Object oriented programming</h1>
 <div class="details">
-<span id="author" class="author">Аудиториски вежби 8</span><br>
-<span id="revnumber">Верзија 1.0,</span>
-<span id="revdate">10 април, 2017</span>
+<span id="author" class="author">Exercises 8</span><br>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">11 April, 2017</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Содржина</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#Полиморфизам">1. Полиморфизам</a>
+<li><a href="#polymorphism">1. Polymorphism</a>
 <ul class="sectlevel2">
-<li><a href="#Задача">1.1. Задача</a></li>
-<li><a href="#Задача-2">1.2. Задача</a></li>
-<li><a href="#Задача-3">1.3. Задача</a></li>
+<li><a href="#publications">1.1. Publications</a></li>
+<li><a href="#hotel-reservation">1.2. Hotel reservation</a></li>
+<li><a href="#geometric-shapes">1.3. Geometric shapes</a></li>
 </ul>
 </li>
-<li><a href="#Изворен-код-од-примери-и-задачи">2. Изворен код од примери и задачи</a></li>
+<li><a href="#source-code-of-the-examples-and-problems">2. Source code of the examples and problems</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="Полиморфизам">1. Полиморфизам</h2>
+<h2 id="polymorphism">1. Polymorphism</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Задача">1.1. Задача</h3>
+<h3 id="publications">1.1. Publications</h3>
 <div class="paragraph">
-<p>Да се дефинира класа за репрезентација на публикација. За секоја публикација се чуваат информации за годината на издавање (цел број) и за називот на издавачката куќа (низа од знаци).</p>
+<p>Define a class for publication.
+Each publication is described with the year of publishing (integer) and the name of publishing house.</p>
 </div>
 <div class="paragraph">
-<p>Од класата публикација да се изведе (public) класа за книга. За секоја книга дополнително треба да се чува и бројот на страници на книгата.</p>
+<p>From this class derive (public) class for book.
+Each book additionally should have the number of pages.</p>
 </div>
 <div class="paragraph">
-<p>Од класата публикација да се изведе (protected) класа за весник. За весник се чува редниот број на весникот.</p>
+<p>Derive (protected) a second class named newspaper.
+Each newspaper has its number.</p>
 </div>
 <div class="paragraph">
-<p>Од класата весник да се изведе (private) класа за дневен весник. За секој дневен весник се чува информација за денот и месецот на издавање на весникот.</p>
+<p>From the class for newspaper derive (private) a class for daily newspaper.
+Each daily newspaper has the day and month of publishing.</p>
 </div>
 <div class="paragraph">
-<p>Со разни функции да се испита пристапот до податоците и функциите!</p>
+<p>Review different levels of access to fields and functions!</p>
 </div>
 <div class="listingblock">
-<div class="title">Решение <code>oop_av81.cpp</code></div>
+<div class="title">Solution <code>oop_av81_en.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
 
 <span class="directive">using</span> <span class="keyword">namespace</span> std;
-<span class="keyword">class</span> <span class="class">Publikacija</span> {
+<span class="keyword">class</span> <span class="class">Publication</span> {
 <span class="directive">private</span>:
-  <span class="predefined-type">char</span> naziv [<span class="integer">100</span>];
+    <span class="predefined-type">char</span> name [<span class="integer">100</span>];
 <span class="directive">protected</span>:
-  <span class="predefined-type">int</span> godina;
-  <span class="predefined-type">char</span>* getNaziv() {
-    <span class="keyword">return</span> naziv;
-  }
+    <span class="predefined-type">int</span> year;
+    <span class="predefined-type">char</span>* getName() {
+        <span class="keyword">return</span> name;
+    }
 
 <span class="directive">public</span>:
-  <span class="predefined-type">int</span> getGodina () { <span class="keyword">return</span> godina;}
-  <span class="directive">void</span> pecati () {
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Publikacija: </span><span class="delimiter">&quot;</span></span>&lt;&lt; naziv &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> - </span><span class="delimiter">&quot;</span></span> &lt;&lt; godina &lt;&lt; endl;
- }
- Publikacija( <span class="predefined-type">char</span> *naziv, <span class="predefined-type">int</span> godina ) {
-   strcpy(<span class="local-variable">this</span>-&gt;naziv, naziv);
-   <span class="local-variable">this</span>-&gt;godina = godina;
- }
+    <span class="predefined-type">int</span> getYear() { <span class="keyword">return</span> year;}
+
+    <span class="directive">void</span> print () {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Publication: </span><span class="delimiter">&quot;</span></span> &lt;&lt; name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> - </span><span class="delimiter">&quot;</span></span> &lt;&lt; year &lt;&lt; endl;
+    }
+
+    Publication( <span class="predefined-type">char</span> *name, <span class="predefined-type">int</span> year ) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+        <span class="local-variable">this</span>-&gt;year = year;
+    }
 };
 
-<span class="comment">// public изведување</span>
-<span class="keyword">class</span> <span class="class">Kniga</span>: <span class="directive">public</span> Publikacija {
+<span class="comment">// public inheritance</span>
+
+<span class="keyword">class</span> <span class="class">Book</span>: <span class="directive">public</span> Publication {
 <span class="directive">private</span>:
-  <span class="predefined-type">int</span> broj_strani;
+    <span class="predefined-type">int</span> number_of_pages;
 <span class="directive">public</span>:
-  Kniga(<span class="predefined-type">char</span> *naziv, <span class="predefined-type">int</span> godina, <span class="predefined-type">int</span> broj_strani):Publikacija(naziv, godina){
-    <span class="local-variable">this</span>-&gt;broj_strani = broj_strani;
-  }
-  <span class="directive">void</span> pecatiGodinaKniga(){
-    cout &lt;&lt; godina; <span class="comment">//пристап до protected променливата godina</span>
-  }
-  <span class="directive">void</span> pecatiNazivKniga (){
-    <span class="comment">//пристап до getNaziv(), naziv не може да се пристапи затоа што е private</span>
-    cout &lt;&lt; getNaziv();
-  }
-  <span class="directive">void</span> pecatiStrani (){
-    cout &lt;&lt; broj_strani;
-  }
+    Book(<span class="predefined-type">char</span> *name, <span class="predefined-type">int</span> year, <span class="predefined-type">int</span> number_of_pages): Publication(name, year) {
+        <span class="local-variable">this</span>-&gt;number_of_pages = number_of_pages;
+    }
+    <span class="directive">void</span> printBookYear() {
+        cout &lt;&lt; year; <span class="comment">// access to protected resource year</span>
+    }
+    <span class="directive">void</span> printBookName () {
+        <span class="comment">// access to getName(), name can be accessed because it's private</span>
+        cout &lt;&lt; getName();
+    }
+    <span class="directive">void</span> numberOfPages() {
+        cout &lt;&lt; number_of_pages;
+    }
 };
 
-<span class="comment">// protected изведување</span>
-<span class="keyword">class</span> <span class="class">Vesnik</span>: <span class="directive">protected</span> Publikacija{
+<span class="comment">// protected inheritance</span>
+
+<span class="keyword">class</span> <span class="class">Newspaper</span>: <span class="directive">protected</span> Publication {
 <span class="directive">private</span>:
-  <span class="predefined-type">int</span> broj;
+    <span class="predefined-type">int</span> number;
 <span class="directive">public</span>:
-  Vesnik(<span class="predefined-type">char</span>* naziv, <span class="predefined-type">int</span> godina, <span class="predefined-type">int</span> broj):Publikacija(naziv, godina){
-    <span class="local-variable">this</span>-&gt;broj=broj;
-  }
-  <span class="directive">void</span> pecatiGodinaVesnik (){
-    cout &lt;&lt; getGodina(); <span class="comment">//пристап до public getGodina(), која во оваа класа има protected пристап</span>
-      }
-  <span class="directive">void</span> pecatiNazivVesnik(){
-    cout &lt;&lt; getNaziv(); <span class="comment">//пристап до getNaziv(), naziv не може да се пристапи затоа што е private</span>
-      }
-  <span class="directive">void</span> pecatiBroj(){
-    cout &lt;&lt; broj;
-  }
+    Newspaper(<span class="predefined-type">char</span>* name, <span class="predefined-type">int</span> year, <span class="predefined-type">int</span> number): Publication(name, year) {
+        <span class="local-variable">this</span>-&gt;number = number;
+    }
+    <span class="directive">void</span> printYearNewspaper () {
+        cout &lt;&lt; getYear(); <span class="comment">// access to public getYear(), that in this class has protected access</span>
+    }
+    <span class="directive">void</span> printNameNewspaper() {
+        cout &lt;&lt; getName(); <span class="comment">// access to getName(), name that can not be accessed because it is private</span>
+    }
+    <span class="directive">void</span> printNumber() {
+        cout &lt;&lt; number;
+    }
 };
 
-<span class="comment">//private изведување</span>
-<span class="keyword">class</span> <span class="class">DnevenVesnik</span>: <span class="directive">private</span> Vesnik{
+<span class="comment">// private inheritance</span>
+
+<span class="keyword">class</span> <span class="class">DailyNewspaper</span>: <span class="directive">private</span> Newspaper {
 <span class="directive">private</span>:
-  <span class="predefined-type">int</span> den;
-  <span class="predefined-type">int</span> mesec;
+    <span class="predefined-type">int</span> day;
+    <span class="predefined-type">int</span> month;
 <span class="directive">public</span>:
-  DnevenVesnik(<span class="predefined-type">char</span> *naziv, <span class="predefined-type">int</span> den, <span class="predefined-type">int</span> mesec, <span class="predefined-type">int</span> godina,
-               <span class="predefined-type">int</span> broj):Vesnik(naziv, godina,broj){
-    <span class="local-variable">this</span>-&gt;den=den;
-    <span class="local-variable">this</span>-&gt;mesec=mesec;
-  }
-  <span class="directive">using</span> Vesnik::pecati; <span class="comment">// функцијата pecati од Publikacija станува public за DnevenVesnik</span>
-  <span class="directive">using</span> Vesnik::pecatiBroj; <span class="comment">// функцијата pecatiBroj од Publikacija станува public за DnevenVesnik</span>
+    DailyNewspaper(<span class="predefined-type">char</span> *name, <span class="predefined-type">int</span> day, <span class="predefined-type">int</span> month, <span class="predefined-type">int</span> year,
+                 <span class="predefined-type">int</span> number): Newspaper(name, year, number) {
+        <span class="local-variable">this</span>-&gt;day = day;
+        <span class="local-variable">this</span>-&gt;month = month;
+    }
+    <span class="directive">using</span> Newspaper::print; <span class="comment">// function print from Publication becomes public for DailyNewspaper</span>
+    <span class="directive">using</span> Newspaper::printNumber; <span class="comment">// function printNumber from Publication becomes public for DailyNewspaper</span>
 };
 
-<span class="predefined-type">int</span> main()
-{
-  Publikacija p(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tabernakul</span><span class="delimiter">&quot;</span></span>, <span class="integer">1992</span>);
-  p.pecati(); <span class="comment">// public - функција</span>
-  Kniga *k = <span class="keyword">new</span> Kniga(<span class="string"><span class="delimiter">&quot;</span><span class="content">ProsvetnoDelo</span><span class="delimiter">&quot;</span></span>, <span class="integer">1900</span>, <span class="integer">123</span>);
-  k-&gt;pecati(); <span class="comment">//pecati e public во Kniga</span>
-  k-&gt;pecatiGodinaKniga(); <span class="comment">// public - функција</span>
-  <span class="comment">// cout&lt;&lt;k-&gt;getNaziv(); // грешка! protected - функција</span>
-  Vesnik *s = <span class="keyword">new</span> Vesnik(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tea</span><span class="delimiter">&quot;</span></span>, <span class="integer">2013</span> ,<span class="integer">30</span>);
-  <span class="comment">// s-&gt;pecati(); //грешка! protected - функција</span>
-  <span class="comment">// cout&lt;&lt;s-&gt;getGodina(); // грешка! protected - функција</span>
-  s-&gt;pecatiNazivVesnik(); <span class="comment">// public - функција</span>
-  DnevenVesnik d(<span class="string"><span class="delimiter">&quot;</span><span class="content">Vest</span><span class="delimiter">&quot;</span></span>,<span class="integer">2</span>,<span class="integer">3</span>,<span class="integer">2014</span>,<span class="integer">25</span>);
-  d.pecati(); <span class="comment">//public-функција</span>
-  <span class="comment">// d.pecatiNazivVesnik(); // грешка! private - функција</span>
-  <span class="comment">// cout&lt;&lt;d.getNaziv(); // грешка! private – функција</span>
+<span class="predefined-type">int</span> main() {
+    Publication p(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tabernakul</span><span class="delimiter">&quot;</span></span>, <span class="integer">1992</span>);
+    p.print(); <span class="comment">// public - function</span>
+    Book *k = <span class="keyword">new</span> Book(<span class="string"><span class="delimiter">&quot;</span><span class="content">ProsvetnoDelo</span><span class="delimiter">&quot;</span></span>, <span class="integer">1900</span>, <span class="integer">123</span>);
+    k-&gt;print(); <span class="comment">//print is public in Book</span>
+    k-&gt;printBookYear(); <span class="comment">// public - function</span>
+    <span class="comment">// cout&lt;&lt;k-&gt;getName(); // error! protected - function</span>
+    Newspaper *s = <span class="keyword">new</span> Newspaper(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tea</span><span class="delimiter">&quot;</span></span>, <span class="integer">2013</span> , <span class="integer">30</span>);
+    <span class="comment">// s-&gt;print(); //error! protected - function</span>
+    <span class="comment">// cout&lt;&lt;s-&gt;getYear(); // error! protected - function</span>
+    s-&gt;printNameNewspaper(); <span class="comment">// public - function</span>
+    DailyNewspaper d(<span class="string"><span class="delimiter">&quot;</span><span class="content">Vest</span><span class="delimiter">&quot;</span></span>, <span class="integer">2</span>, <span class="integer">3</span>, <span class="integer">2014</span>, <span class="integer">25</span>);
+    d.print(); <span class="comment">//public-function</span>
+    <span class="comment">// d.printNameNewspaper(); // error! private - function</span>
+    <span class="comment">// cout&lt;&lt;d.getName(); // error! private – function</span>
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Задача-2">1.2. Задача</h3>
+<h3 id="hotel-reservation">1.2. Hotel reservation</h3>
 <div class="paragraph">
-<p>Да се дефинира класа за <strong>Хотелска резервација</strong>. За хотелската резервација се чува бројот на денови, бројот на лица, име и презиме на лицето за контакт. Да се земе дека цената на резервацијата за едно лице за еден ден е 25 евра.</p>
+<p>Define a class for <code>HotelReservation</code> with number of days, number of persons and contact name.
+The price for the reservation for one person is 25 EUR per day.</p>
 </div>
 <div class="paragraph">
-<p>Во класата да се дефинира функција <code>vratiCena()</code> која враќа колкава е цената на резервацијата. Во класата да се дефинира функција <code>vratiCena(int uplata)</code> која враќа колкава цена треба да се врати од касата ако корисникот на резервацијата ја доставува дадената уплата.</p>
+<p>In the class define function <code>price()</code> that returns the total price of the reservation.
+Also define function <code>price(int payment)</code> that returns the price with the given payment.</p>
 </div>
 <div class="paragraph">
-<p>Да се изведе класа <strong>Полупансионска хотелска резервација</strong> за резервирање на хотелска соба со појадок. Цената на појадокот за едно лице за еден ден е 5 евра. Да се препокрие соодветно функцијата <code>vratiCena(int uplata)</code>.</p>
+<p>Derive a class <code>BBHotelReservation</code> for reservation only with breakfast.
+Price of the breakfast for one person is 5 EUR.
+Override the function <code>price(int payment)</code>.</p>
 </div>
 <div class="paragraph">
-<p>Да се дефинира класа за Хотел со информации за името на хотелот и салдо на хотелот. Во класата да се дефинира функција <code>int uplatiZaRezervacija(HotelsaRezervacija &amp;hr, int uplata);</code> Со оваа функција треба да се направи уплата за дадена хотелска резервација. Ако уплатата ја надминува бараната сума функцијататреба да врати колку пари треба да му се врати на корисникот кој ја прави уплатата. Уплатата треба да се додаде во салдото на хотелот.</p>
+<p>Define a class <code>Hotel</code> with name of the hotel and the balance.
+Implement a function <code>int reserve(HotelReservation &amp;hr, int payment)</code>.
+This function should make a payment for given hotel reservation.
+If the payment surpass the needed amount the function should return the change.
+The payment is made on the hotel balance.</p>
 </div>
 <div class="paragraph">
-<p><strong>Што ќе се случеше ако аргументот не е референца?</strong></p>
+<p><strong>What will happen if the argument is not reference?</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">Решение <code>oop_av82.cpp</code></div>
+<div class="title">Solution <code>oop_av82.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span><span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span><span class="include">&lt;cstring&gt;</span>
@@ -769,175 +785,180 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect2">
-<h3 id="Задача-3">1.3. Задача</h3>
-<div class="literalblock">
-<div class="content">
-<pre>    Да се дефинира апстрактна класа за репрезентација на едно геометриско тело. Секое геометриско тело има висина (децимален број) и основа која може да биде различна за различни геометриски фигури.
-За апстракната класа да се дефинираат функциите:
-- pecati() во која се печатат информациите за телото
-- volumen() која ќе го враќа волуменот на телото
-- getVisina() која ќе ја враќа висината на телото</pre>
+<h3 id="geometric-shapes">1.3. Geometric shapes</h3>
+<div class="paragraph">
+<p>Define an abstract class for geometric shape with height and base of different geometric figure.
+Define the following functions in the class:
+- <code>print()</code> that prints the info for the shape
+- <code>volume()</code> returns the volume of the shape
+- <code>height()</code> returns the height of the shape.</p>
 </div>
+<div class="paragraph">
+<p>From the class geometric shape derive class for cylinder, cone and cuboid.
+For a cylinder and cone store the radius of the base.
+For the cuboid store the sides <code>a</code> and <code>b</code> of the basis.</p>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>  Од класата геометриско тело да се изведе класа за цилиндер, конус и квадар. За еден цилиндер и за еден конус покрај висината се чува и информација за радиусот на основата (децимален број).За квадарот се чуваат информации за страните `а` и `b` на основата (децимални броеви).
-Во `main` функцијата да се декларира и иницизијализра динамички алоцирана низа од покажувачи кон класата која претставува геометриско тело. Од оваа низа:</pre>
-</div>
+<div class="paragraph">
+<p>In the <code>main</code> function declare and initialize dynamically allocated array of pointers of the class for geometric shape.
+From this array:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Да се одреди телото со најголем волумен користејќи ја глобалната функција: <code>void teloSoNajgolemVolumen(GeomTelo *niza[], int n);</code> Оваа функција треба да ги отпечати информациите за телото од полето предадено како аргумент (<code>niza</code> - поле од покажувачи кон <code>GeomTelo</code>) кое има најголем волумен.</p>
+<p>Find the shape with maximum volume using the global function: <code>void maxVolume(Shape *array[], int n);</code>
+This function should print the info for the shape with maximum volume.</p>
 </li>
 <li>
-<p>Да се одреди бројот на геометриски тела кои немаат основа круг користејќи ја глобалната функција со потпис: <code>double getRadius(GeomTelo *g);</code>. Оваа функција која ќе го враќа радиусот на основата (ако основата на телото е круг), а -1 во спротивно.</p>
+<p>Find the number of shapes that don&#8217;t have basis circle using the global function: <code>double getRadius(Shape *s);</code>.
+This function returns the radius of the basis (if the basis is circle), -1 otherwise.</p>
 </li>
 </ol>
 </div>
 <div class="listingblock">
-<div class="title">Решение <code>oop_av83.cpp</code></div>
+<div class="title">Solution <code>oop_av83_en.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span><span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span><span class="include">&lt;cmath&gt;</span>
 <span class="directive">using</span> <span class="keyword">namespace</span> std;
-<span class="keyword">class</span> <span class="class">GeomTelo</span>{
+<span class="keyword">class</span> <span class="class">Shape</span> {
 <span class="directive">protected</span>:
-  <span class="predefined-type">double</span> visina;
+    <span class="predefined-type">double</span> height;
 <span class="directive">public</span>:
-  GeomTelo (<span class="predefined-type">int</span> visina = <span class="integer">0</span>) {
-    <span class="local-variable">this</span>-&gt;visina=visina;
-  }
-  <span class="directive">virtual</span> <span class="directive">void</span> pecati() { <span class="comment">//виртуелна функција</span>
-    cout &lt;&lt; visina;
-  }
-  <span class="directive">virtual</span> <span class="predefined-type">double</span> getVolumen() = <span class="integer">0</span>; <span class="comment">//чисто виртуелна функција</span>
-  <span class="predefined-type">double</span> getVisina() <span class="directive">const</span> {
-    <span class="keyword">return</span> visina;
-  }
-};
-
-<span class="keyword">class</span> <span class="class">Cilinder</span>: <span class="directive">public</span> GeomTelo{
-<span class="directive">private</span>:
-  <span class="predefined-type">double</span> radius;
-<span class="directive">public</span>:
-  <span class="comment">// конструктор</span>
-  Cilinder(<span class="predefined-type">double</span> radius, <span class="predefined-type">double</span> visina):GeomTelo(visina){
-    <span class="local-variable">this</span>-&gt;radius = radius;
-  }
-  <span class="comment">//препокривање на функцијата pecati()</span>
-  <span class="directive">void</span> pecati(){
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Cilinder so visina </span><span class="delimiter">&quot;</span></span>;
-    GeomTelo::pecati();
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> i so radius na osnovata </span><span class="delimiter">&quot;</span></span> &lt;&lt; radius &lt;&lt; endl;
-  }
-  <span class="comment">//препокривање на функцијата getVolumen()</span>
-  <span class="predefined-type">double</span> getVolumen(){
-    <span class="keyword">return</span> M_PI * radius * radius * getVisina();
-  }
-  <span class="predefined-type">double</span> getRadius(){
-    <span class="keyword">return</span> radius;
-  }
-};
-
-<span class="keyword">class</span> <span class="class">Konus</span>: <span class="directive">public</span> GeomTelo {
-<span class="directive">private</span>:
-  <span class="predefined-type">double</span> radius;
-<span class="directive">public</span>:
-  <span class="comment">// контсруктор</span>
-  Konus(<span class="predefined-type">double</span> radius, <span class="predefined-type">double</span> visina):GeomTelo(visina){
-    <span class="local-variable">this</span>-&gt;radius=radius;
-  }
-  <span class="comment">//препокривање на функцијата pecati()</span>
-  <span class="directive">void</span> pecati(){
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Konus so visina </span><span class="delimiter">&quot;</span></span>;
-    GeomTelo::pecati();
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> i so radius na osnovata </span><span class="delimiter">&quot;</span></span> &lt;&lt; radius &lt;&lt; endl;
-  }
-  <span class="comment">//препокривање на функциајта getVolumen()</span>
-  <span class="predefined-type">double</span> getVolumen(){
-    <span class="keyword">return</span> M_PI*radius*radius*getVisina()/<span class="float">3</span><span class="float">.0</span>;
-  }
-  <span class="predefined-type">double</span> getRadius(){
-    <span class="keyword">return</span> radius;
-  }
-};
-
-
-<span class="keyword">class</span> <span class="class">Kvadar</span>: <span class="directive">public</span> GeomTelo{
-<span class="directive">private</span>:
-  <span class="predefined-type">double</span> a,b;
-<span class="directive">public</span>:
-  <span class="comment">//конструктор</span>
-  Kvadar(<span class="predefined-type">double</span> a, <span class="predefined-type">double</span> b, <span class="predefined-type">double</span> visina):GeomTelo(visina){
-    <span class="local-variable">this</span>-&gt;a=a;
-    <span class="local-variable">this</span>-&gt;a=b;
-  }
-  <span class="comment">//препокривање на функцијата pecati()</span>
-  <span class="directive">void</span> pecati(){
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Kvadar so visina </span><span class="delimiter">&quot;</span></span>;
-    GeomTelo::pecati();
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">i so osnova </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;a &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> i </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;b &lt;&lt;endl;
-  }
-  <span class="comment">//препокривање на функцијата getVolumen()</span>
-  <span class="predefined-type">double</span> getVolumen(){
-    <span class="keyword">return</span> a * b * getVisina();
-  }
-};
-<span class="directive">void</span> teloSoNajgolemVolumen(GeomTelo *niza[], <span class="predefined-type">int</span> n );
-<span class="predefined-type">double</span> getRadius (GeomTelo *g);
-<span class="predefined-type">int</span> main(){
-  GeomTelo** mnozestvoTela; <span class="comment">//динамички алоцирано поле од покажувачи кон GeomTelo</span>
-  <span class="predefined-type">int</span> n;
-  cin&gt;&gt;n; <span class="comment">//број на тела во множеството</span>
-  mnozestvoTela = <span class="keyword">new</span> GeomTelo*[n]; <span class="comment">//се алоцира меморија за полето од покажувачи</span>
-  <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++){
-    <span class="predefined-type">int</span> r,a,b,h,type;
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kakvo telo: 1-cilinder 2-konus 3-kvadar </span><span class="delimiter">&quot;</span></span>&lt;&lt;endl;
-    cin &gt;&gt; type;
-    <span class="keyword">if</span> (type==<span class="integer">1</span>) { <span class="comment">//ако корисникот внесува цилиндер</span>
-      cin &gt;&gt; r &gt;&gt; h; mnozestvoTela[i]= <span class="keyword">new</span> Cilinder(r,h); }
-    <span class="keyword">if</span> (type==<span class="integer">2</span>) { <span class="comment">//ако корисникот внесува конус</span>
-      cin &gt;&gt; r &gt;&gt; h; mnozestvoTela[i]= <span class="keyword">new</span> Konus(r,h); }
-    <span class="keyword">if</span> (type==<span class="integer">3</span>) { <span class="comment">//ако корисникот внесува квадар</span>
-      cin &gt;&gt; a &gt;&gt; b &gt;&gt; h; mnozestvoTela[i]= <span class="keyword">new</span> Kvadar(a,b,h); }
-  }
-    <span class="comment">//барање 1</span>
-    teloSoNajgolemVolumen(mnozestvoTela,n);
-    <span class="comment">//барање 2</span>
-    <span class="predefined-type">int</span> brojac=<span class="integer">0</span>;
-    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++)
-      <span class="keyword">if</span> (getRadius(mnozestvoTela[i]) == -<span class="integer">1</span>)
-        brojac++;
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Brojot na tela koi nemaat osnova krug e </span><span class="delimiter">&quot;</span></span>&lt;&lt;brojac;
-}
-<span class="directive">void</span> teloSoNajgolemVolumen(GeomTelo *niza[], <span class="predefined-type">int</span> n)
-{
-  <span class="predefined-type">int</span> maxVolumen=<span class="integer">0</span>;
-  <span class="predefined-type">int</span> maxIndex=<span class="integer">0</span>;
-  <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++)
-    {
-      <span class="keyword">if</span> (niza[i]-&gt;getVolumen() &gt; maxVolumen){
-        <span class="comment">//се повикува виртуелната функција getVolumen()</span>
-        maxVolumen=niza[i]-&gt;getVolumen();
-        maxIndex=i;
-      }
+    Shape (<span class="predefined-type">int</span> height = <span class="integer">0</span>) {
+        <span class="local-variable">this</span>-&gt;height = height;
     }
-  cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Teloto so najgolem Volumen e:</span><span class="delimiter">&quot;</span></span>;
-  niza[maxIndex]-&gt;pecati(); <span class="comment">//се повикува виртуелната функција pecati()</span>
+    <span class="directive">virtual</span> <span class="directive">void</span> print() { <span class="comment">//virtual function</span>
+        cout &lt;&lt; height;
+    }
+    <span class="directive">virtual</span> <span class="predefined-type">double</span> getVolume() = <span class="integer">0</span>; <span class="comment">//pure virtual function</span>
+    <span class="predefined-type">double</span> getHeight() <span class="directive">const</span> {
+        <span class="keyword">return</span> height;
+    }
+};
+
+<span class="keyword">class</span> <span class="class">Cylinder</span>: <span class="directive">public</span> Shape {
+<span class="directive">private</span>:
+    <span class="predefined-type">double</span> radius;
+<span class="directive">public</span>:
+    <span class="comment">//  constructor</span>
+    Cylinder(<span class="predefined-type">double</span> radius, <span class="predefined-type">double</span> height): Shape(height) {
+        <span class="local-variable">this</span>-&gt;radius = radius;
+    }
+    <span class="comment">// overriding function print()</span>
+    <span class="directive">void</span> print() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Cylinder with height </span><span class="delimiter">&quot;</span></span>;
+        Shape::print();
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> and radius of tha basis</span><span class="delimiter">&quot;</span></span> &lt;&lt; radius &lt;&lt; endl;
+    }
+    <span class="comment">// overriding function getVolume()</span>
+    <span class="predefined-type">double</span> getVolume() {
+        <span class="keyword">return</span> M_PI * radius * radius * getHeight();
+    }
+    <span class="predefined-type">double</span> getRadius() {
+        <span class="keyword">return</span> radius;
+    }
+};
+
+<span class="keyword">class</span> <span class="class">Cone</span>: <span class="directive">public</span> Shape {
+<span class="directive">private</span>:
+    <span class="predefined-type">double</span> radius;
+<span class="directive">public</span>:
+    <span class="comment">// constructor</span>
+    Cone(<span class="predefined-type">double</span> radius, <span class="predefined-type">double</span> height): Shape(height) {
+        <span class="local-variable">this</span>-&gt;radius = radius;
+    }
+    <span class="comment">// overriding function print()</span>
+    <span class="directive">void</span> print() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Cone with height </span><span class="delimiter">&quot;</span></span>;
+        Shape::print();
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> and with radius of basis </span><span class="delimiter">&quot;</span></span> &lt;&lt; radius &lt;&lt; endl;
+    }
+    <span class="comment">// overriding function getVolume()</span>
+    <span class="predefined-type">double</span> getVolume() {
+        <span class="keyword">return</span> M_PI * radius * radius * getHeight() / <span class="float">3</span><span class="float">.0</span>;
+    }
+    <span class="predefined-type">double</span> getRadius() {
+        <span class="keyword">return</span> radius;
+    }
+};
+
+
+<span class="keyword">class</span> <span class="class">Cuboid</span>: <span class="directive">public</span> Shape {
+<span class="directive">private</span>:
+    <span class="predefined-type">double</span> a, b;
+<span class="directive">public</span>:
+    <span class="comment">// constructor</span>
+    Cuboid(<span class="predefined-type">double</span> a, <span class="predefined-type">double</span> b, <span class="predefined-type">double</span> height): Shape(height) {
+        <span class="local-variable">this</span>-&gt;a = a;
+        <span class="local-variable">this</span>-&gt;a = b;
+    }
+    <span class="comment">// overriding function print()</span>
+    <span class="directive">void</span> print() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Cuboid with height </span><span class="delimiter">&quot;</span></span>;
+        Shape::print();
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">and with basis </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;a &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> i </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;b &lt;&lt; endl;
+    }
+    <span class="comment">// overriding function getVolume()</span>
+    <span class="predefined-type">double</span> getVolume() {
+        <span class="keyword">return</span> a * b * getHeight();
+    }
+};
+<span class="directive">void</span> maxVolume(Shape *shapes[], <span class="predefined-type">int</span> n );
+<span class="predefined-type">double</span> getRadius (Shape *s);
+
+<span class="predefined-type">int</span> main() {
+    Shape** shapes; <span class="comment">// dynamically allocated array of pointers of Shape</span>
+    <span class="predefined-type">int</span> n;
+    cin &gt;&gt; n; <span class="comment">// number of elements in the array</span>
+    shapes = <span class="keyword">new</span> Shape*[n]; <span class="comment">// allocate the pointer array</span>
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++) {
+        <span class="predefined-type">int</span> r, a, b, h, type;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Shape: 1-cylinder 2-cone 3-cuboid</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        cin &gt;&gt; type;
+        <span class="keyword">if</span> (type == <span class="integer">1</span>) { <span class="comment">// for Cylinder</span>
+            cin &gt;&gt; r &gt;&gt; h; shapes[i] = <span class="keyword">new</span> Cylinder(r, h);
+        } <span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="integer">2</span>) { <span class="comment">// for Cone</span>
+            cin &gt;&gt; r &gt;&gt; h; shapes[i] = <span class="keyword">new</span> Cone(r, h);
+        } <span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="integer">3</span>) { <span class="comment">// for Cuboid</span>
+            cin &gt;&gt; a &gt;&gt; b &gt;&gt; h; shapes[i] = <span class="keyword">new</span> Cuboid(a, b, h);
+        }
+    }
+    <span class="comment">// 1.</span>
+    maxVolume(shapes, n);
+    <span class="comment">// 2.</span>
+    <span class="predefined-type">int</span> counter = <span class="integer">0</span>;
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++)
+        <span class="keyword">if</span> (getRadius(shapes[i]) == -<span class="integer">1</span>)
+            counter++;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Number of shapes with base circle is </span><span class="delimiter">&quot;</span></span> &lt;&lt; counter;
 }
-<span class="predefined-type">double</span> getRadius(GeomTelo *g){
-  <span class="comment">//претворање за време на извршување</span>
-  Cilinder* c = <span class="keyword">dynamic_cast</span>&lt;Cilinder *&gt;(g);
-  <span class="keyword">if</span> (c != <span class="integer">0</span>){ <span class="comment">//ако може да се изведе претворањето</span>
-    <span class="keyword">return</span> c-&gt;getRadius();
-  }
-  <span class="comment">//претворање за време на извршување</span>
-  Konus* k = <span class="keyword">dynamic_cast</span>&lt;Konus *&gt;(g);
-  <span class="keyword">if</span> (k!= <span class="integer">0</span> ){ <span class="comment">//ако може да се изведе претворањето</span>
-    <span class="keyword">return</span> k-&gt;getRadius();
-  }
-  <span class="keyword">return</span> -<span class="integer">1</span>; <span class="comment">// ако g не покажува кон цилиндер, ни кон конус врати -1</span>
+<span class="directive">void</span> maxVolume(Shape *shapes[], <span class="predefined-type">int</span> n)
+{
+    <span class="predefined-type">int</span> max = <span class="integer">0</span>;
+    <span class="predefined-type">int</span> maxIndex = <span class="integer">0</span>;
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++)
+    {
+        <span class="keyword">if</span> (shapes[i]-&gt;getVolume() &gt; max) {
+            <span class="comment">// call virtual function getVolume()</span>
+            max = shapes[i]-&gt;getVolume();
+            maxIndex = i;
+        }
+    }
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Shape with max volume is:</span><span class="delimiter">&quot;</span></span>;
+    shapes[maxIndex]-&gt;print(); <span class="comment">// virtual call of function print()</span>
+}
+<span class="predefined-type">double</span> getRadius(Shape *g) {
+    <span class="comment">// runtime cast</span>
+    Cylinder* c = <span class="keyword">dynamic_cast</span>&lt;Cylinder *&gt;(g);
+    <span class="keyword">if</span> (c != <span class="integer">0</span>) { <span class="comment">// if cast fails</span>
+        <span class="keyword">return</span> c-&gt;getRadius();
+    }
+    <span class="comment">// runtime cast</span>
+    Cone* k = <span class="keyword">dynamic_cast</span>&lt;Cone *&gt;(g);
+    <span class="keyword">if</span> (k != <span class="integer">0</span> ) { <span class="comment">// if cast fails</span>
+        <span class="keyword">return</span> k-&gt;getRadius();
+    }
+    <span class="keyword">return</span> -<span class="integer">1</span>; <span class="comment">// if g is not a pointer to Cylinder or Cone return -1</span>
 }</code></pre>
 </div>
 </div>
@@ -946,21 +967,21 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="Изворен-код-од-примери-и-задачи">2. Изворен код од примери и задачи</h2>
+<h2 id="source-code-of-the-examples-and-problems">2. Source code of the examples and problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/finki-mk/OOP/" class="bare">https://github.com/finki-mk/OOP/</a></p>
+<p><a href="https://github.com/finki-mk/SP/" class="bare">https://github.com/finki-mk/SP/</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://finki-mk.github.io/OOP/sources/oop_av8_src.zip">Source code ZIP</a></p>
+<p><a href="https://finki-mk.github.io/OOP/sources/oop_av8_src_en.zip">Source code ZIP</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Верзија 1.0<br>
-Last updated 2017-04-11 16:13:39 +02:00
+Version 1.0<br>
+Last updated 2017-04-18 14:03:01 +02:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

@@ -1,0 +1,105 @@
+# Object oriented programming
+Exercises 9
+v1.0, 18 April, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av9
+
+== Multiple inheritance 
+
+=== CarJet (The Diamond Problem)
+
+Compose a class for car with jet engine that derives from two classes, car and jet.
+
+.Soltuion `oop_av91_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av91_en.cpp[]
+----
+
+.Output of the program:
+----
+Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+JetCar Constructor
+
+Car testing in progress
+Car Driving
+JetCar driving
+Jet testing in progress
+Jet flying
+JetCar flying
+
+JetCar Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor
+----
+
+As we can notice when an object of class `JetCar` is created, the constructor of the class `Vehicle` is called twice.
+----
+Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+JetCar Constructor
+----
+
+Also the destructor of the class `Vehicle` is called twice when a `JetCar` object is destructing.
+
+----
+JetCar Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor
+----
+
+To avoid this problem with multiple inheritance a new type of `virtual` inheritance is introduced when classes `Car` and `Jet` derive from `Vehicle`.
+
+[source,cpp]
+----
+class Car: virtual public Vehicle
+...
+class Jet: virtual publuc Vehicle
+...
+----
+
+
+.Correct solution `oop_av911_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av911.cpp[]
+----
+
+
+=== Product
+
+Implement class `Product` that has a name and price. 
+Implement abstract class `Discount` that has two pure virtual methods for price and discounted price.
+From these classes derive the following classes:
+
+- `FoodProduct` that has additional info for the number of calories;
+- `DigitalProduct` that has additional info for size (in MB)
+
+Implement external function `total_discount` that will compute the total discount of few products that are on discount.
+ 
+.Solution `oop_av92_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av92_en.cpp[]
+----
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av9_src_en.zip[Source code ZIP]

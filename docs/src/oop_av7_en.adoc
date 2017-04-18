@@ -1,0 +1,39 @@
+# Object oriented programming
+Exercises 7
+v1.0, 11 April, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av7
+
+==  Inheritance
+
+=== Tennis Player
+
+Define a class for tennis player.
+Each player is described with first name, last name and if he plays in league.
+
+From the class tennis player derive a class for ranked tennis player, that is player that plays on international level and is ranked with an integer for rank.
+
+.Solution `oop_av71_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av71_en.cpp[]
+----
+
+=== Accounts
+
+Define a class for `DebitAccount` for working with debit bank account.
+For each bank account keep the name of the owner (char array max 100 chars), number of account (long number) and current balance (double).
+Enable methods for account review, deposit and withdrawing money from the account. 
+
+Then define a class `CreditAccount` that will enable the user to take loan from the bank.
+It should enable computing the interest if the user owns money to the bank.
+ 
+.Solution `oop_av72_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av72_en.cpp[]
+----
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av7_src.zip[Source code ZIP]

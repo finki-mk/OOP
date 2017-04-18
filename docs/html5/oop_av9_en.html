@@ -5,8 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Аудиториски вежби 8">
-<title>Објектно ориентирано програмирање</title>
+<meta name="author" content="Exercises 9">
+<title>Object oriented programming</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -512,432 +512,398 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Објектно ориентирано програмирање</h1>
+<h1>Object oriented programming</h1>
 <div class="details">
-<span id="author" class="author">Аудиториски вежби 8</span><br>
-<span id="revnumber">Верзија 1.0,</span>
-<span id="revdate">10 април, 2017</span>
+<span id="author" class="author">Exercises 9</span><br>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">18 April, 2017</span>
 </div>
 <div id="toc" class="toc2">
-<div id="toctitle">Содржина</div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#Полиморфизам">1. Полиморфизам</a>
+<li><a href="#multiple-inheritance">1. Multiple inheritance</a>
 <ul class="sectlevel2">
-<li><a href="#Задача">1.1. Задача</a></li>
-<li><a href="#Задача-2">1.2. Задача</a></li>
-<li><a href="#Задача-3">1.3. Задача</a></li>
+<li><a href="#carjet-the-diamond-problem">1.1. CarJet (The Diamond Problem)</a></li>
+<li><a href="#product">1.2. Product</a></li>
 </ul>
 </li>
-<li><a href="#Изворен-код-од-примери-и-задачи">2. Изворен код од примери и задачи</a></li>
+<li><a href="#source-code-of-the-examples-and-problems">2. Source code of the examples and problems</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="Полиморфизам">1. Полиморфизам</h2>
+<h2 id="multiple-inheritance">1. Multiple inheritance</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Задача">1.1. Задача</h3>
+<h3 id="carjet-the-diamond-problem">1.1. CarJet (The Diamond Problem)</h3>
 <div class="paragraph">
-<p>Да се дефинира класа за репрезентација на публикација. За секоја публикација се чуваат информации за годината на издавање (цел број) и за називот на издавачката куќа (низа од знаци).</p>
-</div>
-<div class="paragraph">
-<p>Од класата публикација да се изведе (public) класа за книга. За секоја книга дополнително треба да се чува и бројот на страници на книгата.</p>
-</div>
-<div class="paragraph">
-<p>Од класата публикација да се изведе (protected) класа за весник. За весник се чува редниот број на весникот.</p>
-</div>
-<div class="paragraph">
-<p>Од класата весник да се изведе (private) класа за дневен весник. За секој дневен весник се чува информација за денот и месецот на издавање на весникот.</p>
-</div>
-<div class="paragraph">
-<p>Со разни функции да се испита пристапот до податоците и функциите!</p>
+<p>Compose a class for car with jet engine that derives from two classes, car and jet.</p>
 </div>
 <div class="listingblock">
-<div class="title">Решение <code>oop_av81.cpp</code></div>
+<div class="title">Soltuion <code>oop_av91_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">Vehicle</span> {
+<span class="directive">public</span>:
+    Vehicle() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vehicle Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> ~Vehicle() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vehicle Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> <span class="directive">void</span> accelerate() <span class="directive">const</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vehicle Accelerating</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">void</span> setAcceleration(<span class="predefined-type">double</span> a) {
+        acceleration = a;
+    }
+    <span class="predefined-type">double</span> getAcceleration() <span class="directive">const</span> {
+        <span class="keyword">return</span> acceleration;
+    }
+<span class="directive">protected</span>:
+    <span class="predefined-type">double</span> acceleration;
+};
+
+<span class="keyword">class</span> <span class="class">Car</span> : <span class="directive">public</span> Vehicle {
+<span class="directive">public</span>:
+    Car() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> <span class="directive">void</span> accelerate() <span class="directive">const</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Accelerating</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> <span class="directive">void</span> drive() <span class="directive">const</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Driving</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> ~Car() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+};
+
+<span class="keyword">class</span> <span class="class">Jet</span> : <span class="directive">public</span> Vehicle {
+<span class="directive">public</span>:
+    Jet() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> ~Jet() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> <span class="directive">void</span> fly() <span class="directive">const</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet flying</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+};
+<span class="keyword">class</span> <span class="class">JetCar</span> : <span class="directive">public</span> Car, <span class="directive">public</span> Jet {
+<span class="directive">public</span>:
+    JetCar() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> ~JetCar() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> <span class="directive">void</span> drive() <span class="directive">const</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar driving</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+    <span class="directive">virtual</span> <span class="directive">void</span> fly() <span class="directive">const</span> {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar flying</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    }
+};
+
+<span class="directive">void</span> analyzeCarPerformance(Car *testVehicle) {
+    testVehicle-&gt;drive();
+    <span class="comment">//функцијата drive() може да се повика и со покажувач кон основната и</span>
+    <span class="comment">//кон изведената класа. Oваа функција е дефинирана и во двете класи</span>
+}
+<span class="directive">void</span> analyzeJetPerformance(Jet *testVehicle) {
+    testVehicle-&gt;fly();
+    <span class="comment">//fly() е дефинирана и во основната и во изведената класа (Јет и JetCar)</span>
+}
+<span class="predefined-type">int</span> main() {
+    Car myCar;
+    Jet myJet;
+    JetCar myJetCar;
+    cout &lt;&lt; endl &lt;&lt; endl;
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car testing in progress</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    analyzeCarPerformance(&amp;myCar);
+    analyzeCarPerformance(&amp;myJetCar);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet testing in progress</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    analyzeJetPerformance(&amp;myJet);
+    analyzeJetPerformance(&amp;myJetCar);
+    cout &lt;&lt; endl &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Output of the program:</div>
+<div class="content">
+<pre>Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+JetCar Constructor
+
+Car testing in progress
+Car Driving
+JetCar driving
+Jet testing in progress
+Jet flying
+JetCar flying
+
+JetCar Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As we can notice when an object of class <code>JetCar</code> is created, the constructor of the class <code>Vehicle</code> is called twice.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Vehicle Constructor
+Car Constructor
+Vehicle Constructor
+Jet Constructor
+JetCar Constructor</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Also the destructor of the class <code>Vehicle</code> is called twice when a <code>JetCar</code> object is destructing.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>JetCar Destructor
+Jet Destructor
+Vehicle Destructor
+Car Destructor
+Vehicle Destructor</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To avoid this problem with multiple inheritance a new type of <code>virtual</code> inheritance is introduced when classes <code>Car</code> and <code>Jet</code> derive from <code>Vehicle</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="keyword">class</span> <span class="class">Car</span>: <span class="directive">virtual</span> <span class="directive">public</span> Vehicle
+...
+<span class="keyword">class</span> <span class="class">Jet</span>: <span class="directive">virtual</span> publuc Vehicle
+...</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Correct solution <code>oop_av911_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">Vehicle</span> {
+<span class="directive">public</span>:
+        Vehicle() {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vehicle Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> ~Vehicle() {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vehicle Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> <span class="directive">void</span> accelerate() <span class="directive">const</span> {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Vehicle Accelerating</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">void</span> setAcceleration(<span class="predefined-type">double</span> a) {
+                acceleration = a;
+        }
+        <span class="predefined-type">double</span> getAcceleration() <span class="directive">const</span> {
+                <span class="keyword">return</span> acceleration;
+        }
+<span class="directive">protected</span>:
+        <span class="predefined-type">double</span> acceleration;
+};
+
+<span class="keyword">class</span> <span class="class">Car</span> : <span class="directive">virtual</span> <span class="directive">public</span> Vehicle {
+<span class="directive">public</span>:
+        Car(){
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> <span class="directive">void</span> accelerate() <span class="directive">const</span> {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Accelerating</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> <span class="directive">void</span> drive() <span class="directive">const</span> {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Driving</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> ~Car() {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+};
+
+<span class="keyword">class</span> <span class="class">Jet</span> : <span class="directive">virtual</span> <span class="directive">public</span> Vehicle {
+<span class="directive">public</span>:
+        Jet() {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> ~Jet() {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> <span class="directive">void</span> fly() <span class="directive">const</span> {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet flying</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+};
+<span class="keyword">class</span> <span class="class">JetCar</span> : <span class="directive">public</span> Car, <span class="directive">public</span> Jet {
+<span class="directive">public</span>:
+        JetCar(){
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar Constructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> ~JetCar() {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar Destructor</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> <span class="directive">void</span> drive() <span class="directive">const</span> {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar driving</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+        <span class="directive">virtual</span> <span class="directive">void</span> fly() <span class="directive">const</span> {
+                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">JetCar flying</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        }
+};
+
+<span class="directive">void</span> analyzeCarPerformance(Car *testVehicle) {
+        testVehicle-&gt;drive();
+        <span class="comment">//функцијата drive() може да се повика и со покажувач кон основната и</span>
+        <span class="comment">//кон изведената класа. Oваа функција е дефинирана и во двете класи</span>
+}
+<span class="directive">void</span> analyzeJetPerformance(Jet *testVehicle) {
+        testVehicle-&gt;fly();
+        <span class="comment">//fly() е дефинирана и во основната и во изведената класа (Јет и JetCar)</span>
+}
+<span class="predefined-type">int</span> main() {
+        Car myCar;
+        Jet myJet;
+        JetCar myJetCar;
+        cout &lt;&lt; endl &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Car testing in progress</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        analyzeCarPerformance(&amp;myCar);
+        analyzeCarPerformance(&amp;myJetCar);
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Jet testing in progress</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+        analyzeJetPerformance(&amp;myJet);
+        analyzeJetPerformance(&amp;myJetCar);
+        cout &lt;&lt; endl &lt;&lt; endl;
+        <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="product">1.2. Product</h3>
+<div class="paragraph">
+<p>Implement class <code>Product</code> that has a name and price.
+Implement abstract class <code>Discount</code> that has two pure virtual methods for price and discounted price.
+From these classes derive the following classes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>FoodProduct</code> that has additional info for the number of calories;</p>
+</li>
+<li>
+<p><code>DigitalProduct</code> that has additional info for size (in MB)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Implement external function <code>total_discount</code> that will compute the total discount of few products that are on discount.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av92_en.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
-
 <span class="directive">using</span> <span class="keyword">namespace</span> std;
-<span class="keyword">class</span> <span class="class">Publikacija</span> {
-<span class="directive">private</span>:
-  <span class="predefined-type">char</span> naziv [<span class="integer">100</span>];
+<span class="keyword">class</span> <span class="class">Discount</span> {
+<span class="directive">public</span>:
+    <span class="directive">virtual</span> <span class="predefined-type">float</span> getDiscount_price() = <span class="integer">0</span>;
+    <span class="directive">virtual</span> <span class="predefined-type">float</span> getPrice() = <span class="integer">0</span>;
+};
+<span class="keyword">class</span> <span class="class">Product</span> {
 <span class="directive">protected</span>:
-  <span class="predefined-type">int</span> godina;
-  <span class="predefined-type">char</span>* getNaziv() {
-    <span class="keyword">return</span> naziv;
-  }
-
+    <span class="predefined-type">char</span> name[<span class="integer">100</span>];
+    <span class="predefined-type">float</span> price;
 <span class="directive">public</span>:
-  <span class="predefined-type">int</span> getGodina () { <span class="keyword">return</span> godina;}
-  <span class="directive">void</span> pecati () {
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Publikacija: </span><span class="delimiter">&quot;</span></span>&lt;&lt; naziv &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> - </span><span class="delimiter">&quot;</span></span> &lt;&lt; godina &lt;&lt; endl;
- }
- Publikacija( <span class="predefined-type">char</span> *naziv, <span class="predefined-type">int</span> godina ) {
-   strcpy(<span class="local-variable">this</span>-&gt;naziv, naziv);
-   <span class="local-variable">this</span>-&gt;godina = godina;
- }
-};
-
-<span class="comment">// public изведување</span>
-<span class="keyword">class</span> <span class="class">Kniga</span>: <span class="directive">public</span> Publikacija {
-<span class="directive">private</span>:
-  <span class="predefined-type">int</span> broj_strani;
-<span class="directive">public</span>:
-  Kniga(<span class="predefined-type">char</span> *naziv, <span class="predefined-type">int</span> godina, <span class="predefined-type">int</span> broj_strani):Publikacija(naziv, godina){
-    <span class="local-variable">this</span>-&gt;broj_strani = broj_strani;
-  }
-  <span class="directive">void</span> pecatiGodinaKniga(){
-    cout &lt;&lt; godina; <span class="comment">//пристап до protected променливата godina</span>
-  }
-  <span class="directive">void</span> pecatiNazivKniga (){
-    <span class="comment">//пристап до getNaziv(), naziv не може да се пристапи затоа што е private</span>
-    cout &lt;&lt; getNaziv();
-  }
-  <span class="directive">void</span> pecatiStrani (){
-    cout &lt;&lt; broj_strani;
-  }
-};
-
-<span class="comment">// protected изведување</span>
-<span class="keyword">class</span> <span class="class">Vesnik</span>: <span class="directive">protected</span> Publikacija{
-<span class="directive">private</span>:
-  <span class="predefined-type">int</span> broj;
-<span class="directive">public</span>:
-  Vesnik(<span class="predefined-type">char</span>* naziv, <span class="predefined-type">int</span> godina, <span class="predefined-type">int</span> broj):Publikacija(naziv, godina){
-    <span class="local-variable">this</span>-&gt;broj=broj;
-  }
-  <span class="directive">void</span> pecatiGodinaVesnik (){
-    cout &lt;&lt; getGodina(); <span class="comment">//пристап до public getGodina(), која во оваа класа има protected пристап</span>
-      }
-  <span class="directive">void</span> pecatiNazivVesnik(){
-    cout &lt;&lt; getNaziv(); <span class="comment">//пристап до getNaziv(), naziv не може да се пристапи затоа што е private</span>
-      }
-  <span class="directive">void</span> pecatiBroj(){
-    cout &lt;&lt; broj;
-  }
-};
-
-<span class="comment">//private изведување</span>
-<span class="keyword">class</span> <span class="class">DnevenVesnik</span>: <span class="directive">private</span> Vesnik{
-<span class="directive">private</span>:
-  <span class="predefined-type">int</span> den;
-  <span class="predefined-type">int</span> mesec;
-<span class="directive">public</span>:
-  DnevenVesnik(<span class="predefined-type">char</span> *naziv, <span class="predefined-type">int</span> den, <span class="predefined-type">int</span> mesec, <span class="predefined-type">int</span> godina,
-               <span class="predefined-type">int</span> broj):Vesnik(naziv, godina,broj){
-    <span class="local-variable">this</span>-&gt;den=den;
-    <span class="local-variable">this</span>-&gt;mesec=mesec;
-  }
-  <span class="directive">using</span> Vesnik::pecati; <span class="comment">// функцијата pecati од Publikacija станува public за DnevenVesnik</span>
-  <span class="directive">using</span> Vesnik::pecatiBroj; <span class="comment">// функцијата pecatiBroj од Publikacija станува public за DnevenVesnik</span>
-};
-
-<span class="predefined-type">int</span> main()
-{
-  Publikacija p(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tabernakul</span><span class="delimiter">&quot;</span></span>, <span class="integer">1992</span>);
-  p.pecati(); <span class="comment">// public - функција</span>
-  Kniga *k = <span class="keyword">new</span> Kniga(<span class="string"><span class="delimiter">&quot;</span><span class="content">ProsvetnoDelo</span><span class="delimiter">&quot;</span></span>, <span class="integer">1900</span>, <span class="integer">123</span>);
-  k-&gt;pecati(); <span class="comment">//pecati e public во Kniga</span>
-  k-&gt;pecatiGodinaKniga(); <span class="comment">// public - функција</span>
-  <span class="comment">// cout&lt;&lt;k-&gt;getNaziv(); // грешка! protected - функција</span>
-  Vesnik *s = <span class="keyword">new</span> Vesnik(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tea</span><span class="delimiter">&quot;</span></span>, <span class="integer">2013</span> ,<span class="integer">30</span>);
-  <span class="comment">// s-&gt;pecati(); //грешка! protected - функција</span>
-  <span class="comment">// cout&lt;&lt;s-&gt;getGodina(); // грешка! protected - функција</span>
-  s-&gt;pecatiNazivVesnik(); <span class="comment">// public - функција</span>
-  DnevenVesnik d(<span class="string"><span class="delimiter">&quot;</span><span class="content">Vest</span><span class="delimiter">&quot;</span></span>,<span class="integer">2</span>,<span class="integer">3</span>,<span class="integer">2014</span>,<span class="integer">25</span>);
-  d.pecati(); <span class="comment">//public-функција</span>
-  <span class="comment">// d.pecatiNazivVesnik(); // грешка! private - функција</span>
-  <span class="comment">// cout&lt;&lt;d.getNaziv(); // грешка! private – функција</span>
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Задача-2">1.2. Задача</h3>
-<div class="paragraph">
-<p>Да се дефинира класа за <strong>Хотелска резервација</strong>. За хотелската резервација се чува бројот на денови, бројот на лица, име и презиме на лицето за контакт. Да се земе дека цената на резервацијата за едно лице за еден ден е 25 евра.</p>
-</div>
-<div class="paragraph">
-<p>Во класата да се дефинира функција <code>vratiCena()</code> која враќа колкава е цената на резервацијата. Во класата да се дефинира функција <code>vratiCena(int uplata)</code> која враќа колкава цена треба да се врати од касата ако корисникот на резервацијата ја доставува дадената уплата.</p>
-</div>
-<div class="paragraph">
-<p>Да се изведе класа <strong>Полупансионска хотелска резервација</strong> за резервирање на хотелска соба со појадок. Цената на појадокот за едно лице за еден ден е 5 евра. Да се препокрие соодветно функцијата <code>vratiCena(int uplata)</code>.</p>
-</div>
-<div class="paragraph">
-<p>Да се дефинира класа за Хотел со информации за името на хотелот и салдо на хотелот. Во класата да се дефинира функција <code>int uplatiZaRezervacija(HotelsaRezervacija &amp;hr, int uplata);</code> Со оваа функција треба да се направи уплата за дадена хотелска резервација. Ако уплатата ја надминува бараната сума функцијататреба да врати колку пари треба да му се врати на корисникот кој ја прави уплатата. Уплатата треба да се додаде во салдото на хотелот.</p>
-</div>
-<div class="paragraph">
-<p><strong>Што ќе се случеше ако аргументот не е референца?</strong></p>
-</div>
-<div class="listingblock">
-<div class="title">Решение <code>oop_av82.cpp</code></div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span><span class="include">&lt;iostream&gt;</span>
-<span class="preprocessor">#include</span><span class="include">&lt;cstring&gt;</span>
-<span class="directive">using</span> <span class="keyword">namespace</span> std;
-
-<span class="keyword">class</span> <span class="class">HotelskaRezervacija</span>{
-<span class="directive">protected</span>:
-  <span class="predefined-type">int</span> denovi;
-  <span class="predefined-type">int</span> broj_lica;
-  <span class="predefined-type">char</span> ime[<span class="integer">50</span>];
-  <span class="predefined-type">char</span> prezime[<span class="integer">50</span>];
-
-<span class="directive">public</span>:
-  HotelskaRezervacija(<span class="predefined-type">char</span> *ime, <span class="predefined-type">char</span> *prezime, <span class="predefined-type">int</span> denovi, <span class="predefined-type">int</span> broj_lica){
-    strcpy(<span class="local-variable">this</span>-&gt;ime,ime);
-    strcpy(<span class="local-variable">this</span>-&gt;prezime, prezime);
-    <span class="local-variable">this</span>-&gt;denovi=denovi;
-    <span class="local-variable">this</span>-&gt;broj_lica=broj_lica;
- }
-
-  <span class="directive">virtual</span> <span class="predefined-type">int</span> vratiCena() {
-    <span class="keyword">return</span> denovi * broj_lica * <span class="integer">25</span>;
-  }
-  <span class="directive">virtual</span> <span class="predefined-type">int</span> vratiCena(<span class="predefined-type">int</span> uplata) {
-    <span class="keyword">if</span> (uplata &gt;= vratiCena())
-      <span class="keyword">return</span> uplata - vratiCena();
-    <span class="keyword">else</span> {
-      cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Za vashata rezervacija treba da naplatite </span><span class="delimiter">&quot;</span></span>&lt;&lt;vratiCena()&lt;&lt;endl;
-      <span class="keyword">return</span> -<span class="integer">1</span>;
+    Product(<span class="directive">const</span> <span class="predefined-type">char</span> *name = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="directive">const</span> <span class="predefined-type">float</span> price = <span class="integer">0</span>) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+        <span class="local-variable">this</span>-&gt;price = price;
     }
-  }
-};
-
-
-<span class="keyword">class</span> <span class="class">PolupansionskaHotelskaRezervacija</span>: <span class="directive">public</span> HotelskaRezervacija{
-<span class="directive">public</span>:
-  PolupansionskaHotelskaRezervacija(<span class="predefined-type">char</span> *ime, <span class="predefined-type">char</span> *prezime, <span class="predefined-type">int</span> denovi, <span class="predefined-type">int</span>
-                                    broj_lica) : HotelskaRezervacija(ime,prezime,denovi,broj_lica){}
-
-  <span class="comment">//препокривање на vratiCena(int uplata)</span>
-  <span class="predefined-type">int</span> vratiCena(<span class="predefined-type">int</span> uplata){
-    <span class="predefined-type">int</span> cena= HotelskaRezervacija::vratiCena() + broj_lica * <span class="integer">5</span>; <span class="comment">// пристап до protected податокот broj_lica</span>
-    <span class="keyword">if</span> (uplata &gt;= cena)
-      <span class="keyword">return</span> uplata - cena;
-    <span class="keyword">else</span> {
-      cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Za vashata rezervacija treba da naplatite </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-      <span class="keyword">return</span> -<span class="integer">1</span>;
+    <span class="predefined-type">float</span> getPrice() {
+        <span class="keyword">return</span> price;
     }
-  }
 };
 
-<span class="keyword">class</span> <span class="class">Hotel</span>{
+<span class="keyword">class</span> <span class="class">DigitalProduct</span> : <span class="directive">public</span> Product, <span class="directive">public</span> Discount {
 <span class="directive">private</span>:
-  <span class="predefined-type">char</span> ime[<span class="integer">50</span>];
-  <span class="predefined-type">int</span> saldo;
+    <span class="predefined-type">float</span> size;
 <span class="directive">public</span>:
-  Hotel(<span class="predefined-type">char</span> *ime) {
-    strcpy(<span class="local-variable">this</span>-&gt;ime, ime);
-    saldo = <span class="integer">0</span>;
-  }
-  <span class="comment">// референца кон основната класа може да референцира објекти и кон изведените класи</span>
-  <span class="predefined-type">int</span> uplatiZaRezervacija(HotelskaRezervacija &amp;hr, <span class="predefined-type">int</span> uplata) {
-    <span class="predefined-type">int</span> kusur=hr.vratiCena(uplata); <span class="comment">//полиморфизам</span>
-    <span class="comment">// која дефиниција на vratiCena ќе се повика?</span>
-    <span class="comment">// важно: vrtiCena е виртуелна функција</span>
-    <span class="keyword">if</span> (kusur != -<span class="integer">1</span>)
-      saldo += uplata - kusur;
-    <span class="keyword">return</span> kusur;
-  }
+    DigitalProduct(<span class="directive">const</span> <span class="predefined-type">char</span> *name = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="directive">const</span> <span class="predefined-type">float</span> price = <span class="integer">0</span>, <span class="directive">const</span> <span class="predefined-type">float</span> size = <span class="integer">0</span>) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+        <span class="local-variable">this</span>-&gt;price = price;
+        <span class="local-variable">this</span>-&gt;size = size;
+    }
+    <span class="comment">// overriding functions from the base class</span>
+    <span class="predefined-type">float</span> getDiscount_price() {
+        <span class="comment">// the discount is 10%</span>
+        <span class="keyword">return</span> <span class="float">0</span><span class="float">.9</span> * getPrice();
+    }
+
+    <span class="predefined-type">float</span> getPrice() {
+        <span class="keyword">return</span> Product::getPrice();
+    }
+
 };
 
+<span class="keyword">class</span> <span class="class">FoodProduct</span> : <span class="directive">public</span> Product, <span class="directive">public</span> Discount {
+<span class="directive">private</span>:
+    <span class="predefined-type">float</span> calories;
+<span class="directive">public</span>:
+    FoodProduct(<span class="directive">const</span> <span class="predefined-type">char</span> *name = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="directive">const</span> <span class="predefined-type">float</span> price = <span class="integer">0</span>, <span class="directive">const</span> <span class="predefined-type">float</span> calories = <span class="integer">0</span>) : Product(name, price) {
+        <span class="local-variable">this</span>-&gt;calories = calories;
+    }
+    <span class="predefined-type">float</span> getDiscount_price() {
+        <span class="comment">// discount is 20%</span>
+        <span class="keyword">return</span> <span class="float">.8</span> * getPrice();
+    }
+
+    <span class="predefined-type">float</span> getPrice() {
+        <span class="keyword">return</span> Product::getPrice();
+    }
+};
+
+<span class="predefined-type">float</span> total_discount(Discount **d, <span class="predefined-type">int</span> n) {
+    <span class="predefined-type">float</span> price = <span class="integer">0</span>;
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        price += d[i]-&gt;getPrice();
+    }
+    <span class="predefined-type">float</span> discount = <span class="integer">0</span>;
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        discount += d[i]-&gt;getDiscount_price();
+    }
+    <span class="keyword">return</span> price - discount;
+}
 <span class="predefined-type">int</span> main() {
-  Hotel h(<span class="string"><span class="delimiter">&quot;</span><span class="content">Bristol</span><span class="delimiter">&quot;</span></span>);
-  HotelskaRezervacija *hr1=<span class="keyword">new</span> HotelskaRezervacija(<span class="string"><span class="delimiter">&quot;</span><span class="content">Petko</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Petkovski</span><span class="delimiter">&quot;</span></span>,<span class="integer">5</span>,<span class="integer">5</span>);
-  <span class="predefined-type">int</span> cena = h.uplatiZaRezervacija(*hr1,<span class="integer">1000</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-  PolupansionskaHotelskaRezervacija *hr2=
-    <span class="keyword">new</span> PolupansionskaHotelskaRezervacija(<span class="string"><span class="delimiter">&quot;</span><span class="content">Risto</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Ristovski</span><span class="delimiter">&quot;</span></span>,<span class="integer">5</span>,<span class="integer">5</span>);
-  cena=h.uplatiZaRezervacija(*hr2,<span class="integer">1000</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-  <span class="comment">//покажувач кон основна класа покажува кон објект од изведена</span>
-  HotelskaRezervacija *hr3=<span class="keyword">new</span> PolupansionskaHotelskaRezervacija(<span class="string"><span class="delimiter">&quot;</span><span class="content">Ana</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Anovska</span><span class="delimiter">&quot;</span></span>,<span class="integer">4</span>,<span class="integer">2</span>);
-  cena=h.uplatiZaRezervacija(*hr3,<span class="integer">100</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-  PolupansionskaHotelskaRezervacija hr4(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tome</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Tomovski</span><span class="delimiter">&quot;</span></span>,<span class="integer">5</span>,<span class="integer">3</span>);
-  cena=h.uplatiZaRezervacija(hr4,<span class="integer">1000</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Задача-3">1.3. Задача</h3>
-<div class="literalblock">
-<div class="content">
-<pre>    Да се дефинира апстрактна класа за репрезентација на едно геометриско тело. Секое геометриско тело има висина (децимален број) и основа која може да биде различна за различни геометриски фигури.
-За апстракната класа да се дефинираат функциите:
-- pecati() во која се печатат информациите за телото
-- volumen() која ќе го враќа волуменот на телото
-- getVisina() која ќе ја враќа висината на телото</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>  Од класата геометриско тело да се изведе класа за цилиндер, конус и квадар. За еден цилиндер и за еден конус покрај висината се чува и информација за радиусот на основата (децимален број).За квадарот се чуваат информации за страните `а` и `b` на основата (децимални броеви).
-Во `main` функцијата да се декларира и иницизијализра динамички алоцирана низа од покажувачи кон класата која претставува геометриско тело. Од оваа низа:</pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Да се одреди телото со најголем волумен користејќи ја глобалната функција: <code>void teloSoNajgolemVolumen(GeomTelo *niza[], int n);</code> Оваа функција треба да ги отпечати информациите за телото од полето предадено како аргумент (<code>niza</code> - поле од покажувачи кон <code>GeomTelo</code>) кое има најголем волумен.</p>
-</li>
-<li>
-<p>Да се одреди бројот на геометриски тела кои немаат основа круг користејќи ја глобалната функција со потпис: <code>double getRadius(GeomTelo *g);</code>. Оваа функција која ќе го враќа радиусот на основата (ако основата на телото е круг), а -1 во спротивно.</p>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="title">Решение <code>oop_av83.cpp</code></div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span><span class="include">&lt;iostream&gt;</span>
-<span class="preprocessor">#include</span><span class="include">&lt;cmath&gt;</span>
-<span class="directive">using</span> <span class="keyword">namespace</span> std;
-<span class="keyword">class</span> <span class="class">GeomTelo</span>{
-<span class="directive">protected</span>:
-  <span class="predefined-type">double</span> visina;
-<span class="directive">public</span>:
-  GeomTelo (<span class="predefined-type">int</span> visina = <span class="integer">0</span>) {
-    <span class="local-variable">this</span>-&gt;visina=visina;
-  }
-  <span class="directive">virtual</span> <span class="directive">void</span> pecati() { <span class="comment">//виртуелна функција</span>
-    cout &lt;&lt; visina;
-  }
-  <span class="directive">virtual</span> <span class="predefined-type">double</span> getVolumen() = <span class="integer">0</span>; <span class="comment">//чисто виртуелна функција</span>
-  <span class="predefined-type">double</span> getVisina() <span class="directive">const</span> {
-    <span class="keyword">return</span> visina;
-  }
-};
-
-<span class="keyword">class</span> <span class="class">Cilinder</span>: <span class="directive">public</span> GeomTelo{
-<span class="directive">private</span>:
-  <span class="predefined-type">double</span> radius;
-<span class="directive">public</span>:
-  <span class="comment">// конструктор</span>
-  Cilinder(<span class="predefined-type">double</span> radius, <span class="predefined-type">double</span> visina):GeomTelo(visina){
-    <span class="local-variable">this</span>-&gt;radius = radius;
-  }
-  <span class="comment">//препокривање на функцијата pecati()</span>
-  <span class="directive">void</span> pecati(){
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Cilinder so visina </span><span class="delimiter">&quot;</span></span>;
-    GeomTelo::pecati();
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> i so radius na osnovata </span><span class="delimiter">&quot;</span></span> &lt;&lt; radius &lt;&lt; endl;
-  }
-  <span class="comment">//препокривање на функцијата getVolumen()</span>
-  <span class="predefined-type">double</span> getVolumen(){
-    <span class="keyword">return</span> M_PI * radius * radius * getVisina();
-  }
-  <span class="predefined-type">double</span> getRadius(){
-    <span class="keyword">return</span> radius;
-  }
-};
-
-<span class="keyword">class</span> <span class="class">Konus</span>: <span class="directive">public</span> GeomTelo {
-<span class="directive">private</span>:
-  <span class="predefined-type">double</span> radius;
-<span class="directive">public</span>:
-  <span class="comment">// контсруктор</span>
-  Konus(<span class="predefined-type">double</span> radius, <span class="predefined-type">double</span> visina):GeomTelo(visina){
-    <span class="local-variable">this</span>-&gt;radius=radius;
-  }
-  <span class="comment">//препокривање на функцијата pecati()</span>
-  <span class="directive">void</span> pecati(){
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Konus so visina </span><span class="delimiter">&quot;</span></span>;
-    GeomTelo::pecati();
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> i so radius na osnovata </span><span class="delimiter">&quot;</span></span> &lt;&lt; radius &lt;&lt; endl;
-  }
-  <span class="comment">//препокривање на функциајта getVolumen()</span>
-  <span class="predefined-type">double</span> getVolumen(){
-    <span class="keyword">return</span> M_PI*radius*radius*getVisina()/<span class="float">3</span><span class="float">.0</span>;
-  }
-  <span class="predefined-type">double</span> getRadius(){
-    <span class="keyword">return</span> radius;
-  }
-};
-
-
-<span class="keyword">class</span> <span class="class">Kvadar</span>: <span class="directive">public</span> GeomTelo{
-<span class="directive">private</span>:
-  <span class="predefined-type">double</span> a,b;
-<span class="directive">public</span>:
-  <span class="comment">//конструктор</span>
-  Kvadar(<span class="predefined-type">double</span> a, <span class="predefined-type">double</span> b, <span class="predefined-type">double</span> visina):GeomTelo(visina){
-    <span class="local-variable">this</span>-&gt;a=a;
-    <span class="local-variable">this</span>-&gt;a=b;
-  }
-  <span class="comment">//препокривање на функцијата pecati()</span>
-  <span class="directive">void</span> pecati(){
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Kvadar so visina </span><span class="delimiter">&quot;</span></span>;
-    GeomTelo::pecati();
-    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">i so osnova </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;a &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> i </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;b &lt;&lt;endl;
-  }
-  <span class="comment">//препокривање на функцијата getVolumen()</span>
-  <span class="predefined-type">double</span> getVolumen(){
-    <span class="keyword">return</span> a * b * getVisina();
-  }
-};
-<span class="directive">void</span> teloSoNajgolemVolumen(GeomTelo *niza[], <span class="predefined-type">int</span> n );
-<span class="predefined-type">double</span> getRadius (GeomTelo *g);
-<span class="predefined-type">int</span> main(){
-  GeomTelo** mnozestvoTela; <span class="comment">//динамички алоцирано поле од покажувачи кон GeomTelo</span>
-  <span class="predefined-type">int</span> n;
-  cin&gt;&gt;n; <span class="comment">//број на тела во множеството</span>
-  mnozestvoTela = <span class="keyword">new</span> GeomTelo*[n]; <span class="comment">//се алоцира меморија за полето од покажувачи</span>
-  <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++){
-    <span class="predefined-type">int</span> r,a,b,h,type;
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kakvo telo: 1-cilinder 2-konus 3-kvadar </span><span class="delimiter">&quot;</span></span>&lt;&lt;endl;
-    cin &gt;&gt; type;
-    <span class="keyword">if</span> (type==<span class="integer">1</span>) { <span class="comment">//ако корисникот внесува цилиндер</span>
-      cin &gt;&gt; r &gt;&gt; h; mnozestvoTela[i]= <span class="keyword">new</span> Cilinder(r,h); }
-    <span class="keyword">if</span> (type==<span class="integer">2</span>) { <span class="comment">//ако корисникот внесува конус</span>
-      cin &gt;&gt; r &gt;&gt; h; mnozestvoTela[i]= <span class="keyword">new</span> Konus(r,h); }
-    <span class="keyword">if</span> (type==<span class="integer">3</span>) { <span class="comment">//ако корисникот внесува квадар</span>
-      cin &gt;&gt; a &gt;&gt; b &gt;&gt; h; mnozestvoTela[i]= <span class="keyword">new</span> Kvadar(a,b,h); }
-  }
-    <span class="comment">//барање 1</span>
-    teloSoNajgolemVolumen(mnozestvoTela,n);
-    <span class="comment">//барање 2</span>
-    <span class="predefined-type">int</span> brojac=<span class="integer">0</span>;
-    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++)
-      <span class="keyword">if</span> (getRadius(mnozestvoTela[i]) == -<span class="integer">1</span>)
-        brojac++;
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Brojot na tela koi nemaat osnova krug e </span><span class="delimiter">&quot;</span></span>&lt;&lt;brojac;
-}
-<span class="directive">void</span> teloSoNajgolemVolumen(GeomTelo *niza[], <span class="predefined-type">int</span> n)
-{
-  <span class="predefined-type">int</span> maxVolumen=<span class="integer">0</span>;
-  <span class="predefined-type">int</span> maxIndex=<span class="integer">0</span>;
-  <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span> ; i &lt; n ; i++)
-    {
-      <span class="keyword">if</span> (niza[i]-&gt;getVolumen() &gt; maxVolumen){
-        <span class="comment">//се повикува виртуелната функција getVolumen()</span>
-        maxVolumen=niza[i]-&gt;getVolumen();
-        maxIndex=i;
-      }
+    Discount **d = <span class="keyword">new</span> Discount*[<span class="integer">3</span>];
+    d[<span class="integer">0</span>] = <span class="keyword">new</span> FoodProduct(<span class="string"><span class="delimiter">&quot;</span><span class="content">Cheese</span><span class="delimiter">&quot;</span></span>, <span class="integer">450</span>, <span class="integer">1200</span>);
+    d[<span class="integer">1</span>] = <span class="keyword">new</span> FoodProduct(<span class="string"><span class="delimiter">&quot;</span><span class="content">Wine</span><span class="delimiter">&quot;</span></span>, <span class="integer">780</span>, <span class="integer">250</span>);
+    d[<span class="integer">2</span>] = <span class="keyword">new</span> DigitalProduct(<span class="string"><span class="delimiter">&quot;</span><span class="content">WOW</span><span class="delimiter">&quot;</span></span>, <span class="integer">380</span>, <span class="integer">400</span>);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Difference: </span><span class="delimiter">&quot;</span></span> &lt;&lt; total_discount(d, <span class="integer">3</span>) &lt;&lt; endl;
+    <span class="keyword">for</span> (<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; <span class="integer">3</span>; ++i) {
+        <span class="keyword">delete</span> d[i];
     }
-  cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Teloto so najgolem Volumen e:</span><span class="delimiter">&quot;</span></span>;
-  niza[maxIndex]-&gt;pecati(); <span class="comment">//се повикува виртуелната функција pecati()</span>
-}
-<span class="predefined-type">double</span> getRadius(GeomTelo *g){
-  <span class="comment">//претворање за време на извршување</span>
-  Cilinder* c = <span class="keyword">dynamic_cast</span>&lt;Cilinder *&gt;(g);
-  <span class="keyword">if</span> (c != <span class="integer">0</span>){ <span class="comment">//ако може да се изведе претворањето</span>
-    <span class="keyword">return</span> c-&gt;getRadius();
-  }
-  <span class="comment">//претворање за време на извршување</span>
-  Konus* k = <span class="keyword">dynamic_cast</span>&lt;Konus *&gt;(g);
-  <span class="keyword">if</span> (k!= <span class="integer">0</span> ){ <span class="comment">//ако може да се изведе претворањето</span>
-    <span class="keyword">return</span> k-&gt;getRadius();
-  }
-  <span class="keyword">return</span> -<span class="integer">1</span>; <span class="comment">// ако g не покажува кон цилиндер, ни кон конус врати -1</span>
+    <span class="keyword">delete</span>[] d;
+    <span class="keyword">return</span> <span class="integer">0</span>;
 }</code></pre>
 </div>
 </div>
@@ -946,21 +912,21 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="Изворен-код-од-примери-и-задачи">2. Изворен код од примери и задачи</h2>
+<h2 id="source-code-of-the-examples-and-problems">2. Source code of the examples and problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/finki-mk/OOP/" class="bare">https://github.com/finki-mk/OOP/</a></p>
+<p><a href="https://github.com/finki-mk/SP/" class="bare">https://github.com/finki-mk/SP/</a></p>
 </div>
 <div class="paragraph">
-<p><a href="https://finki-mk.github.io/OOP/sources/oop_av8_src.zip">Source code ZIP</a></p>
+<p><a href="https://finki-mk.github.io/OOP/sources/oop_av9_src_en.zip">Source code ZIP</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Верзија 1.0<br>
-Last updated 2017-04-11 16:13:39 +02:00
+Version 1.0<br>
+Last updated 2017-04-18 14:15:51 +02:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

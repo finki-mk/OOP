@@ -1,0 +1,87 @@
+# Object oriented programming
+Exercises 8
+v1.0, 11 April, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av8
+
+==  Polymorphism
+
+=== Publications
+
+Define a class for publication.
+Each publication is described with the year of publishing (integer) and the name of publishing house.
+
+From this class derive (public) class for book.
+Each book additionally should have the number of pages.
+
+Derive (protected) a second class named newspaper.
+Each newspaper has its number.
+
+From the class for newspaper derive (private) a class for daily newspaper.
+Each daily newspaper has the day and month of publishing.
+
+Review different levels of access to fields and functions!
+
+
+.Solution `oop_av81_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av81_en.cpp[]
+----
+
+=== Hotel reservation
+
+Define a class for `HotelReservation` with number of days, number of persons and contact name.
+The price for the reservation for one person is 25 EUR per day.
+
+In the class define function `price()` that returns the total price of the reservation.
+Also define function `price(int payment)` that returns the price with the given payment.   
+
+Derive a class `BBHotelReservation` for reservation only with breakfast.
+Price of the breakfast for one person is 5 EUR.
+Override the function `price(int payment)`.
+
+Define a class `Hotel` with name of the hotel and the balance.
+Implement a function `int reserve(HotelReservation &hr, int payment)`.    
+This function should make a payment for given hotel reservation.    
+If the payment surpass the needed amount the function should return the change.    
+The payment is made on the hotel balance.
+
+*What will happen if the argument is not reference?*
+
+.Solution `oop_av82_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av82_en.cpp[]
+----
+
+=== Geometric shapes
+
+Define an abstract class for geometric shape with height and base of different geometric figure.
+Define the following functions in the class:
+- `print()` that prints the info for the shape
+- `volume()` returns the volume of the shape
+- `height()` returns the height of the shape.
+
+From the class geometric shape derive class for cylinder, cone and cuboid.
+For a cylinder and cone store the radius of the base.
+For the cuboid store the sides `a` and `b` of the basis.
+
+In the `main` function declare and initialize dynamically allocated array of pointers of the class for geometric shape.
+From this array:
+
+1. Find the shape with maximum volume using the global function: `void maxVolume(Shape *array[], int n);` 
+This function should print the info for the shape with maximum volume.
+2. Find the number of shapes that don't have basis circle using the global function: `double getRadius(Shape *s);`. 
+This function returns the radius of the basis (if the basis is circle), -1 otherwise.
+
+.Solution `oop_av83_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av83_en.cpp[]
+----
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av8_src_en.zip[Source code ZIP]
