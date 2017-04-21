@@ -1,0 +1,145 @@
+# Објектно ориентирано програмирање
+Аудиториски вежби 10
+v1.0, 21 април, 2017
+include::parts/attributes.adoc[]
+
+:source_dir: ../../src/av10
+
+==  Статички членови и исклучоци 
+
+=== Задача
+
+Секое плаќање преку картичка има некои подобности. Имено државата сакајќи да го поттикне користењето на картичките, нуди поволни услови за плаќање.
+
+Да се моделира основна класа `Kartichka` како и класи `Master` и `Maestro` кои ја наследуваат. Една картичка е опишана со својот идентификациски број, како и со салдото на сметката која ја претставува.
+
+При плаќање  со маестро картичка, секоја сума се плаќа со попуст од 5% за СИТЕ корисници на маестро картичка. Овој процент е фиксен и не смее да се менува! 
+
+При плаќање со мастер картичка, ако лимитот на картичката е над 6000 денари тогаш попустот е 10%, наместо стандардните 3% за картички со лимит под 6000 денари. 
+
+Попустот од 10% е ист за сите корисници, но тој може да биде променет од страна на Народна Банка. 
+
+Во продолжение е даден шематски приказ на изгледот на класите!
+
+image::images/dijagram.jpg[]
+
+.Решение `oop_av101.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av101.cpp[]
+----
+
+=== Задача
+Да се креира класа `Kasa` која што треба да ја претставува касата на една продавница во која муштериите можат да плаќаат во готово или со картичка. За секоја каса (Kasa) се водат две суми за дневното работење. Едната е вредноста на средствата добиени од готовина, а другата е сумата на средствата од картички. Исто така, секој објект од класата се креира во различен ден, па затоа за секој објект се чува и денот, месецот и годината кога касата е отворена. 
+
+Во класата `Kasa` има функција `kasaPrimi()` со која ќе се овозможи примање на парични средства на сметката на продавницата. За плаќањето во готовина да се креира една функција со потпис `kasaPrimi(double )` со која на сумата во касата се додава цената на сметката. 
+
+За плаќањето со картичка да се направи функција со потпис `kasaPrimi (double , Kartichka )` која како аргумент покрај вредноста на сметката има и референца кон самата картичка (мастер или маестро).  Имено со повик на оваа функција потребно е да се ажурираат податоците и во касата и во картичката со која се плаќа некоја сметка.
+
+Во класата да се дефинира и функција `prikaziKasa()` со која ќе се прикажат информациите – заедно со вкупната дневна добивка кои се значајни за една каса.
+ 
+.Решение `oop_av102.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av102.cpp[]
+----
+
+.Излез од програмата е:
+[source,cpp]
+-----------------------------
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 10000
+
+Primam vo gotovo!
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 15000
+
+Primam so kartichka!
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 24000
+
+Primam so kartichka!
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 33500
+
+Primam so kartichka!
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 42800
+-----------------------------
+
+=== Задача
+
+Дел од производите во една продавница по новата политика на продавницата мора да имаат одреден попуст. За таа цел во системот на продавницата потребно е да се моделира апстрактната класа `Discount`. Оваа класа како податок ги има курсевите на евра и долари во денари  и методите кои мора секоја класа што ќе наследи од неа да ги имплементира:
+
+- `float discount_price();`
+- `float price();`
+- `void print_rule();`
+
+За секој производ треба да се чуваат информации за името и цената на производот. Со ова треба да се моделира класата `Product`. Во неа покрај конструкторите треба да се имплементираат сите потребни методи. 
+
+Производите се поделени на неколку типови: `FoodProduct`, `Drinks` и `Cosmetics`.
+
+Според новата политика на продавницата храната нема попуст. Пијалоците и тоа алкохолните поскапи од 20 евра имаат попуст 5%, а неалкохолните од брендот Coca-Cola имаат попуст од 10%. Сите козметички производи поскапи од 5 евра имаат попуст 12%, а оние поскапи од 20 долари имаат попуст 14%.
+
+Да се пресмета вкупната цена на сите производи заедно со попустот.
+
+Исто така да се креира функција `changePrice(float )` во класата `Product` која што ќе нуди можност за промена на постоечката цена на производот. Ако се направи обид да се внесе негативна вредност за цената да се фрли исклучок (објект од класата `NegativeValueException`). Фатете го исклучокот во главната функција каде што ќе ги излистате сите производи од тип `Cosmetics` и ќе им ја промените цената.
+
+ 
+.Решение `oop_av103.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av103.cpp[]
+----
+
+.Излез од програмата е:
+[source,cpp]
+-----------------------------
+Prvicna cena: 30
+So popust: 30
+Nema popust za proizvodite od tip na hrana
+Prvicna cena: 1350
+So popust: 1282.5
+Site alkoholni pijaloci poskapi od 20 evra imaat popust od 5 % , dodeka pak neal
+koholnite od brendot Coca - Cola imaat popust od 10 %
+Prvicna cena: 390
+So popust: 390
+Nema popust za proizvodite od tip na hrana
+Prvicna cena: 850
+So popust: 850
+Site alkoholni pijaloci poskapi od 20 evra imaat popust od 5 % , dodeka pak neal
+koholnite od brendot Coca - Cola imaat popust od 10 %
+Prvicna cena: 720
+So popust: 633.6
+Site kozmeticki proizvodi poskapi od 5 evra imaat popust od 12%, dodeka pak onie
+ koi se poskapi od 20 dolari imaat popust 14%
+Prvicna cena: 50
+So popust: 45
+Site alkoholni pijaloci poskapi od 20 evra imaat popust od 5 % , dodeka pak neal
+koholnite od brendot Coca - Cola imaat popust od 10 %
+Prvicna cena: 3500
+So popust: 3010
+Site kozmeticki proizvodi poskapi od 5 evra imaat popust od 12%, dodeka pak onie
+ koi se poskapi od 20 dolari imaat popust 14%
+Vkupnata cena na site proizvodi e: 6241.1
+Promena na cenata na kozmetickite proizvodi
+Product{ name=krema, price=720}
+750
+Product{ name=parfem, price=3500}
+-3600
+Vnesena e negativna vrednost za cena!
+-----------------------------
+
+include::parts/footer.adoc[]
+
+link:{sources_zip}/oop_av9_src.zip[Source code ZIP]
