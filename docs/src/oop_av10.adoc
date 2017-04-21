@@ -21,7 +21,7 @@ include::parts/attributes.adoc[]
 
 Во продолжение е даден шематски приказ на изгледот на класите!
 
-image::images/dijagram.jpg[]
+image::dijagram.jpg[]
 
 .Решение `oop_av101.cpp`
 [source,cpp]
