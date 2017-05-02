@@ -539,13 +539,14 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect2">
 <h3 id="Задача">1.1. Задача</h3>
 <div class="paragraph">
-<p>Секое плаќање преку картичка има некои подобности. Имено државата сакајќи да го поттикне користењето на картичките, нуди поволни услови за плаќање.</p>
+<p>Секое плаќање преку картичка има некои подобности.
+Имено државата сакајќи да го поттикне користењето на картичките, нуди поволни услови за плаќање.
+Да се моделира основна класа <code>Kartichka</code> како и класи <code>Master</code> и <code>Maestro</code> кои ја наследуваат.
+Една картичка е опишана со својот идентификациски број, како и со салдото на сметката која ја претставува.</p>
 </div>
 <div class="paragraph">
-<p>Да се моделира основна класа <code>Kartichka</code> како и класи <code>Master</code> и <code>Maestro</code> кои ја наследуваат. Една картичка е опишана со својот идентификациски број, како и со салдото на сметката која ја претставува.</p>
-</div>
-<div class="paragraph">
-<p>При плаќање  со маестро картичка, секоја сума се плаќа со попуст од 5% за СИТЕ корисници на маестро картичка. Овој процент е фиксен и не смее да се менува!</p>
+<p>При плаќање  со маестро картичка, секоја сума се плаќа со попуст од 5% за СИТЕ корисници на маестро картичка.
+Овој процент е фиксен и не смее да се менува!</p>
 </div>
 <div class="paragraph">
 <p>При плаќање со мастер картичка, ако лимитот на картичката е над 6000 денари тогаш попустот е 10%, наместо стандардните 3% за картички со лимит под 6000 денари.</p>
@@ -568,106 +569,102 @@ table.CodeRay td.code>pre{padding:0}
 <span class="preprocessor">#include</span><span class="include">&lt;cstring&gt;</span>
 <span class="directive">using</span> <span class="keyword">namespace</span> std;
 
-<span class="keyword">class</span> <span class="class">Kartichka</span>
-{
+<span class="keyword">class</span> <span class="class">Kartichka</span> {
 <span class="directive">private</span>:
-        <span class="predefined-type">char</span> id[<span class="integer">16</span>];
-        <span class="predefined-type">double</span> saldo;
+    <span class="predefined-type">char</span> id[<span class="integer">16</span>];
+    <span class="predefined-type">double</span> saldo;
 
 <span class="directive">public</span>:
-        Kartichka(<span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>)
-        {
-                <span class="local-variable">this</span>-&gt;saldo = saldo;
-                strcpy(<span class="local-variable">this</span>-&gt;id, id);
+    Kartichka(<span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) {
+        <span class="local-variable">this</span>-&gt;saldo = saldo;
+        strcpy(<span class="local-variable">this</span>-&gt;id, id);
+    }
+    <span class="directive">void</span> prikaziSaldo() {
+        cout &lt;&lt; id &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">: </span><span class="delimiter">&quot;</span></span> &lt;&lt; saldo &lt;&lt; endl;
+    }
+
+    <span class="directive">void</span> uplati(<span class="predefined-type">double</span>  suma) {
+        <span class="local-variable">this</span>-&gt;saldo += suma;
+    }
+
+    <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo &gt; suma) {
+            <span class="local-variable">this</span>-&gt;saldo -= suma;
+            <span class="keyword">return</span> suma;
         }
-        <span class="directive">void</span> prikaziSaldo()
-        {
-                cout &lt;&lt; id &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">: </span><span class="delimiter">&quot;</span></span> &lt;&lt; saldo &lt;&lt; endl;
-        }
-        <span class="directive">void</span> uplati(<span class="predefined-type">double</span>  suma)
-        {
-                <span class="local-variable">this</span>-&gt;saldo += suma;
-        }
-        <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma)
-        {
-                <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo &gt; suma){
-                        <span class="local-variable">this</span>-&gt;saldo -= suma;
-                        <span class="keyword">return</span> suma;
-                }
-                <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
-        }
+        <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
+    }
 
 <span class="directive">protected</span>:
-        <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma, <span class="predefined-type">double</span> limit)
-        {
-                <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo + limit &gt; suma){
-                        <span class="local-variable">this</span>-&gt;saldo -= suma;
-                        <span class="keyword">return</span> suma;
-                }
-                <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
+    <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma, <span class="predefined-type">double</span> limit) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo + limit &gt; suma) {
+            <span class="local-variable">this</span>-&gt;saldo -= suma;
+            <span class="keyword">return</span> suma;
         }
+        <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
+    }
 };
 
-<span class="keyword">class</span> <span class="class">Maestro</span> : <span class="directive">public</span> Kartichka{
+<span class="keyword">class</span> <span class="class">Maestro</span> : <span class="directive">public</span> Kartichka {
 <span class="directive">private</span>:
-        <span class="predefined-type">char</span> lozinka[<span class="integer">10</span>];
-        <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust; <span class="comment">//static clen na klasa</span>
+    <span class="predefined-type">char</span> lozinka[<span class="integer">10</span>];
+    <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust; <span class="comment">//static clen na klasa</span>
 
 <span class="directive">public</span>:
-        Maestro(<span class="predefined-type">char</span>* lozinka = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) :Kartichka(id, saldo) {
-                strcpy(<span class="local-variable">this</span>-&gt;lozinka, lozinka);
-        }
+    Maestro(<span class="predefined-type">char</span>* lozinka = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) : Kartichka(id, saldo) {
+        strcpy(<span class="local-variable">this</span>-&gt;lozinka, lozinka);
+    }
 
-        <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust() { <span class="comment">//static funkcija koja raboti so static clen</span>
-                <span class="keyword">return</span> popust;
-        }
+    <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust() { <span class="comment">//static funkcija koja raboti so static clen</span>
+        <span class="keyword">return</span> popust;
+    }
 
-        <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena)
-        {
-                <span class="predefined-type">double</span>  suma = cena*(<span class="integer">1</span> - popust); <span class="comment">// non-static funkcii moze da gi koristat</span>
-                                                                                  <span class="comment">// static podatocnite elementi</span>
-                <span class="keyword">return</span> Kartichka::isplati(suma);
-        }
+    <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena) {
+        <span class="predefined-type">double</span>  suma = cena * (<span class="integer">1</span> - popust); <span class="comment">// non-static funkcii moze da gi koristat</span>
+        <span class="comment">// static podatocnite elementi</span>
+        <span class="keyword">return</span> Kartichka::isplati(suma);
+    }
 };
 <span class="directive">const</span> <span class="predefined-type">double</span> Maestro::popust = <span class="float">0</span><span class="float">.05</span>; <span class="comment">// inicijaliziranje na static clen</span>
 
-<span class="keyword">class</span> <span class="class">Master</span> : <span class="directive">public</span> Kartichka{
+<span class="keyword">class</span> <span class="class">Master</span> : <span class="directive">public</span> Kartichka {
 <span class="directive">private</span>:
-        <span class="predefined-type">double</span>  limit;
-        <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust1;  <span class="comment">// fiksen popust</span>
-        <span class="directive">static</span> <span class="predefined-type">double</span> popust2;       <span class="comment">// popust koj sto moze da se promeni</span>
+    <span class="predefined-type">double</span>  limit;
+    <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust1;  <span class="comment">// fiksen popust</span>
+    <span class="directive">static</span> <span class="predefined-type">double</span> popust2;       <span class="comment">// popust koj sto moze da se promeni</span>
 
 <span class="directive">public</span>:
-        Master(<span class="predefined-type">double</span>  limit = <span class="integer">0</span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) :Kartichka(id, saldo) {
-                <span class="local-variable">this</span>-&gt;limit = limit;
+    Master(<span class="predefined-type">double</span>  limit = <span class="integer">0</span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) : Kartichka(id, saldo) {
+        <span class="local-variable">this</span>-&gt;limit = limit;
+    }
+
+    <span class="directive">static</span> <span class="predefined-type">double</span> getPopust1() {
+        <span class="keyword">return</span> popust1;
+    }
+
+    <span class="directive">static</span> <span class="predefined-type">double</span> getPopust2() {
+        <span class="keyword">return</span> popust2;
+    }
+
+    <span class="directive">static</span> <span class="directive">void</span> setPopust2(<span class="predefined-type">double</span>  popust2) {
+        Master::popust2 = popust2;
+    }
+    <span class="comment">/* ne smeeme da go napravime ova:
+    static void setPopust1 (double  popust1) {
+        Master::popust1 = popust1;
+    }
+    //poradi toa sto stanuva zbor za konstanta
+    */</span>
+    <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;limit &lt; <span class="integer">6000</span>) {
+            <span class="predefined-type">double</span>  suma = cena * (<span class="integer">1</span> - popust1);
+            <span class="keyword">return</span> Kartichka::isplati(suma, limit);
         }
-        <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust1(){
-                <span class="keyword">return</span> popust1;
+        <span class="keyword">else</span> {
+            <span class="predefined-type">double</span>  suma = cena * (<span class="integer">1</span> - popust2);
+            <span class="keyword">return</span> Kartichka::isplati(suma, limit);
         }
-        <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust2() {
-                <span class="keyword">return</span> popust2;
-        }
-        <span class="directive">static</span> <span class="directive">void</span> setPopust2(<span class="predefined-type">double</span>  popust2) {
-                Master::popust2 = popust2;
-        }
-        <span class="comment">/* ne smeeme da go napravime ova:
-        static void setPopust1 (double  popust1) {
-                Master::popust1 = popust1;
-        }
-        //poradi toa sto stanuva zbor za konstanta
-        */</span>
-        <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena)
-        {
-                <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;limit&lt;<span class="integer">6000</span>){
-                        <span class="predefined-type">double</span>  suma = cena*(<span class="integer">1</span> - popust1);
-                        <span class="keyword">return</span> Kartichka::isplati(suma, limit);
-                }
-                <span class="keyword">else</span>
-                {
-                        <span class="predefined-type">double</span>  suma = cena*(<span class="integer">1</span> - popust2);
-                        <span class="keyword">return</span> Kartichka::isplati(suma, limit);
-                }
-        }
+    }
 };
 <span class="directive">const</span> <span class="predefined-type">double</span> Master::popust1 = <span class="float">0</span><span class="float">.03</span>; <span class="comment">//pri inicijalizacija ne se pisuva klucniot zbor static</span>
 <span class="predefined-type">double</span> Master::popust2 = <span class="float">0</span><span class="float">.1</span>;</code></pre>
@@ -677,13 +674,18 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect2">
 <h3 id="Задача-2">1.2. Задача</h3>
 <div class="paragraph">
-<p>Да се креира класа <code>Kasa</code> која што треба да ја претставува касата на една продавница во која муштериите можат да плаќаат во готово или со картичка. За секоја каса (Kasa) се водат две суми за дневното работење. Едната е вредноста на средствата добиени од готовина, а другата е сумата на средствата од картички. Исто така, секој објект од класата се креира во различен ден, па затоа за секој објект се чува и денот, месецот и годината кога касата е отворена.</p>
+<p>Да се креира класа <code>Kasa</code> која што треба да ја претставува касата на една продавница во која муштериите можат да плаќаат во готово или со картичка.
+За секоја каса (Kasa) се водат две суми за дневното работење.
+Едната е вредноста на средствата добиени од готовина, а другата е сумата на средствата од картички.
+Исто така, секој објект од класата се креира во различен ден, па затоа за секој објект се чува и денот, месецот и годината кога касата е отворена.</p>
 </div>
 <div class="paragraph">
-<p>Во класата <code>Kasa</code> има функција <code>kasaPrimi()</code> со која ќе се овозможи примање на парични средства на сметката на продавницата. За плаќањето во готовина да се креира една функција со потпис <code>kasaPrimi(double )</code> со која на сумата во касата се додава цената на сметката.</p>
+<p>Во класата <code>Kasa</code> има функција <code>kasaPrimi()</code> со која ќе се овозможи примање на парични средства на сметката на продавницата.
+За плаќањето во готовина да се креира една функција со потпис <code>kasaPrimi(double)</code> со која на сумата во касата се додава цената на сметката.</p>
 </div>
 <div class="paragraph">
-<p>За плаќањето со картичка да се направи функција со потпис <code>kasaPrimi (double , Kartichka )</code> која како аргумент покрај вредноста на сметката има и референца кон самата картичка (мастер или маестро).  Имено со повик на оваа функција потребно е да се ажурираат податоците и во касата и во картичката со која се плаќа некоја сметка.</p>
+<p>За плаќањето со картичка да се направи функција со потпис <code>kasaPrimi(double, Kartichka)</code> која како аргумент покрај вредноста на сметката има и референца кон самата картичка (мастер или маестро).
+Имено со повик на оваа функција потребно е да се ажурираат податоците и во касата и во картичката со која се плаќа некоја сметка.</p>
 </div>
 <div class="paragraph">
 <p>Во класата да се дефинира и функција <code>prikaziKasa()</code> со која ќе се прикажат информациите – заедно со вкупната дневна добивка кои се значајни за една каса.</p>
@@ -698,208 +700,209 @@ table.CodeRay td.code>pre{padding:0}
 <span class="keyword">class</span> <span class="class">Kartichka</span>
 {
 <span class="directive">private</span>:
-        <span class="predefined-type">char</span> id[<span class="integer">16</span>];
-        <span class="predefined-type">double</span> saldo;
+    <span class="predefined-type">char</span> id[<span class="integer">16</span>];
+    <span class="predefined-type">double</span> saldo;
 
 <span class="directive">public</span>:
-        Kartichka(<span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>)
-        {
-                <span class="local-variable">this</span>-&gt;saldo = saldo;
-                strcpy(<span class="local-variable">this</span>-&gt;id, id);
+    Kartichka(<span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) {
+        <span class="local-variable">this</span>-&gt;saldo = saldo;
+        strcpy(<span class="local-variable">this</span>-&gt;id, id);
+    }
+
+    <span class="directive">void</span> prikaziSaldo() {
+        cout &lt;&lt; id &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">: </span><span class="delimiter">&quot;</span></span> &lt;&lt; saldo &lt;&lt; endl;
+    }
+
+    <span class="directive">void</span> uplati(<span class="predefined-type">double</span> suma) {
+        <span class="local-variable">this</span>-&gt;saldo += suma;
+    }
+
+    <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo &gt; suma) {
+            <span class="local-variable">this</span>-&gt;saldo -= suma;
+            <span class="keyword">return</span> suma;
         }
-        <span class="directive">void</span> prikaziSaldo()
-        {
-                cout &lt;&lt; id &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">: </span><span class="delimiter">&quot;</span></span> &lt;&lt; saldo &lt;&lt; endl;
-        }
-        <span class="directive">void</span> uplati(<span class="predefined-type">double</span>  suma)
-        {
-                <span class="local-variable">this</span>-&gt;saldo += suma;
-        }
-        <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma)
-        {
-                <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo &gt; suma){
-                        <span class="local-variable">this</span>-&gt;saldo -= suma;
-                        <span class="keyword">return</span> suma;
-                }
-                <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
-        }
+        <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
+    }
 
 <span class="directive">protected</span>:
-        <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma, <span class="predefined-type">double</span> limit)
-        {
-                <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo + limit &gt; suma){
-                        <span class="local-variable">this</span>-&gt;saldo -= suma;
-                        <span class="keyword">return</span> suma;
-                }
-                <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
+    <span class="directive">virtual</span> <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span> suma, <span class="predefined-type">double</span> limit) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;saldo + limit &gt; suma) {
+            <span class="local-variable">this</span>-&gt;saldo -= suma;
+            <span class="keyword">return</span> suma;
         }
+        <span class="keyword">else</span> <span class="keyword">return</span> <span class="integer">0</span>;
+    }
 };
 
-<span class="keyword">class</span> <span class="class">Maestro</span> : <span class="directive">public</span> Kartichka{
+<span class="keyword">class</span> <span class="class">Maestro</span> : <span class="directive">public</span> Kartichka {
 <span class="directive">private</span>:
-        <span class="predefined-type">char</span> lozinka[<span class="integer">10</span>];
-        <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust; <span class="comment">//static clen na klasa</span>
+    <span class="predefined-type">char</span> lozinka[<span class="integer">10</span>];
+    <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust; <span class="comment">//static clen na klasa</span>
 
 <span class="directive">public</span>:
-        Maestro(<span class="predefined-type">char</span>* lozinka = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) :Kartichka(id, saldo) {
-                strcpy(<span class="local-variable">this</span>-&gt;lozinka, lozinka);
-        }
+    Maestro(<span class="predefined-type">char</span>* lozinka = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) : Kartichka(id, saldo) {
+        strcpy(<span class="local-variable">this</span>-&gt;lozinka, lozinka);
+    }
 
-        <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust() { <span class="comment">//static funkcija koja raboti so static clen</span>
-                <span class="keyword">return</span> popust;
-        }
+    <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust() { <span class="comment">//static funkcija koja raboti so static clen</span>
+        <span class="keyword">return</span> popust;
+    }
 
-        <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena)
-        {
-                <span class="predefined-type">double</span>  suma = cena*(<span class="integer">1</span> - popust); <span class="comment">// non-static funkcii moze da gi koristat</span>
-                                                                                  <span class="comment">// static podatocnite elementi</span>
-                <span class="keyword">return</span> Kartichka::isplati(suma);
-        }
+    <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena) {
+        <span class="predefined-type">double</span>  suma = cena * (<span class="integer">1</span> - popust); <span class="comment">// non-static funkcii moze da gi koristat</span>
+        <span class="comment">// static podatocnite elementi</span>
+        <span class="keyword">return</span> Kartichka::isplati(suma);
+    }
 };
 <span class="directive">const</span> <span class="predefined-type">double</span> Maestro::popust = <span class="float">0</span><span class="float">.05</span>; <span class="comment">// inicijaliziranje na static clen</span>
 
-<span class="keyword">class</span> <span class="class">Master</span> : <span class="directive">public</span> Kartichka{
+<span class="keyword">class</span> <span class="class">Master</span> : <span class="directive">public</span> Kartichka {
 <span class="directive">private</span>:
-        <span class="predefined-type">double</span>  limit;
-        <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust1;  <span class="comment">// fiksen popust</span>
-        <span class="directive">static</span> <span class="predefined-type">double</span> popust2;       <span class="comment">// popust koj sto moze da se promeni</span>
+    <span class="predefined-type">double</span>  limit;
+    <span class="directive">const</span> <span class="directive">static</span> <span class="predefined-type">double</span> popust1;  <span class="comment">// fiksen popust</span>
+    <span class="directive">static</span> <span class="predefined-type">double</span> popust2;       <span class="comment">// popust koj sto moze da se promeni</span>
 
 <span class="directive">public</span>:
-        Master(<span class="predefined-type">double</span>  limit = <span class="integer">0</span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) :Kartichka(id, saldo) {
-                <span class="local-variable">this</span>-&gt;limit = limit;
+    Master(<span class="predefined-type">double</span>  limit = <span class="integer">0</span>, <span class="predefined-type">char</span>* id = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="predefined-type">double</span>  saldo = <span class="integer">0</span>) : Kartichka(id, saldo) {
+        <span class="local-variable">this</span>-&gt;limit = limit;
+    }
+
+    <span class="directive">static</span> <span class="predefined-type">double</span> getPopust1() {
+        <span class="keyword">return</span> popust1;
+    }
+
+    <span class="directive">static</span> <span class="predefined-type">double</span> getPopust2() {
+        <span class="keyword">return</span> popust2;
+    }
+
+    <span class="directive">static</span> <span class="directive">void</span> setPopust2(<span class="predefined-type">double</span>  popust2) {
+        Master::popust2 = popust2;
+    }
+    <span class="comment">/* ne smeeme da go napravime ova:
+    static void setPopust1 (double  popust1) {
+        Master::popust1 = popust1;
+    }
+    //poradi toa sto stanuva zbor za konstanta
+    */</span>
+    <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena) {
+        <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;limit &lt; <span class="integer">6000</span>) {
+            <span class="predefined-type">double</span>  suma = cena * (<span class="integer">1</span> - popust1);
+            <span class="keyword">return</span> Kartichka::isplati(suma, limit);
+        } <span class="keyword">else</span> {
+            <span class="predefined-type">double</span>  suma = cena * (<span class="integer">1</span> - popust2);
+            <span class="keyword">return</span> Kartichka::isplati(suma, limit);
         }
-        <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust1(){
-                <span class="keyword">return</span> popust1;
-        }
-        <span class="directive">static</span> <span class="predefined-type">double</span>  getPopust2() {
-                <span class="keyword">return</span> popust2;
-        }
-        <span class="directive">static</span> <span class="directive">void</span> setPopust2(<span class="predefined-type">double</span>  popust2) {
-                Master::popust2 = popust2;
-        }
-        <span class="comment">/* ne smeeme da go napravime ova:
-        static void setPopust1 (double  popust1) {
-                Master::popust1 = popust1;
-        }
-        //poradi toa sto stanuva zbor za konstanta
-        */</span>
-        <span class="predefined-type">double</span> isplati(<span class="predefined-type">double</span>  cena)
-        {
-                <span class="keyword">if</span> (<span class="local-variable">this</span>-&gt;limit&lt;<span class="integer">6000</span>){
-                        <span class="predefined-type">double</span>  suma = cena*(<span class="integer">1</span> - popust1);
-                        <span class="keyword">return</span> Kartichka::isplati(suma, limit);
-                }
-                <span class="keyword">else</span>
-                {
-                        <span class="predefined-type">double</span>  suma = cena*(<span class="integer">1</span> - popust2);
-                        <span class="keyword">return</span> Kartichka::isplati(suma, limit);
-                }
-        }
+    }
 };
 <span class="directive">const</span> <span class="predefined-type">double</span> Master::popust1 = <span class="float">0</span><span class="float">.03</span>; <span class="comment">//pri inicijalizacija ne se pisuva klucniot zbor static</span>
 <span class="predefined-type">double</span> Master::popust2 = <span class="float">0</span><span class="float">.1</span>;
 
 <span class="keyword">class</span> <span class="class">Kasa</span> {
 <span class="directive">private</span>:
-        <span class="predefined-type">double</span>  sumaVoKasa;
-        <span class="predefined-type">double</span>  sumaOdKartichka;
-        <span class="predefined-type">int</span> den, mesec, godina;
+    <span class="predefined-type">double</span>  sumaVoKasa;
+    <span class="predefined-type">double</span>  sumaOdKartichka;
+    <span class="predefined-type">int</span> den, mesec, godina;
 
 <span class="directive">public</span>:
 
-        Kasa(<span class="predefined-type">double</span>  sumaVoKasa, <span class="predefined-type">int</span> den, <span class="predefined-type">int</span> mesec, <span class="predefined-type">int</span> godina) {
-                <span class="local-variable">this</span>-&gt;sumaVoKasa = sumaVoKasa;
-                <span class="local-variable">this</span>-&gt;sumaOdKartichka = <span class="integer">0</span>;
-                <span class="local-variable">this</span>-&gt;den = den;
-                <span class="local-variable">this</span>-&gt;mesec = mesec;
-                <span class="local-variable">this</span>-&gt;godina = godina;
-        }
-        <span class="directive">void</span> kasaPrimi(<span class="predefined-type">double</span> smetka){
-                <span class="local-variable">this</span>-&gt;sumaVoKasa += smetka;
-        }
-        <span class="directive">void</span> kasaPrimi(<span class="predefined-type">double</span> smetka, Kartichka &amp;k){
-                <span class="local-variable">this</span>-&gt;sumaOdKartichka += k.isplati(smetka);
-        }
-        <span class="directive">void</span> prikaziKasa(){
+    Kasa(<span class="predefined-type">double</span>  sumaVoKasa, <span class="predefined-type">int</span> den, <span class="predefined-type">int</span> mesec, <span class="predefined-type">int</span> godina) {
+        <span class="local-variable">this</span>-&gt;sumaVoKasa = sumaVoKasa;
+        <span class="local-variable">this</span>-&gt;sumaOdKartichka = <span class="integer">0</span>;
+        <span class="local-variable">this</span>-&gt;den = den;
+        <span class="local-variable">this</span>-&gt;mesec = mesec;
+        <span class="local-variable">this</span>-&gt;godina = godina;
+    }
 
-                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Den: </span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; den &lt;&lt; endl;
-                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Mesec: </span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; mesec &lt;&lt; endl;
-                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Godina: </span><span class="delimiter">&quot;</span></span> &lt;&lt; godina &lt;&lt; endl;
-                cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Prihod-vkupno: </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;vratiPrihod() &lt;&lt; endl;
-                cout &lt;&lt; endl;
-        }
+    <span class="directive">void</span> kasaPrimi(<span class="predefined-type">double</span> smetka) {
+        <span class="local-variable">this</span>-&gt;sumaVoKasa += smetka;
+    }
 
-        <span class="predefined-type">double</span>  vratiPrihod(){
-                <span class="keyword">return</span> <span class="local-variable">this</span>-&gt;sumaOdKartichka + <span class="local-variable">this</span>-&gt;sumaVoKasa;
-        }
+    <span class="directive">void</span> kasaPrimi(<span class="predefined-type">double</span> smetka, Kartichka &amp;k) {
+        <span class="local-variable">this</span>-&gt;sumaOdKartichka += k.isplati(smetka);
+    }
+
+    <span class="directive">void</span> prikaziKasa() {
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Den: </span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; den &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Mesec: </span><span class="char">\t</span><span class="delimiter">&quot;</span></span> &lt;&lt; mesec &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Godina: </span><span class="delimiter">&quot;</span></span> &lt;&lt; godina &lt;&lt; endl;
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Prihod-vkupno: </span><span class="delimiter">&quot;</span></span> &lt;&lt; <span class="local-variable">this</span>-&gt;vratiPrihod() &lt;&lt; endl;
+        cout &lt;&lt; endl;
+    }
+
+    <span class="predefined-type">double</span>  vratiPrihod() {
+        <span class="keyword">return</span> <span class="local-variable">this</span>-&gt;sumaOdKartichka + <span class="local-variable">this</span>-&gt;sumaVoKasa;
+    }
 };
 
-<span class="predefined-type">int</span> main(){
-        Kasa deneshna(<span class="integer">10000</span>, <span class="integer">22</span>, <span class="integer">4</span>, <span class="integer">2014</span>);
-        Kartichka *k;
-        deneshna.prikaziKasa();
+<span class="predefined-type">int</span> main() {
+    Kasa deneshna(<span class="integer">10000</span>, <span class="integer">22</span>, <span class="integer">4</span>, <span class="integer">2014</span>);
+    Kartichka *k;
+    deneshna.prikaziKasa();
 
-        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam vo gotovo!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
-        deneshna.kasaPrimi(<span class="integer">5000</span>);
-        deneshna.prikaziKasa();
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam vo gotovo!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    deneshna.kasaPrimi(<span class="integer">5000</span>);
+    deneshna.prikaziKasa();
 
-        k = <span class="keyword">new</span> Master(<span class="integer">1000</span><span class="float">0</span><span class="float">.00</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">1234567890123456</span><span class="delimiter">&quot;</span></span>, <span class="integer">5400</span><span class="float">0</span><span class="float">.00</span>);
-        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam so kartichka!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
-        deneshna.kasaPrimi(<span class="integer">1000</span><span class="float">0</span><span class="float">.00</span>, *k);
-        deneshna.prikaziKasa();
+    k = <span class="keyword">new</span> Master(<span class="integer">1000</span><span class="float">0</span><span class="float">.00</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">1234567890123456</span><span class="delimiter">&quot;</span></span>, <span class="integer">5400</span><span class="float">0</span><span class="float">.00</span>);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam so kartichka!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    deneshna.kasaPrimi(<span class="integer">1000</span><span class="float">0</span><span class="float">.00</span>, *k);
+    deneshna.prikaziKasa();
 
-        k = <span class="keyword">new</span> Maestro(<span class="string"><span class="delimiter">&quot;</span><span class="content">lozinka</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">1234567890123456</span><span class="delimiter">&quot;</span></span>, <span class="integer">5400</span><span class="float">0</span><span class="float">.00</span>);
-        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam so kartichka!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
-        deneshna.kasaPrimi(<span class="integer">10000</span>, *k);
-        deneshna.prikaziKasa();
+    k = <span class="keyword">new</span> Maestro(<span class="string"><span class="delimiter">&quot;</span><span class="content">lozinka</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">1234567890123456</span><span class="delimiter">&quot;</span></span>, <span class="integer">5400</span><span class="float">0</span><span class="float">.00</span>);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam so kartichka!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    deneshna.kasaPrimi(<span class="integer">10000</span>, *k);
+    deneshna.prikaziKasa();
 
-        Master::setPopust2(<span class="float">0</span><span class="float">.07</span>);
-        k = <span class="keyword">new</span> Master(<span class="integer">10000</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">4567891234567890</span><span class="delimiter">&quot;</span></span>, <span class="integer">3000</span>);
-        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam so kartichka!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
-        deneshna.kasaPrimi(<span class="integer">10000</span>, *k);
-        deneshna.prikaziKasa();
-        <span class="keyword">return</span> <span class="integer">0</span>;
+    Master::setPopust2(<span class="float">0</span><span class="float">.07</span>);
+    k = <span class="keyword">new</span> Master(<span class="integer">10000</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">4567891234567890</span><span class="delimiter">&quot;</span></span>, <span class="integer">3000</span>);
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Primam so kartichka!</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    deneshna.kasaPrimi(<span class="integer">10000</span>, *k);
+    deneshna.prikaziKasa();
+    <span class="keyword">return</span> <span class="integer">0</span>;
 }</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Излез од програмата е:</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp"><span class="label">Den:</span>    <span class="integer">22</span>
-Mesec:  <span class="integer">4</span>
-Godina: <span class="integer">2014</span>
-Prihod-vkupno: <span class="integer">10000</span>
+<pre>Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 10000
 
 Primam vo gotovo!
-Den:    <span class="integer">22</span>
-Mesec:  <span class="integer">4</span>
-Godina: <span class="integer">2014</span>
-Prihod-vkupno: <span class="integer">15000</span>
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 15000
 
 Primam so kartichka!
-Den:    <span class="integer">22</span>
-Mesec:  <span class="integer">4</span>
-Godina: <span class="integer">2014</span>
-Prihod-vkupno: <span class="integer">24000</span>
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 24000
 
 Primam so kartichka!
-Den:    <span class="integer">22</span>
-Mesec:  <span class="integer">4</span>
-Godina: <span class="integer">2014</span>
-Prihod-vkupno: <span class="integer">33500</span>
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 33500
 
 Primam so kartichka!
-Den:    <span class="integer">22</span>
-Mesec:  <span class="integer">4</span>
-Godina: <span class="integer">2014</span>
-Prihod-vkupno: <span class="integer">42800</span></code></pre>
+Den:    22
+Mesec:  4
+Godina: 2014
+Prihod-vkupno: 42800</pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Задача-3">1.3. Задача</h3>
 <div class="paragraph">
-<p>Дел од производите во една продавница по новата политика на продавницата мора да имаат одреден попуст. За таа цел во системот на продавницата потребно е да се моделира апстрактната класа <code>Discount</code>. Оваа класа како податок ги има курсевите на евра и долари во денари  и методите кои мора секоја класа што ќе наследи од неа да ги имплементира:</p>
+<p>Дел од производите во една продавница по новата политика на продавницата мора да имаат одреден попуст.
+За таа цел во системот на продавницата потребно е да се моделира апстрактната класа <code>Discount</code>.
+Оваа класа како податок ги има курсевите на евра и долари во денари и методите кои мора секоја класа што ќе наследи од неа да ги имплементира:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -915,19 +918,25 @@ Prihod-vkupno: <span class="integer">42800</span></code></pre>
 </ul>
 </div>
 <div class="paragraph">
-<p>За секој производ треба да се чуваат информации за името и цената на производот. Со ова треба да се моделира класата <code>Product</code>. Во неа покрај конструкторите треба да се имплементираат сите потребни методи.</p>
+<p>За секој производ треба да се чуваат информации за името и цената на производот.
+Со ова треба да се моделира класата <code>Product</code>.
+Во неа покрај конструкторите треба да се имплементираат сите потребни методи.</p>
 </div>
 <div class="paragraph">
 <p>Производите се поделени на неколку типови: <code>FoodProduct</code>, <code>Drinks</code> и <code>Cosmetics</code>.</p>
 </div>
 <div class="paragraph">
-<p>Според новата политика на продавницата храната нема попуст. Пијалоците и тоа алкохолните поскапи од 20 евра имаат попуст 5%, а неалкохолните од брендот Coca-Cola имаат попуст од 10%. Сите козметички производи поскапи од 5 евра имаат попуст 12%, а оние поскапи од 20 долари имаат попуст 14%.</p>
+<p>Според новата политика на продавницата храната нема попуст.
+Пијалоците и тоа алкохолните поскапи од 20 евра имаат попуст 5%, а неалкохолните од брендот Coca-Cola имаат попуст од 10%.
+Сите козметички производи поскапи од 5 евра имаат попуст 12%, а оние поскапи од 20 долари имаат попуст 14%.</p>
 </div>
 <div class="paragraph">
 <p>Да се пресмета вкупната цена на сите производи заедно со попустот.</p>
 </div>
 <div class="paragraph">
-<p>Исто така да се креира функција <code>changePrice(float )</code> во класата <code>Product</code> која што ќе нуди можност за промена на постоечката цена на производот. Ако се направи обид да се внесе негативна вредност за цената да се фрли исклучок (објект од класата <code>NegativeValueException</code>). Фатете го исклучокот во главната функција каде што ќе ги излистате сите производи од тип <code>Cosmetics</code> и ќе им ја промените цената.</p>
+<p>Исто така да се креира функција <code>changePrice(float)</code> во класата <code>Product</code> која што ќе нуди можност за промена на постоечката цена на производот.
+Ако се направи обид да се внесе негативна вредност за цената да се фрли исклучок (објект од класата <code>NegativeValueException</code>).
+Фатете го исклучокот во главната функција каде што ќе ги излистате сите производи од тип <code>Cosmetics</code> и ќе им ја промените цената.</p>
 </div>
 <div class="listingblock">
 <div class="title">Решение <code>oop_av103.cpp</code></div>
@@ -1102,39 +1111,39 @@ Prihod-vkupno: <span class="integer">42800</span></code></pre>
 <div class="listingblock">
 <div class="title">Излез од програмата е:</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="cpp">Prvicna cena: <span class="integer">30</span>
-So popust: <span class="integer">30</span>
+<pre>Prvicna cena: 30
+So popust: 30
 Nema popust za proizvodite od tip na hrana
-Prvicna cena: <span class="integer">1350</span>
-So popust: <span class="integer">128</span><span class="float">2</span><span class="float">.5</span>
-Site alkoholni pijaloci poskapi od <span class="integer">20</span> evra imaat popust od <span class="integer">5</span> % , dodeka pak neal
-koholnite od brendot Coca - Cola imaat popust od <span class="integer">10</span> %
-Prvicna cena: <span class="integer">390</span>
-So popust: <span class="integer">390</span>
+Prvicna cena: 1350
+So popust: 1282.5
+Site alkoholni pijaloci poskapi od 20 evra imaat popust od 5 % , dodeka pak neal
+koholnite od brendot Coca - Cola imaat popust od 10 %
+Prvicna cena: 390
+So popust: 390
 Nema popust za proizvodite od tip na hrana
-Prvicna cena: <span class="integer">850</span>
-So popust: <span class="integer">850</span>
-Site alkoholni pijaloci poskapi od <span class="integer">20</span> evra imaat popust od <span class="integer">5</span> % , dodeka pak neal
-koholnite od brendot Coca - Cola imaat popust od <span class="integer">10</span> %
-Prvicna cena: <span class="integer">720</span>
-So popust: <span class="integer">63</span><span class="float">3</span><span class="float">.6</span>
-Site kozmeticki proizvodi poskapi od <span class="integer">5</span> evra imaat popust od <span class="integer">12</span>%, dodeka pak onie
- koi se poskapi od <span class="integer">20</span> dolari imaat popust <span class="integer">14</span>%
-Prvicna cena: <span class="integer">50</span>
-So popust: <span class="integer">45</span>
-Site alkoholni pijaloci poskapi od <span class="integer">20</span> evra imaat popust od <span class="integer">5</span> % , dodeka pak neal
-koholnite od brendot Coca - Cola imaat popust od <span class="integer">10</span> %
-Prvicna cena: <span class="integer">3500</span>
-So popust: <span class="integer">3010</span>
-Site kozmeticki proizvodi poskapi od <span class="integer">5</span> evra imaat popust od <span class="integer">12</span>%, dodeka pak onie
- koi se poskapi od <span class="integer">20</span> dolari imaat popust <span class="integer">14</span>%
-Vkupnata cena na site proizvodi e: <span class="integer">624</span><span class="float">1</span><span class="float">.1</span>
+Prvicna cena: 850
+So popust: 850
+Site alkoholni pijaloci poskapi od 20 evra imaat popust od 5 % , dodeka pak neal
+koholnite od brendot Coca - Cola imaat popust od 10 %
+Prvicna cena: 720
+So popust: 633.6
+Site kozmeticki proizvodi poskapi od 5 evra imaat popust od 12%, dodeka pak onie
+ koi se poskapi od 20 dolari imaat popust 14%
+Prvicna cena: 50
+So popust: 45
+Site alkoholni pijaloci poskapi od 20 evra imaat popust od 5 % , dodeka pak neal
+koholnite od brendot Coca - Cola imaat popust od 10 %
+Prvicna cena: 3500
+So popust: 3010
+Site kozmeticki proizvodi poskapi od 5 evra imaat popust od 12%, dodeka pak onie
+ koi se poskapi od 20 dolari imaat popust 14%
+Vkupnata cena na site proizvodi e: 6241.1
 Promena na cenata na kozmetickite proizvodi
-Product{ name=krema, price=<span class="integer">720</span>}
-<span class="integer">750</span>
-Product{ name=parfem, price=<span class="integer">3500</span>}
--<span class="integer">3600</span>
-Vnesena e negativna vrednost za cena!</code></pre>
+Product{ name=krema, price=720}
+750
+Product{ name=parfem, price=3500}
+-3600
+Vnesena e negativna vrednost za cena!</pre>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
@@ -1156,7 +1165,7 @@ Vnesena e negativna vrednost za cena!</code></pre>
 <div id="footer">
 <div id="footer-text">
 Верзија 1.0<br>
-Last updated 2017-04-21 16:20:04 +02:00
+Last updated 2017-05-02 15:00:12 +02:00
 </div>
 </div>
 <script type="text/x-mathjax-config">
