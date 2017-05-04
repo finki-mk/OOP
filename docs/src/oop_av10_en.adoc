@@ -1,0 +1,82 @@
+# Object oriented programming
+Exercises 10
+v1.0, 4 May, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av10
+
+== Static members and exceptions 
+
+=== Problem
+
+Each card payment has its advantages.
+The state, motivated to increase usage of cards, offers better payment conditions.
+Model a class `Card` and classes `Master` and `Maestro` that derive from it.
+A card is described with its ID and the balance.
+
+On payment with Maestro card, on each payment there is a discount of 5% for ALL users of the card.
+This percentage is fixed and can not be changed!
+
+On paying with Master card, if the limit of the card is over 6000 MKD then the discount is 10%, instead of the standard 3$ for cards with limit less then 6000 MKD.
+The discount of 10% is same for ALL users, but it can be changed from the National bank.
+
+.Solution `oop_av101_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av101_en.cpp[]
+----
+
+=== Problem
+
+Create a class `Register` that should represent the register of a store where customers can pay in cash or with card.
+Each register has two daily amounts, one for the cash payments and other for the card payments.
+Also, each object from the class is created on different day, so for each object we store the day, month and year when the register is opened.
+
+In the class `Register` there is a function `pay()` that enables accepting payments.
+For cash payments there is function with definition `pay(double)` with the amount that should be paid. 
+
+For payments with cards create a function with definition `pay(double, Card&)` that as argument also accepts and a reference to the card for the payment.
+Calling this function should update the balance of the register and the card.
+
+In the class define a function `show()` that will show the information of the register.
+ 
+.Solution `oop_av102_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av102_en.cpp[]
+----
+
+=== Problem
+
+Part of the products in one store after the new policy must have some amount of discount.
+For this purpose the system of the store should be extended with an abstract class for `Discount`.
+This class should keep the course ratios of euros and dollars in MKD and methods that each class that derives it should implement.
+
+- `float discount_price();`
+- `float price();`
+- `void print_rule();`
+
+For each product `Product` keep the name and the price and implement constructor and needed methods.
+
+Products are divided in several types: `FoodProduct`, `Drinks` and `Cosmetics`.
+
+Following the new policy hte food is not on discount.
+The drinks, with alcohol and with price larger than 20 euros have discount of 5%, and alcohol free from the brand Coca-Cola have discount of 10%.
+All cosmetic products with price larger than 5 euros have discount of 12%, and those with price larger than 20 dollars have discount of 14%.
+
+Compute the total price of all products with the discount.
+
+Also, create a function `changePrice(float)` in the class `Product` that enables changing the price of the product.
+If there is an attempt to set a negative price for the product, throw an exception (object from class `NegativeValueException`).
+Handle with the exception in the main function, where you list all the products of type `Cosmetics` and change their price.
+
+
+.Solution `oop_av103_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av103_en.cpp[]
+----
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av10_src_en.zip[Source code ZIP]

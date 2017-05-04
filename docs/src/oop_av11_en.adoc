@@ -1,0 +1,49 @@
+# Object oriented programming
+Exercises 11
+v1.0, 4 May, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av11
+
+== Generic programming and templates
+
+=== Function templates
+
+==== Template function for swapping the value of two variables
+
+.Solution `oop_av111_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av111_en.cpp[]
+----
+
+==== Template function for computing absolute value of a number
+
+.Solution `oop_av112_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av112_en.cpp[]
+----
+
+==== Overloading function templates
+
+.Solution `oop_av113_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av113_en.cpp[]
+----
+
+=== Class templates
+
+==== Example 1
+
+.Solution `oop_av114_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av114_en.cpp[]
+----
+
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av11_src_en.zip[Source code ZIP]
