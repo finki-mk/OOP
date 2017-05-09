@@ -28,3 +28,27 @@ link:oop_av5.html[HTML] | link:{pdf_source}/oop_av5.pdf[PDF] | link:{sources_zip
 == Аудиториска вежба 6
 
 link:oop_av6.html[HTML] | link:{pdf_source}/oop_av6.pdf[PDF] | link:{sources_zip}/oop_av6_src.zip[Source code ZIP]
+
+== Аудиториска вежба 7
+
+link:oop_av7.html[HTML] | link:{pdf_source}/oop_av7.pdf[PDF] | link:{sources_zip}/oop_av7_src.zip[Source code ZIP]
+
+== Аудиториска вежба 8
+
+link:oop_av8.html[HTML] | link:{pdf_source}/oop_av8.pdf[PDF] | link:{sources_zip}/oop_av8_src.zip[Source code ZIP]
+
+== Аудиториска вежба 9
+
+link:oop_av9.html[HTML] | link:{pdf_source}/oop_av9.pdf[PDF] | link:{sources_zip}/oop_av9_src.zip[Source code ZIP]
+
+== Аудиториска вежба 10
+
+link:oop_av10.html[HTML] | link:{pdf_source}/oop_av10.pdf[PDF] | link:{sources_zip}/oop_av10_src.zip[Source code ZIP]
+
+== Аудиториска вежба 11
+
+link:oop_av11.html[HTML] | link:{pdf_source}/oop_av11.pdf[PDF] | link:{sources_zip}/oop_av11_src.zip[Source code ZIP]
+
+== Аудиториска вежба 12
+
+link:oop_av12.html[HTML] | link:{pdf_source}/oop_av12.pdf[PDF] | link:{sources_zip}/oop_av12_src.zip[Source code ZIP]

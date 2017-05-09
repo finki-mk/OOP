@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.4">
-<meta name="author" content="Exercises">
+<meta name="author" content="Exercises 12">
 <title>Object oriented programming</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -514,122 +514,499 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 <h1>Object oriented programming</h1>
 <div class="details">
-<span id="author" class="author">Exercises</span><br>
+<span id="author" class="author">Exercises 12</span><br>
 <span id="revnumber">version 1.0,</span>
-<span id="revdate">16 February, 2017</span>
+<span id="revdate">9 May, 2017</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#exercise-1">1. Exercise 1</a></li>
-<li><a href="#exercise-2">2. Exercise 2</a></li>
-<li><a href="#exercise-3">3. Exercise 3</a></li>
-<li><a href="#exercise-4">4. Exercise 4</a></li>
-<li><a href="#exercise-5">5. Exercise 5</a></li>
-<li><a href="#exercise-6">6. Exercise 6</a></li>
-<li><a href="#exercise-7">7. Exercise 7</a></li>
-<li><a href="#exercise-8">8. Exercise 8</a></li>
-<li><a href="#exercise-9">9. Exercise 9</a></li>
-<li><a href="#exercise-10">10. Exercise 10</a></li>
-<li><a href="#exercise-11">11. Exercise 11</a></li>
-<li><a href="#exercise-12">12. Exercise 12</a></li>
+<li><a href="#virtual-destructor-and-example-problems">1. Virtual destructor and example problems</a>
+<ul class="sectlevel2">
+<li><a href="#virtual-destructor">1.1. Virtual destructor</a></li>
+<li><a href="#second-partial-exam-2015-2016">1.2. Second partial exam 2015/2016</a></li>
+<li><a href="#problem-2">1.3. Problem 2</a></li>
+</ul>
+</li>
+<li><a href="#source-code-of-the-examples-and-problems">2. Source code of the examples and problems</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="exercise-1">1. Exercise 1</h2>
+<h2 id="virtual-destructor-and-example-problems">1. Virtual destructor and example problems</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="virtual-destructor">1.1. Virtual destructor</h3>
+<div class="sect3">
+<h4 id="example-1-why-and-when-we-need-virtual-destructor">1.1.1. Example 1 – Why and when we need virtual destructor?</h4>
+<div class="listingblock">
+<div class="title">Solution without virtual destructor <code>oop_av121a_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+<span class="keyword">class</span> <span class="class">Base</span> {
+<span class="directive">public</span>:
+    Base() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor of Base</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;}
+    <span class="comment">// this is the destructor</span>
+    ~Base() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor of Base</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;}
+};
+
+<span class="keyword">class</span> <span class="class">Derived</span> : <span class="directive">public</span> Base
+{
+<span class="directive">public</span>:
+    Derived() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor of Derived</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>; }
+    ~Derived() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor of Derived</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>; }
+};
+
+<span class="predefined-type">int</span> main() {
+    Base *basePointer = <span class="keyword">new</span> Derived();
+    <span class="keyword">delete</span> basePointer;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Output from the program</div>
+<div class="content">
+<pre>Constructor of Base
+Constructor of Derived
+Destructor of Base</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Solution with virtual destructor <code>oop_av121b_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+<span class="keyword">class</span> <span class="class">Base</span> {
+<span class="directive">public</span>:
+    Base() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor of Base</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;}
+    <span class="comment">// this is the destructor</span>
+    <span class="directive">virtual</span> ~Base() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor of Base</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>;}
+};
+
+<span class="keyword">class</span> <span class="class">Derived</span> : <span class="directive">public</span> Base
+{
+<span class="directive">public</span>:
+    Derived() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Constructor of Derived</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>; }
+    ~Derived() { cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Destructor of Derived</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>; }
+};
+
+<span class="predefined-type">int</span> main() {
+    Base *basePointer = <span class="keyword">new</span> Derived();
+    <span class="keyword">delete</span> basePointer;
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Output from the program</div>
+<div class="content">
+<pre>Constructor of Base
+Constructor of Derived
+Destructor of Derived
+Destructor of Base</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="second-partial-exam-2015-2016">1.2. Second partial exam 2015/2016</h3>
+<div class="sect3">
+<h4 id="problem-1">1.2.1. Problem 1</h4>
 <div class="paragraph">
-<p><a href="oop_av1_en.html">HTML</a> | <a href="../pdf/oop_av1_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av1_src_en.zip">Source code ZIP</a></p>
+<p>Define a class <code>Goal</code> that keeps information for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the goal scorer (dynamically allocated array of characters),</p>
+</li>
+<li>
+<p>time (the minute) of the goal scoring event (integer),</p>
+</li>
+<li>
+<p>name of the team that scored the goal (char array max 50).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For this class implement:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>constructor with all three arguments</p>
+</li>
+<li>
+<p>operator <code>&lt;&lt;</code> for printing on <code>ostream</code> an object of class <code>Goal</code> (print the minute and the name)</p>
+</li>
+<li>
+<p>operator <code>++</code> (postfix) notation for incrementing the minute for one,</p>
+</li>
+<li>
+<p>operator <code>--</code> (prefix) notation for decrementing the minute for one.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Also create a class <code>Game</code> that keeps dynamically allocated array of objects from the class <code>Goal</code> and the names of the teams that play that game (two char arrays of 50). For this class implement:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>constructor with two arguments the names of the teams that play the game</p>
+</li>
+<li>
+<p>the unary operator <code>+=</code>  for adding an object of class <code>Goal</code> in the array of objects. If the name of the object from the class <code>Goal</code> is not equal to the one of the names of the teams that play the game then throw an exception of type <code>InvalidTeamName</code>. Handling the exception should be in the appropriate place in the main function, by printing the message <code>Invalid team name: [the_name]</code></p>
+</li>
+<li>
+<p>operator <code>&lt;&lt;</code> for printing on the <code>ostream</code> the teams that play the game and all the scorers.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av122_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="keyword">class</span> <span class="class">InvalidTeamName</span> : exception {
+    <span class="predefined-type">char</span> msg[<span class="integer">100</span>];
+<span class="directive">public</span>:
+    InvalidTeamName(<span class="directive">const</span> <span class="predefined-type">char</span>* name) {
+        strcpy(msg, name);
+    }
+    <span class="directive">const</span> <span class="predefined-type">char</span>* what() {
+        <span class="keyword">return</span> msg;
+    }
+};
+
+<span class="keyword">class</span> <span class="class">Goal</span> {
+<span class="directive">private</span>:
+    <span class="predefined-type">char</span>* name;
+    <span class="predefined-type">int</span> minute;
+    <span class="predefined-type">char</span> team[<span class="integer">50</span>];
+    <span class="directive">void</span> copy(<span class="directive">const</span> Goal &amp;g) {
+        name = <span class="keyword">new</span> <span class="predefined-type">char</span>[strlen(g.name)];
+        strcpy(name, g.name);
+        minute = g.minute;
+        strcpy(team, g.team);
+    }
+<span class="directive">public</span>:
+    Goal() {
+        name = <span class="predefined-constant">NULL</span>;
+    }
+    Goal(<span class="directive">const</span> <span class="predefined-type">char</span>* n, <span class="predefined-type">int</span> m, <span class="directive">const</span> <span class="predefined-type">char</span>* t) {
+        name = <span class="keyword">new</span> <span class="predefined-type">char</span>[strlen(n)];
+        strcpy(name, n);
+        minute = m;
+        strcpy(team, t);
+    }
+
+    Goal(<span class="directive">const</span> Goal &amp;g) {
+        copy(g);
+    }
+
+    Goal&amp; <span class="directive">operator</span>=(<span class="directive">const</span> Goal&amp; g) {
+        <span class="keyword">if</span>(&amp;g == <span class="local-variable">this</span>) <span class="keyword">return</span> *<span class="local-variable">this</span>;
+        <span class="keyword">delete</span> [] name;
+        copy(g);
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    <span class="directive">friend</span> ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream&amp; out, <span class="directive">const</span> Goal&amp; g) {
+        out &lt;&lt; g.minute &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span> &lt;&lt; g.name;
+        <span class="keyword">return</span> out;
+    }
+
+    Goal <span class="directive">operator</span>++(<span class="predefined-type">int</span>) {
+        Goal g = *<span class="local-variable">this</span>;
+        ++minute;
+        <span class="keyword">return</span> g;
+    }
+
+    Goal&amp; <span class="directive">operator</span>--() {
+        --minute;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    <span class="predefined-type">char</span>* getTeam() {
+        <span class="keyword">return</span> team;
+    }
+};
+
+<span class="keyword">class</span> <span class="class">Game</span> {
+<span class="directive">private</span>:
+    Goal* goals;
+    <span class="predefined-type">char</span> teamHome[<span class="integer">50</span>];
+    <span class="predefined-type">char</span> teamGuest[<span class="integer">50</span>];
+    <span class="predefined-type">int</span> n;
+    <span class="directive">void</span> copy(<span class="directive">const</span> Game&amp; game) {
+      goals = <span class="keyword">new</span> Goal[game.n];
+      n = game.n;
+      <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        goals[i] = game.goals[i];
+      }
+      strcpy(teamHome, game.teamHome);
+      strcpy(teamGuest, game.teamGuest);
+    }
+<span class="directive">public</span>:
+    Game(<span class="directive">const</span> <span class="predefined-type">char</span>* t1, <span class="directive">const</span> <span class="predefined-type">char</span>* t2) {
+        goals = <span class="predefined-constant">NULL</span>;
+        n = <span class="integer">0</span>;
+        strcpy(teamHome, t1);
+        strcpy(teamGuest, t2);
+    }
+
+    Game(<span class="directive">const</span> Game&amp; game) {
+        copy(game);
+    }
+
+    Game&amp; <span class="directive">operator</span>=(<span class="directive">const</span> Game&amp; game) {
+        <span class="keyword">if</span>(<span class="local-variable">this</span> == &amp;game) <span class="keyword">return</span> *<span class="local-variable">this</span>;
+        <span class="keyword">delete</span> [] goals;
+        copy(game);
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    Game&amp; <span class="directive">operator</span>+=(Goal &amp;g) {
+        <span class="keyword">if</span>(strcmp(g.getTeam(), teamHome) != <span class="integer">0</span>&amp;&amp;strcmp(g.getTeam(), teamGuest)) {
+            <span class="keyword">throw</span> InvalidTeamName(g.getTeam());
+        }
+        Goal* temp = goals;
+        goals = <span class="keyword">new</span> Goal[n + <span class="integer">1</span>];
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+            goals[i] = temp[i];
+        }
+        <span class="keyword">delete</span> [] temp;
+        goals[n] = g;
+        ++n;
+        <span class="keyword">return</span> *<span class="local-variable">this</span>;
+    }
+
+    <span class="directive">friend</span> ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream &amp;out, <span class="directive">const</span> Game &amp;n) {
+        out &lt;&lt; n.teamHome &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> - </span><span class="delimiter">&quot;</span></span> &lt;&lt; n.teamGuest &lt;&lt; endl;
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n.n; ++i) {
+            cout &lt;&lt; n.goals[i] &lt;&lt; endl;
+        }
+        <span class="keyword">return</span> out;
+    }
+};
+
+<span class="predefined-type">int</span> main() {
+    <span class="predefined-type">char</span> team1[<span class="integer">50</span>];
+    <span class="predefined-type">char</span> team2[<span class="integer">50</span>];
+    cin &gt;&gt; team1;
+    cin &gt;&gt; team2;
+    Game n(team1, team2);
+    <span class="predefined-type">int</span> x;
+    cin &gt;&gt; x;
+    <span class="predefined-type">char</span> player[<span class="integer">100</span>];
+    <span class="predefined-type">int</span> m;
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; x; ++i) {
+        cin &gt;&gt; player;
+        cin &gt;&gt; m;
+        cin &gt;&gt; team1;
+        Goal g(player, m, team1);
+        <span class="keyword">try</span> {
+                      n += g;
+        } <span class="keyword">catch</span>(InvalidTeamName &amp;e) {
+            cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Invalid team name: </span><span class="delimiter">&quot;</span></span> &lt;&lt; e.what() &lt;&lt; endl;
+        }
+    }
+    cout &lt;&lt; n &lt;&lt; endl;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="problem-2">1.3. Problem 2</h3>
+<div class="paragraph">
+<p>Implement class for <code>Ticket</code> that keeps info for ID of the ticket as an array of 50 characters and a length of the ID (integer that is not larger than 50).</p>
+</div>
+<div class="paragraph">
+<p>From this class derive two classes for tickets <code>DigitsTicket`and `CharTicket</code> that should implement the following methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>constructor with one argument N the length of the ID that generates a random ID with the given length</p>
+</li>
+<li>
+<p>for the class <code>DigitTicket</code> generates N random digits and fills the ID with them.</p>
+</li>
+<li>
+<p>for the class <code>CharTicket</code> generates N random characters (A-Z) and fills the ID with them.</p>
+</li>
+<li>
+<p><strong>you should use the external functions for generating random digit <code>randomDigit</code> and random char <code>randomChar</code></strong></p>
+</li>
+<li>
+<p><code>bool validate()</code> to validate the ticket</p>
+</li>
+<li>
+<p>for the class <code>DigitTicket</code> the ID is valid if the sum of the digits is a number divisible with 7</p>
+</li>
+<li>
+<p>for the class <code>CharTicket</code> the ID is valid if the sum of the ASCII codes is a number divisible with 3.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Override the operators <code>==</code> and <code>!=</code> for comparing two tickets of any kind by their ID. Two tickets are equal if they have the same ID.</p>
+</div>
+<div class="paragraph">
+<p>Implement an external function <code>int valid(Ticket **tickets, int n)</code> that for an array of pointers of the class <code>Ticket</code> and the length of the array, will return how many of the tickets are valid.</p>
+</div>
+<div class="paragraph">
+<p>Implement an external function <code>int unique(Ticket **tickets, int n)</code> that for an array of pointers of the class <code>Ticket</code> and the length of the array,  will return how many of the tickets are unique (does not have duplicate in the rest of the array). If there is at least one ticket with the same ID with given ticket, that ticket is NOT unique.</p>
+</div>
+<div class="listingblock">
+<div class="title">Solution <code>oop_av123_en.cpp</code></div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span> <span class="include">&lt;iostream&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstring&gt;</span>
+<span class="preprocessor">#include</span> <span class="include">&lt;cstdlib&gt;</span>
+<span class="directive">using</span> <span class="keyword">namespace</span> std;
+
+<span class="predefined-type">char</span> randomDigit() {
+    <span class="keyword">return</span> <span class="char">'0'</span> + rand() % <span class="integer">10</span>;
+}
+
+<span class="predefined-type">char</span> randomChar() {
+    <span class="keyword">return</span> <span class="char">'A'</span> + rand() % <span class="integer">26</span>;
+}
+
+<span class="keyword">class</span> <span class="class">Ticket</span> {
+<span class="directive">protected</span>:
+    <span class="predefined-type">char</span> id[<span class="integer">50</span>];
+    <span class="predefined-type">int</span> len;
+<span class="directive">public</span>:
+    <span class="directive">virtual</span> <span class="predefined-type">bool</span> validate() <span class="directive">const</span> = <span class="integer">0</span>;
+
+    <span class="directive">friend</span> ostream&amp; <span class="directive">operator</span>&lt;&lt;(ostream&amp; out, <span class="directive">const</span> Ticket &amp;t) {
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; t.len; ++i) {
+            out &lt;&lt; t.id[i];
+        }
+        <span class="keyword">return</span> out;
+    }
+
+    <span class="predefined-type">bool</span> <span class="directive">operator</span>==(<span class="directive">const</span> Ticket&amp; t) {
+        <span class="keyword">if</span>(len != t.len) <span class="keyword">return</span> <span class="predefined-constant">false</span>;
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; t.len; ++i) {
+            <span class="keyword">if</span>(id[i] != t.id[i]) <span class="keyword">return</span> <span class="predefined-constant">false</span>;
+        }
+        <span class="keyword">return</span> <span class="predefined-constant">true</span>;
+    }
+};
+
+<span class="keyword">class</span> <span class="class">DigitTicket</span> : <span class="directive">public</span> Ticket {
+<span class="directive">public</span>:
+    DigitTicket(<span class="predefined-type">int</span> n) {
+        len = n;
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+            id[i] = randomDigit();
+        }
+    }
+
+    <span class="predefined-type">bool</span> validate() <span class="directive">const</span> {
+        <span class="predefined-type">int</span> sum = <span class="integer">0</span>;
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; len; ++i) {
+            sum += id[i] - <span class="char">'0'</span>;
+        }
+        <span class="keyword">return</span> sum % <span class="integer">7</span> == <span class="integer">0</span>;
+    }
+
+};
+
+<span class="keyword">class</span> <span class="class">CharTicket</span> : <span class="directive">public</span> Ticket {
+<span class="directive">public</span>:
+    CharTicket(<span class="predefined-type">int</span> n) {
+        len = n;
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+            id[i] = randomChar();
+        }
+    }
+
+    <span class="predefined-type">bool</span> validate() <span class="directive">const</span> {
+        <span class="predefined-type">int</span> sum = <span class="integer">0</span>;
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; len; ++i) {
+            sum += id[i];
+        }
+        <span class="keyword">return</span> sum % <span class="integer">3</span> == <span class="integer">0</span>;
+    }
+
+};
+
+<span class="predefined-type">int</span> valid(Ticket** t, <span class="predefined-type">int</span> n) {
+    <span class="predefined-type">int</span> valid = <span class="integer">0</span>;
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        <span class="keyword">if</span>(t[i]-&gt;validate()){
+            ++valid;
+        }
+    }
+    <span class="keyword">return</span> valid;
+}
+
+<span class="predefined-type">int</span> unique(Ticket **t, <span class="predefined-type">int</span> n) {
+    <span class="predefined-type">int</span> duplicates = <span class="integer">0</span>;
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n - <span class="integer">1</span>; ++i) {
+        <span class="keyword">for</span>(<span class="predefined-type">int</span> j = i + <span class="integer">1</span>; j &lt; n; ++j) {
+            <span class="keyword">if</span>(*t[i] == *t[j]&amp;&amp;i != j) {
+                ++duplicates;
+            }
+        }
+    }
+    <span class="keyword">return</span> n - duplicates;
+}
+
+<span class="predefined-type">int</span> main() {
+    <span class="predefined-type">int</span> seed;
+    cin &gt;&gt; seed;
+    srand (seed);
+    <span class="predefined-type">int</span> n;
+    cin &gt;&gt; n;
+    Ticket **t = <span class="keyword">new</span> Ticket*[n];
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">===== ALL TICKETS (</span><span class="delimiter">&quot;</span></span> &lt;&lt; n &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">) =====</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+        <span class="predefined-type">int</span> x;
+        cin &gt;&gt; x;
+        <span class="keyword">if</span>(i % <span class="integer">2</span> == <span class="integer">0</span>) {
+                t[i] = <span class="keyword">new</span> DigitTicket(x);
+        } <span class="keyword">else</span> {
+            t[i] = <span class="keyword">new</span> CharTicket(x);
+        }
+        cout &lt;&lt; *t[i] &lt;&lt; endl;
+    }
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">===== VALID =====</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    cout &lt;&lt; valid(t, n) &lt;&lt; endl;
+
+    cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">===== UNIQUE =====</span><span class="delimiter">&quot;</span></span> &lt;&lt; endl;
+    cout &lt;&lt; unique(t, n) &lt;&lt; endl;
+
+    <span class="keyword">for</span>(<span class="predefined-type">int</span> i = <span class="integer">0</span>; i &lt; n; ++i) {
+                <span class="keyword">delete</span> t[i];
+    }
+    <span class="keyword">delete</span> [] t;
+    <span class="keyword">return</span> <span class="integer">0</span>;
+}</code></pre>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="exercise-2">2. Exercise 2</h2>
+<h2 id="source-code-of-the-examples-and-problems">2. Source code of the examples and problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="oop_av2_en.html">HTML</a> | <a href="../pdf/oop_av2_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av3_src_en.zip">Source code ZIP</a></p>
+<p><a href="https://github.com/finki-mk/SP/" class="bare">https://github.com/finki-mk/SP/</a></p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-3">3. Exercise 3</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p><a href="oop_av3_en.html">HTML</a> | <a href="../pdf/oop_av3_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av3_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-4">4. Exercise 4</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av4_en.html">HTML</a> | <a href="../pdf/oop_av4_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av4_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-5">5. Exercise 5</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av5_en.html">HTML</a> | <a href="../pdf/oop_av5_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av5_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-6">6. Exercise 6</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av6_en.html">HTML</a> | <a href="../pdf/oop_av6_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av6_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-7">7. Exercise 7</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av7_en.html">HTML</a> | <a href="../pdf/oop_av7_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av7_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-8">8. Exercise 8</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av8_en.html">HTML</a> | <a href="../pdf/oop_av8_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av8_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-9">9. Exercise 9</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av9_en.html">HTML</a> | <a href="../pdf/oop_av9_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av9_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-10">10. Exercise 10</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av10_en.html">HTML</a> | <a href="../pdf/oop_av10_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av10_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-11">11. Exercise 11</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av11_en.html">HTML</a> | <a href="../pdf/oop_av11_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av11_src_en.zip">Source code ZIP</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="exercise-12">12. Exercise 12</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><a href="oop_av12_en.html">HTML</a> | <a href="../pdf/oop_av12_en.pdf">PDF</a> | <a href="https://finki-mk.github.io/OOP/sources/oop_av12_src_en.zip">Source code ZIP</a></p>
+<p><a href="https://finki-mk.github.io/OOP/sources/oop_av12_src_en.zip">Source code ZIP</a></p>
 </div>
 </div>
 </div>
@@ -637,7 +1014,7 @@ table.CodeRay td.code>pre{padding:0}
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2017-05-09 12:58:36 +02:00
+Last updated 2017-05-09 12:50:49 +02:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

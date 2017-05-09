@@ -11,7 +11,7 @@ include::parts/attributes.adoc[]
 
 ==== Пример 1 – Зошто и кога е потребен виртуелен деструктор?
 
-.Решени без виртуелен деструктор `oop_av121a.cpp`
+.Решение без виртуелен деструктор `oop_av121a.cpp`
 [source,cpp]
 ----
 include::{source_dir}/oop_av121a.cpp[]
@@ -24,7 +24,7 @@ Konstruiram objekt od Izvedena
 Unishtuvam objekt od Osnovna
 ----
 
-.Решени со виртуелен деструктор `oop_av121b.cpp`
+.Решение со виртуелен деструктор `oop_av121b.cpp`
 [source,cpp]
 ----
 include::{source_dir}/oop_av121b.cpp[]

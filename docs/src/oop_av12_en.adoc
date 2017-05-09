@@ -1,0 +1,100 @@
+# Object oriented programming
+Exercises 12
+v1.0, 9 May, 2017
+include::parts/attributes_en.adoc[]
+
+:source_dir: ../../src/av12
+
+==  Virtual destructor and example problems
+
+=== Virtual destructor
+
+==== Example 1 – Why and when we need virtual destructor?
+
+.Solution without virtual destructor `oop_av121a_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av121a_en.cpp[]
+----
+
+.Output from the program
+----
+Constructor of Base
+Constructor of Derived
+Destructor of Base
+----
+
+.Solution with virtual destructor `oop_av121b_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av121b_en.cpp[]
+----
+
+.Output from the program
+----
+Constructor of Base
+Constructor of Derived
+Destructor of Derived
+Destructor of Base
+----
+
+=== Second partial exam 2015/2016
+
+==== Problem 1
+
+Define a class `Goal` that keeps information for:
+
+- the goal scorer (dynamically allocated array of characters),
+- time (the minute) of the goal scoring event (integer), 
+- name of the team that scored the goal (char array max 50).
+     
+For this class implement:
+
+- constructor with all three arguments
+- operator `<<` for printing on `ostream` an object of class `Goal` (print the minute and the name)
+- operator `++` (postfix) notation for incrementing the minute for one,
+- operator `--` (prefix) notation for decrementing the minute for one.
+
+Also create a class `Game` that keeps dynamically allocated array of objects from the class `Goal` and the names of the teams that play that game (two char arrays of 50). For this class implement:
+
+- constructor with two arguments the names of the teams that play the game
+- the unary operator `+=`  for adding an object of class `Goal` in the array of objects. If the name of the object from the class `Goal` is not equal to the one of the names of the teams that play the game then throw an exception of type `InvalidTeamName`. Handling the exception should be in the appropriate place in the main function, by printing the message `Invalid team name: [the_name]`
+- operator `<<` for printing on the `ostream` the teams that play the game and all the scorers.
+
+
+.Solution `oop_av122_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av122_en.cpp[]
+----
+
+=== Problem 2
+
+Implement class for `Ticket` that keeps info for ID of the ticket as an array of 50 characters and a length of the ID (integer that is not larger than 50).
+
+From this class derive two classes for tickets `DigitsTicket`and `CharTicket` that should implement the following methods:
+
+- constructor with one argument N the length of the ID that generates a random ID with the given length
+ - for the class `DigitTicket` generates N random digits and fills the ID with them.
+ - for the class `CharTicket` generates N random characters (A-Z) and fills the ID with them.
+ - **you should use the external functions for generating random digit `randomDigit` and random char `randomChar`**
+- `bool validate()` to validate the ticket
+ - for the class `DigitTicket` the ID is valid if the sum of the digits is a number divisible with 7
+ - for the class `CharTicket` the ID is valid if the sum of the ASCII codes is a number divisible with 3.
+
+Override the operators `==` and `!=` for comparing two tickets of any kind by their ID. Two tickets are equal if they have the same ID.
+
+Implement an external function `int valid(Ticket **tickets, int n)` that for an array of pointers of the class `Ticket` and the length of the array, will return how many of the tickets are valid.
+
+Implement an external function `int unique(Ticket **tickets, int n)` that for an array of pointers of the class `Ticket` and the length of the array,  will return how many of the tickets are unique (does not have duplicate in the rest of the array). If there is at least one ticket with the same ID with given ticket, that ticket is NOT unique.
+
+
+.Solution `oop_av123_en.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av123_en.cpp[]
+----
+
+include::parts/footer_en.adoc[]
+
+link:{sources_zip}/oop_av12_src_en.zip[Source code ZIP]
