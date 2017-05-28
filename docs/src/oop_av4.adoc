@@ -5,7 +5,7 @@ include::parts/attributes.adoc[]
 
 :source_dir: ../../src/av4
 
-== Композиција, copy-конструктор
+== Композиција
 
 === Средба
 
