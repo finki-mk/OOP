@@ -688,98 +688,98 @@ The payment is made on the hotel balance.</p>
 <p><strong>What will happen if the argument is not reference?</strong></p>
 </div>
 <div class="listingblock">
-<div class="title">Solution <code>oop_av82.cpp</code></div>
+<div class="title">Solution <code>oop_av82_en.cpp</code></div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="cpp"><span class="preprocessor">#include</span><span class="include">&lt;iostream&gt;</span>
 <span class="preprocessor">#include</span><span class="include">&lt;cstring&gt;</span>
 <span class="directive">using</span> <span class="keyword">namespace</span> std;
 
-<span class="keyword">class</span> <span class="class">HotelskaRezervacija</span>{
+<span class="keyword">class</span> <span class="class">HotelReservation</span> {
 <span class="directive">protected</span>:
-  <span class="predefined-type">int</span> denovi;
-  <span class="predefined-type">int</span> broj_lica;
-  <span class="predefined-type">char</span> ime[<span class="integer">50</span>];
-  <span class="predefined-type">char</span> prezime[<span class="integer">50</span>];
+    <span class="predefined-type">int</span> days;
+    <span class="predefined-type">int</span> persons;
+    <span class="predefined-type">char</span> name[<span class="integer">50</span>];
+    <span class="predefined-type">char</span> surname[<span class="integer">50</span>];
 
 <span class="directive">public</span>:
-  HotelskaRezervacija(<span class="predefined-type">char</span> *ime, <span class="predefined-type">char</span> *prezime, <span class="predefined-type">int</span> denovi, <span class="predefined-type">int</span> broj_lica){
-    strcpy(<span class="local-variable">this</span>-&gt;ime,ime);
-    strcpy(<span class="local-variable">this</span>-&gt;prezime, prezime);
-    <span class="local-variable">this</span>-&gt;denovi=denovi;
-    <span class="local-variable">this</span>-&gt;broj_lica=broj_lica;
- }
-
-  <span class="directive">virtual</span> <span class="predefined-type">int</span> vratiCena() {
-    <span class="keyword">return</span> denovi * broj_lica * <span class="integer">25</span>;
-  }
-  <span class="directive">virtual</span> <span class="predefined-type">int</span> vratiCena(<span class="predefined-type">int</span> uplata) {
-    <span class="keyword">if</span> (uplata &gt;= vratiCena())
-      <span class="keyword">return</span> uplata - vratiCena();
-    <span class="keyword">else</span> {
-      cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Za vashata rezervacija treba da naplatite </span><span class="delimiter">&quot;</span></span>&lt;&lt;vratiCena()&lt;&lt;endl;
-      <span class="keyword">return</span> -<span class="integer">1</span>;
+    HotelReservation(<span class="predefined-type">char</span> *name, <span class="predefined-type">char</span> *surname, <span class="predefined-type">int</span> days, <span class="predefined-type">int</span> persons) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+        strcpy(<span class="local-variable">this</span>-&gt;surname, surname);
+        <span class="local-variable">this</span>-&gt;days = days;
+        <span class="local-variable">this</span>-&gt;persons = persons;
     }
-  }
+
+    <span class="directive">virtual</span> <span class="predefined-type">int</span> getPrice() {
+        <span class="keyword">return</span> days * persons * <span class="integer">25</span>;
+    }
+    <span class="directive">virtual</span> <span class="predefined-type">int</span> getPrice(<span class="predefined-type">int</span> payment) {
+        <span class="keyword">if</span> (payment &gt;= getPrice())
+            <span class="keyword">return</span> payment - getPrice();
+        <span class="keyword">else</span> {
+            cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">You should pay </span><span class="delimiter">&quot;</span></span> &lt;&lt; getPrice() &lt;&lt; endl;
+            <span class="keyword">return</span> -<span class="integer">1</span>;
+        }
+    }
 };
 
 
-<span class="keyword">class</span> <span class="class">PolupansionskaHotelskaRezervacija</span>: <span class="directive">public</span> HotelskaRezervacija{
+<span class="keyword">class</span> <span class="class">BBHotelReservation</span>: <span class="directive">public</span> HotelReservation {
 <span class="directive">public</span>:
-  PolupansionskaHotelskaRezervacija(<span class="predefined-type">char</span> *ime, <span class="predefined-type">char</span> *prezime, <span class="predefined-type">int</span> denovi, <span class="predefined-type">int</span>
-                                    broj_lica) : HotelskaRezervacija(ime,prezime,denovi,broj_lica){}
+    BBHotelReservation(<span class="predefined-type">char</span> *name, <span class="predefined-type">char</span> *surname, <span class="predefined-type">int</span> days, <span class="predefined-type">int</span>
+                                   persons) : HotelReservation(name, surname, days, persons) {}
 
-  <span class="comment">//препокривање на vratiCena(int uplata)</span>
-  <span class="predefined-type">int</span> vratiCena(<span class="predefined-type">int</span> uplata){
-    <span class="predefined-type">int</span> cena= HotelskaRezervacija::vratiCena() + broj_lica * <span class="integer">5</span>; <span class="comment">// пристап до protected податокот broj_lica</span>
-    <span class="keyword">if</span> (uplata &gt;= cena)
-      <span class="keyword">return</span> uplata - cena;
-    <span class="keyword">else</span> {
-      cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Za vashata rezervacija treba da naplatite </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-      <span class="keyword">return</span> -<span class="integer">1</span>;
+    <span class="comment">//overriding getPrice(int payment)</span>
+    <span class="predefined-type">int</span> getPrice(<span class="predefined-type">int</span> payment) {
+        <span class="predefined-type">int</span> price = HotelReservation::getPrice() + persons * <span class="integer">5</span>; <span class="comment">// пристап до protected податокот persons</span>
+        <span class="keyword">if</span> (payment &gt;= price)
+            <span class="keyword">return</span> payment - price;
+        <span class="keyword">else</span> {
+            cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">You should pay: </span><span class="delimiter">&quot;</span></span> &lt;&lt; price &lt;&lt; endl;
+            <span class="keyword">return</span> -<span class="integer">1</span>;
+        }
     }
-  }
 };
 
-<span class="keyword">class</span> <span class="class">Hotel</span>{
+<span class="keyword">class</span> <span class="class">Hotel</span> {
 <span class="directive">private</span>:
-  <span class="predefined-type">char</span> ime[<span class="integer">50</span>];
-  <span class="predefined-type">int</span> saldo;
+    <span class="predefined-type">char</span> name[<span class="integer">50</span>];
+    <span class="predefined-type">int</span> balance;
 <span class="directive">public</span>:
-  Hotel(<span class="predefined-type">char</span> *ime) {
-    strcpy(<span class="local-variable">this</span>-&gt;ime, ime);
-    saldo = <span class="integer">0</span>;
-  }
-  <span class="comment">// референца кон основната класа може да референцира објекти и кон изведените класи</span>
-  <span class="predefined-type">int</span> uplatiZaRezervacija(HotelskaRezervacija &amp;hr, <span class="predefined-type">int</span> uplata) {
-    <span class="predefined-type">int</span> kusur=hr.vratiCena(uplata); <span class="comment">//полиморфизам</span>
-    <span class="comment">// која дефиниција на vratiCena ќе се повика?</span>
-    <span class="comment">// важно: vrtiCena е виртуелна функција</span>
-    <span class="keyword">if</span> (kusur != -<span class="integer">1</span>)
-      saldo += uplata - kusur;
-    <span class="keyword">return</span> kusur;
-  }
+    Hotel(<span class="predefined-type">char</span> *name) {
+        strcpy(<span class="local-variable">this</span>-&gt;name, name);
+        balance = <span class="integer">0</span>;
+    }
+    <span class="comment">// reference of the base class that can reference objects from the derived classes</span>
+    <span class="predefined-type">int</span> payForReservation(HotelReservation &amp;hr, <span class="predefined-type">int</span> payment) {
+        <span class="predefined-type">int</span> change = hr.getPrice(payment); <span class="comment">// polymorphism</span>
+        <span class="comment">// what definition of getPrice is going to be called?</span>
+        <span class="comment">// important: getPrice() is virtual function</span>
+        <span class="keyword">if</span> (change != -<span class="integer">1</span>)
+            balance += payment - change;
+        <span class="keyword">return</span> change;
+    }
 };
 
 <span class="predefined-type">int</span> main() {
-  Hotel h(<span class="string"><span class="delimiter">&quot;</span><span class="content">Bristol</span><span class="delimiter">&quot;</span></span>);
-  HotelskaRezervacija *hr1=<span class="keyword">new</span> HotelskaRezervacija(<span class="string"><span class="delimiter">&quot;</span><span class="content">Petko</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Petkovski</span><span class="delimiter">&quot;</span></span>,<span class="integer">5</span>,<span class="integer">5</span>);
-  <span class="predefined-type">int</span> cena = h.uplatiZaRezervacija(*hr1,<span class="integer">1000</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-  PolupansionskaHotelskaRezervacija *hr2=
-    <span class="keyword">new</span> PolupansionskaHotelskaRezervacija(<span class="string"><span class="delimiter">&quot;</span><span class="content">Risto</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Ristovski</span><span class="delimiter">&quot;</span></span>,<span class="integer">5</span>,<span class="integer">5</span>);
-  cena=h.uplatiZaRezervacija(*hr2,<span class="integer">1000</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-  <span class="comment">//покажувач кон основна класа покажува кон објект од изведена</span>
-  HotelskaRezervacija *hr3=<span class="keyword">new</span> PolupansionskaHotelskaRezervacija(<span class="string"><span class="delimiter">&quot;</span><span class="content">Ana</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Anovska</span><span class="delimiter">&quot;</span></span>,<span class="integer">4</span>,<span class="integer">2</span>);
-  cena=h.uplatiZaRezervacija(*hr3,<span class="integer">100</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
-  PolupansionskaHotelskaRezervacija hr4(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tome</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Tomovski</span><span class="delimiter">&quot;</span></span>,<span class="integer">5</span>,<span class="integer">3</span>);
-  cena=h.uplatiZaRezervacija(hr4,<span class="integer">1000</span>);
-  <span class="keyword">if</span> (cena!=-<span class="integer">1</span>)
-    cout&lt;&lt;<span class="string"><span class="delimiter">&quot;</span><span class="content">Kusur : </span><span class="delimiter">&quot;</span></span>&lt;&lt;cena&lt;&lt;endl;
+    Hotel h(<span class="string"><span class="delimiter">&quot;</span><span class="content">Bristol</span><span class="delimiter">&quot;</span></span>);
+    HotelReservation *hr1 = <span class="keyword">new</span> HotelReservation(<span class="string"><span class="delimiter">&quot;</span><span class="content">Petko</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Petkovski</span><span class="delimiter">&quot;</span></span>, <span class="integer">5</span>, <span class="integer">5</span>);
+    <span class="predefined-type">int</span> price = h.payForReservation(*hr1, <span class="integer">1000</span>);
+    <span class="keyword">if</span> (price != -<span class="integer">1</span>)
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Change : </span><span class="delimiter">&quot;</span></span> &lt;&lt; price &lt;&lt; endl;
+    BBHotelReservation *hr2 =
+        <span class="keyword">new</span> BBHotelReservation(<span class="string"><span class="delimiter">&quot;</span><span class="content">Risto</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Ristovski</span><span class="delimiter">&quot;</span></span>, <span class="integer">5</span>, <span class="integer">5</span>);
+    price = h.payForReservation(*hr2, <span class="integer">1000</span>);
+    <span class="keyword">if</span> (price != -<span class="integer">1</span>)
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Change : </span><span class="delimiter">&quot;</span></span> &lt;&lt; price &lt;&lt; endl;
+    <span class="comment">// pointer to the base class pointing to object of derived</span>
+    HotelReservation *hr3 = <span class="keyword">new</span> BBHotelReservation(<span class="string"><span class="delimiter">&quot;</span><span class="content">Ana</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Anovska</span><span class="delimiter">&quot;</span></span>, <span class="integer">4</span>, <span class="integer">2</span>);
+    price = h.payForReservation(*hr3, <span class="integer">100</span>);
+    <span class="keyword">if</span> (price != -<span class="integer">1</span>)
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Change : </span><span class="delimiter">&quot;</span></span> &lt;&lt; price &lt;&lt; endl;
+    BBHotelReservation hr4(<span class="string"><span class="delimiter">&quot;</span><span class="content">Tome</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Tomovski</span><span class="delimiter">&quot;</span></span>, <span class="integer">5</span>, <span class="integer">3</span>);
+    price = h.payForReservation(hr4, <span class="integer">1000</span>);
+    <span class="keyword">if</span> (price != -<span class="integer">1</span>)
+        cout &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Change : </span><span class="delimiter">&quot;</span></span> &lt;&lt; price &lt;&lt; endl;
 }</code></pre>
 </div>
 </div>
@@ -981,7 +981,7 @@ This function returns the radius of the basis (if the basis is circle), -1 other
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2017-04-18 14:03:01 +02:00
+Last updated 2017-04-27 12:06:15 +02:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

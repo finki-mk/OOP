@@ -652,79 +652,76 @@ If the match is a rematch, return the aggregate winner of the fixture (the one t
 <span class="directive">private</span>:
     <span class="predefined-type">char</span> name[<span class="integer">100</span>];
     <span class="predefined-type">int</span> yearFounded;
-    <span class="predefined-type">char</span> city[<span class="integer">100</span>];
+    <span class="predefined-type">char</span> city[<span class="integer">50</span>];
 <span class="directive">public</span>:
-    Team(<span class="directive">const</span> <span class="predefined-type">char</span> *name = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>, <span class="directive">const</span> <span class="predefined-type">int</span> yearFounded = <span class="integer">0</span>,
-         <span class="directive">const</span> <span class="predefined-type">char</span> *city = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>) {
-        strcpy(<span class="local-variable">this</span>-&gt;name, name);
-        <span class="local-variable">this</span>-&gt;yearFounded = yearFounded;
-        strcpy(<span class="local-variable">this</span>-&gt;city, city);
+    Team() {
+    }
+    Team(<span class="directive">const</span> <span class="predefined-type">char</span>* n, <span class="predefined-type">int</span> yf, <span class="directive">const</span> <span class="predefined-type">char</span>*c) {
+        strcpy(name, n);
+        yearFounded = yf;
+        strcpy(city, c);
     }
 
-    <span class="predefined-type">char</span> *getName() {
-        <span class="keyword">return</span> name;
+    <span class="predefined-type">bool</span> equalTeam(Team&amp; team) {
+        <span class="keyword">return</span> strcmp(team.name, name) == <span class="integer">0</span>;
     }
 
     <span class="directive">void</span> print() {
-        cout &lt;&lt; name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span> &lt;&lt; yearFounded &lt;&lt; endl;
+        cout &lt;&lt; name &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span> &lt;&lt; yearFounded &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span> &lt;&lt; city &lt;&lt; endl;
     }
-
 };
 
 <span class="keyword">class</span> <span class="class">Game</span> {
 <span class="directive">private</span>:
     Team host;
     Team guest;
-    <span class="predefined-type">int</span> hostGoals;
-    <span class="predefined-type">int</span> guestGoals;
+    <span class="predefined-type">int</span> goalsHost;
+    <span class="predefined-type">int</span> goalsGuest;
 <span class="directive">public</span>:
-    Game(<span class="directive">const</span> Team host = Team(), <span class="directive">const</span> Team guest = Team(),
-         <span class="directive">const</span> <span class="predefined-type">int</span> hostGoals = <span class="integer">0</span>, <span class="directive">const</span> <span class="predefined-type">int</span> guestGoals = <span class="integer">0</span>) {
+    Game(Team&amp; host, Team&amp; guest, <span class="predefined-type">int</span> gh, <span class="predefined-type">int</span> gg) {
         <span class="local-variable">this</span>-&gt;host = host;
         <span class="local-variable">this</span>-&gt;guest = guest;
-        <span class="local-variable">this</span>-&gt;hostGoals = hostGoals;
-        <span class="local-variable">this</span>-&gt;guestGoals = guestGoals;
+        goalsHost = gh;
+        goalsGuest = gg;
     }
 
-    Team getHost() <span class="directive">const</span> {
-        <span class="keyword">return</span> host;
-    }
-    Team getGuest() <span class="directive">const</span> {
-        <span class="keyword">return</span> guest;
+    <span class="predefined-type">bool</span> equalsGuest(Game&amp; game) {
+        <span class="keyword">return</span> host.equalTeam(game.guest);
     }
 
-    <span class="predefined-type">int</span> getHostGoals() <span class="directive">const</span> {
-        <span class="keyword">return</span> hostGoals;
+    <span class="predefined-type">bool</span> equalHost(Game&amp; game) {
+        <span class="keyword">return</span> guest.equalTeam(game.host);
     }
 
-    <span class="predefined-type">int</span> getGuestGoals() <span class="directive">const</span> {
-        <span class="keyword">return</span> guestGoals;
-    }
-
-};
-
-Team winner(<span class="directive">const</span> Game game1, <span class="directive">const</span> Game game2) {
-    <span class="keyword">if</span> (strcmp(game1.getHost().getName(), game2.getGuest().getName()) == <span class="integer">0</span> &amp;&amp;
-            strcmp(game2.getHost().getName(), game1.getGuest().getName()) == <span class="integer">0</span>) {
-        <span class="predefined-type">int</span> goalsHost = game1.getHostGoals() + game2.getGuestGoals();
-        <span class="predefined-type">int</span> goalsGuest = game1.getGuestGoals() + game2.getHostGoals();
-        <span class="keyword">if</span> (goalsHost &gt;= goalsGuest) {
-            <span class="keyword">return</span> game1.getHost();
+    Team winner(Game game) {
+        <span class="predefined-type">int</span> goals1 = goalsHost + game.goalsGuest;
+        <span class="predefined-type">int</span> goals2 = goalsGuest + game.goalsHost;
+        <span class="keyword">if</span>(goals1 &gt; goals2) {
+            <span class="keyword">return</span> host;
         } <span class="keyword">else</span> {
-            <span class="keyword">return</span> game1.getGuest();
+            <span class="keyword">return</span> guest;
         }
     }
-    <span class="keyword">return</span> Team();
+};
+
+Team winner(Game&amp; game1, Game&amp; game2) {
+    <span class="keyword">if</span>(game1.equalHost(game2) &amp;&amp; game1.equalsGuest(game2)) {
+        <span class="keyword">return</span> game1.winner(game2);
+    } <span class="keyword">else</span> {
+        <span class="keyword">return</span> Team(<span class="string"><span class="delimiter">&quot;</span><span class="content">Dummy</span><span class="delimiter">&quot;</span></span>, <span class="integer">0</span>, <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>);
+    }
 }
 
 <span class="predefined-type">int</span> main() {
     Team t1(<span class="string"><span class="delimiter">&quot;</span><span class="content">Barcelona</span><span class="delimiter">&quot;</span></span>, <span class="integer">1900</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Barcelona</span><span class="delimiter">&quot;</span></span>);
     Team t2(<span class="string"><span class="delimiter">&quot;</span><span class="content">Real Madrid</span><span class="delimiter">&quot;</span></span>, <span class="integer">1890</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Madrid</span><span class="delimiter">&quot;</span></span>);
     Team t3(<span class="string"><span class="delimiter">&quot;</span><span class="content">Elche</span><span class="delimiter">&quot;</span></span>, <span class="integer">1950</span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Elche</span><span class="delimiter">&quot;</span></span>);
+
     Game g1(t1, t2, <span class="integer">5</span>, <span class="integer">0</span>);
     Game g2(t2, t1, <span class="integer">2</span>, <span class="integer">2</span>);
     Game g3(t1, t3, <span class="integer">6</span>, <span class="integer">2</span>);
-    Team w = winner(g1, g2);
+
+    Team w = winner(g1, g3);
     w.print();
     <span class="keyword">return</span> <span class="integer">0</span>;
 }</code></pre>
@@ -749,7 +746,7 @@ Team winner(<span class="directive">const</span> Game game1, <span class="direct
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2017-03-03 10:51:57 +01:00
+Last updated 2017-03-16 11:59:29 +01:00
 </div>
 </div>
 <script type="text/x-mathjax-config">

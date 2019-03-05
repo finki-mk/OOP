@@ -1,6 +1,5 @@
 # Објектно ориентирано програмирање
 Аудиториски вежби 6
-v1.0, 05 март, 2017
 include::parts/attributes.adoc[]
 
 :source_dir: ../../src/av6
