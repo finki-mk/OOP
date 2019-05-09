@@ -1,0 +1,48 @@
+# Објектно ориентирано програмирање
+Аудиториски вежби 11
+include::parts/attributes.adoc[]
+
+:source_dir: ../../src/av11
+
+==  Генеричко програмирање и темплејти
+
+=== Функциски темплејти
+
+==== Темплејт функција за промена на вредности на две променливи
+
+.Решение `oop_av111.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av111.cpp[]
+----
+
+==== Темплејт функција за пресметка на апсолутна вредност од даден број
+
+.Решение `oop_av112.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av112.cpp[]
+----
+
+==== Преоптоварување на функциски темплејт
+
+.Решение `oop_av113.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av113.cpp[]
+----
+
+=== Класни темплејти
+
+==== Пример 1
+
+.Решение `oop_av114.cpp`
+[source,cpp]
+----
+include::{source_dir}/oop_av114.cpp[]
+----
+
+
+include::parts/footer.adoc[]
+
+link:{sources_zip}/oop_av11_src.zip[Source code ZIP]
